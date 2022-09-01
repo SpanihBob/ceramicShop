@@ -1,0 +1,11 @@
+ /*     ################   Это файл для сброса системных css свойств  ###################     */
+ *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    outline:none;
+    text-decoration:none;
+    font-family: sans-serif;   
+    font-size: 12px;
+    }
+    

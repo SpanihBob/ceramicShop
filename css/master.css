@@ -1,0 +1,177 @@
+ /*     ######################################      body     ##########################################     */
+ :root {
+    --firstColor: #ffffff;
+    --secondColor: #eae6e4;
+    --boxShadow: 3px 3px 3px gray;
+}
+body {
+    background: var(--secondColor);
+}
+.container {    
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: 60px 1fr 200px;   
+    max-width: 1000px;
+    margin: auto; 
+    background: var(--firstColor);    
+}
+
+/*     ######################################      header    ##########################################     */
+header {
+    display: grid;
+    align-content: center;
+    border-bottom: 2px solid gray;
+    box-shadow: var(--boxShadow);
+}
+header > div{
+    display: grid;
+    grid-template-columns: 160px 1fr 120px;
+    align-content: center;
+    gap: 15px;
+    padding: 10px 20px;
+}
+.logo {
+    height: 40px;
+    align-content: center;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    margin: auto 0;
+}
+.logo > :nth-child(1) {
+    height: 35px;
+    width: 35px;
+}
+.logo > :nth-child(2) {
+    height: 20px;
+    width: 100px;
+    margin: auto 5px;
+}
+#searchProduct {
+    height: 30px;
+    justify-content: center;
+    margin: auto 0;
+    border-radius: 15px;
+    border: 1px solid gray;
+    padding: 10px;
+}
+.headerBtn {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto;
+    gap: 10px;
+}
+.headerBtn > a {
+    display: block;
+    height: 30px;
+    width: 30px;
+}
+.shopping_cart {
+    display: block;
+    height: 30px;
+    width: 30px;            
+    background: url(../img/shopping-trolley--v2.png);
+    background-size: 100% 100%;
+}
+.shopping_cart:hover {
+    background: url(../img/shopping-trolley--v3.png);
+    background-size: 100% 100%;
+}
+.favorites {
+    display: block;
+    height: 30px;
+    width: 30px;            
+    background: url(../img/hearts.png);
+    background-size: 100% 100%;
+}
+.favorites:hover {
+    background: url(../img/hearts\ \(1\).png);
+    background-size: 100% 100%;
+}
+.guest {
+    display: block;
+    height: 30px;
+    width: 30px;            
+    background: url(../img/guest-male--v1.png);
+    background-size: 100% 100%;
+}
+.guest:hover {
+    background: url(../img/guest-male--v2.png);
+    background-size: 100% 100%;
+}
+
+/*     ######################################      footer    ##########################################     */
+footer {
+    display: grid;
+    align-content: center;
+    border-top: 2px solid gray; 
+}
+
+footer > :nth-child(1){
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-content: center;
+    gap: 15px;
+    padding: 10px 20px;
+    margin: 10px 0;
+}
+footer > :nth-child(2){
+    display: grid;
+    justify-content: center;
+    margin-top: 20px;
+    border-top: 2px solid gray;
+    padding-top: 10px;
+}
+/* стили кнопок соцсетей */
+.viber {
+    background: url(../img/viber\ \(2\).png);
+    display: block;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+.viber:hover {
+    background: url(../img/viber\ \(3\).png);
+    background-size: 100% 100%;            /* растянуть рисунок */
+    width: 50px;
+    height: 50px;
+}
+.vk {
+    background: url(../img/vk-circled.png);
+    display: block;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+.vk:hover {
+    background: url(../img/vk-circled\ \(1\).png);
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+
+.telegram {
+    background: url(../img/telegram1.png);
+    display: block;
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+.telegram:hover {
+    background: url(../img/telegram2.png);
+    background-size: 100% 100%;
+    width: 50px;
+    height: 50px;
+}
+.footerCol1, .footerCol2 {
+    display: grid;
+    gap: 5px;
+    text-decoration: none;
+}
+.footerCol1 > a, .footerCol2 > a {
+    color: gray;
+}
+.footerCol3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: auto 0;
+}
