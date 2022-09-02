@@ -71,6 +71,7 @@ header > div{
     width: 30px;            
     background: url(../img/shopping-trolley--v2.png);
     background-size: 100% 100%;
+    transition: .3s;
 }
 .shopping_cart:hover {
     background: url(../img/shopping-trolley--v3.png);
@@ -82,6 +83,7 @@ header > div{
     width: 30px;            
     background: url(../img/hearts.png);
     background-size: 100% 100%;
+    transition: .3s;
 }
 .favorites:hover {
     background: url(../img/hearts\ \(1\).png);
@@ -93,6 +95,7 @@ header > div{
     width: 30px;            
     background: url(../img/guest-male--v1.png);
     background-size: 100% 100%;
+    transition: .3s;
 }
 .guest:hover {
     background: url(../img/guest-male--v2.png);
@@ -128,6 +131,7 @@ footer > :nth-child(2){
     background-size: 100% 100%;
     width: 50px;
     height: 50px;
+    transition: .2s;
 }
 .viber:hover {
     background: url(../img/viber\ \(3\).png);
@@ -141,6 +145,7 @@ footer > :nth-child(2){
     background-size: 100% 100%;
     width: 50px;
     height: 50px;
+    transition: .2s;
 }
 .vk:hover {
     background: url(../img/vk-circled\ \(1\).png);
@@ -155,6 +160,7 @@ footer > :nth-child(2){
     background-size: 100% 100%;
     width: 50px;
     height: 50px;
+    transition: .2s;
 }
 .telegram:hover {
     background: url(../img/telegram2.png);
@@ -174,4 +180,50 @@ footer > :nth-child(2){
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin: auto 0;
+}
+
+/*     ######################################      sidebar    ##########################################     */
+.sidebar {
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    margin: 15px 0 0 20px;
+}
+.btnSidebar {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    background: var(--firstColor);
+    border: none;
+    justify-items: start;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    transition: .3s;
+}
+.btnSidebar:hover {
+    box-shadow: 1px 1px 3px gray;
+    color: #888585;
+    
+}
+.btnSidebar > div {
+    margin-left: 5px;
+}
+.btnSidebar:hover > div  {
+    font-size: 1.1rem;
+    transition: .3s;
+}
+
+.sidebarMicroImage {
+    height: 20px;
+    width: 30px;
+}
+
+/*     ######################################      main.php    ##########################################     */
+.article {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
