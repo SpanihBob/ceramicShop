@@ -28,7 +28,7 @@
   
   
   <div class="Coopyright">
-      <p>Coopyright © CeramicArtStudio 2022-2023</p>
+      <p>Coopyright © CeramicArt 2022-2023</p>
   </div>
 
 </footer>

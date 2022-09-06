@@ -52,6 +52,22 @@ INSERT INTO `crockery` (`id`, `crockeryName`, `crockeryImage`) VALUES
 	(3, 'Соусники', 'соус.jpg'),
 	(4, 'Кружки', 'кружка.jpg');
 
+-- Дамп структуры для таблица diploma.main
+CREATE TABLE IF NOT EXISTS `main` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `img` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы diploma.main: ~0 rows (приблизительно)
+DELETE FROM `main`;
+INSERT INTO `main` (`id`, `img`, `text`) VALUES
+	(1, 'тарелки0Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
+	(2, 'тарелки1Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
+	(3, 'тарелки2Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
+	(4, 'тарелки3Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. ');
+
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

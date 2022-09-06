@@ -21,7 +21,8 @@ header {
     display: grid;
     align-content: center;
     border-bottom: 2px solid gray;
-    box-shadow: var(--boxShadow);
+    box-shadow: var(--boxShadow);  
+    max-width: 1000px;
 }
 header > div{
     display: grid;
@@ -199,31 +200,160 @@ footer > :nth-child(2){
     padding: 5px;
     border-radius: 5px;
     transition: .3s;
+    width: 95%;
 }
 .btnSidebar:hover {
-    box-shadow: 1px 1px 3px gray;
+    box-shadow: 0 0 3px gray;
     color: #888585;
     
 }
 .btnSidebar > div {
     margin-left: 5px;
 }
-.btnSidebar:hover > div  {
-    font-size: 1.1rem;
-    transition: .3s;
-}
-
 .sidebarMicroImage {
     height: 20px;
     width: 30px;
 }
 
-/*     ######################################      main.php    ##########################################     */
+/*     ######################################      crockery.php    ##########################################     */
 .article {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 200px 1fr;  
+    max-width: 1000px;
 }
-.content {
+.crockeryContent {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-content: start;
+    padding: 25px;
+    gap: 15px;
 }
+.crockeryCard {
+    justify-self: center;
+}
+.crockeryImg {
+    height: 350px;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+}
+.crockeryText {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+/*     ######################################      main.php    ##########################################     */
+#mainContent {
+    display: grid;
+    margin-top: 15px;
+}
+.mainImgParentDiv {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+.mainImgParentDiv > img {
+    width: 95%;
+    justify-self: start;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+}
+.mainTextDiv_0 {
+    width: 95%;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #656565;
+}
+.mainCardParentDiv {
+    width: 95%;
+    display: grid;
+    gap: 15px;
+    margin: 20px 0;
+}
+.mainCardParentDiv > div {
+    display: grid;
+}  
+.mainCardParentDiv > :nth-child(odd) {
+    grid-template-columns: 1.5fr 1fr;
+}
+.mainCardParentDiv > :nth-child(even) {
+    grid-template-columns: 1fr 1.5fr;
+}
+.mainTextDiv {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #656565;
+}
+.mainImg {
+    width: 100%;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+}
+.imgOpacity {
+    transition: 1.5s;
+    opacity: 0;
+}
+
+/*     ######################################      signup.php    ##########################################     */
+#signupContent {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+#formSignUp {
+    display: grid;
+    gap: 10px;
+    width: 300px;
+}
+#formSignUp > input {
+    padding-left: 15px;    
+    height: 30px;
+    justify-content: center;
+    margin: auto 0;
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
+}
+#formSignUp > div {
+    padding-left: 15px;    
+    height: 30px;
+    justify-content: center;
+    margin: auto 0;
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr .1fr;
+}
+#formSignUp > div > input {
+    border: none;
+    background: none;
+    width: 80%;
+    height: 100%;
+}
+#formSignUp > a {
+    justify-self: center;
+}
+#formSignUp > input:hover {
+    box-shadow: 1px 1px 1px gray;
+}
+.eyeBtn {
+    width: 20px;
+    overflow: hidden;
+    display: grid;
+    align-content: center;
+}
+.eyeBtn > img{
+    width: 100%;
+}
+
