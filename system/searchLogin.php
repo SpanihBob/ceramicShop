@@ -18,4 +18,5 @@
     else {
         echo "<span style='color:green'>login свободен!</span>";
     }
+    
 ?>
