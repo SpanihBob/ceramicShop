@@ -24,17 +24,18 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Дамп данных таблицы diploma.category: ~5 rows (приблизительно)
 DELETE FROM `category`;
-INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`) VALUES
-	(1, 'Посуда', 'тарелка.png'),
-	(2, 'Коллекции', 'коллекция.png'),
-	(3, 'Интерьер', 'ваза.png'),
-	(4, 'Изделия на заказ', 'на заказ.png'),
-	(5, 'Скидки', 'скидки.png');
+INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`) VALUES
+	(1, 'Посуда', 'тарелка.png', 'crockery'),
+	(2, 'Коллекции', 'коллекция.png', NULL),
+	(3, 'Интерьер', 'ваза.png', NULL),
+	(4, 'Изделия на заказ', 'на заказ.png', NULL),
+	(5, 'Скидки', 'скидки.png', NULL);
 
 -- Дамп структуры для таблица diploma.crockery
 CREATE TABLE IF NOT EXISTS `crockery` (
@@ -60,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `main` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.main: ~0 rows (приблизительно)
+-- Дамп данных таблицы diploma.main: ~4 rows (приблизительно)
 DELETE FROM `main`;
 INSERT INTO `main` (`id`, `img`, `text`) VALUES
 	(1, 'тарелки0Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
@@ -83,11 +84,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `apartment` int(11) DEFAULT NULL,
   `postcode` int(11) DEFAULT NULL,
   `avatar` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `time_signup` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.users: ~0 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
 DELETE FROM `users`;
+INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
+	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1662533535);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
