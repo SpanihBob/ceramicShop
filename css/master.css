@@ -308,12 +308,12 @@ footer > :nth-child(2){
     align-content: center;
     justify-content: center;
 }
-#formSignUp {
+#formSignup {
     display: grid;
     gap: 10px;
     width: 300px;
 }
-#formSignUp > input {
+#formSignup > input {
     padding-left: 15px;    
     height: 30px;
     justify-content: center;
@@ -323,7 +323,7 @@ footer > :nth-child(2){
     box-shadow: var(--boxShadow);
     cursor: pointer;
 }
-#formSignUp > div {
+.passwordDiv {
     padding-left: 15px;    
     height: 30px;
     justify-content: center;
@@ -335,16 +335,19 @@ footer > :nth-child(2){
     display: grid;
     grid-template-columns: 1fr .1fr;
 }
-#formSignUp > div > input {
+.passwordDiv > input {
     border: none;
     background: none;
-    width: 80%;
+    width: 95%;
     height: 100%;
 }
-#formSignUp > a {
+#formSignup > a {
     justify-self: center;
 }
-#formSignUp > input:hover {
+#formSignup > input:hover {
+    box-shadow: 1px 1px 1px gray;
+}
+#formSignup > .passwordDiv:hover {
     box-shadow: 1px 1px 1px gray;
 }
 .eyeBtn {
@@ -356,4 +359,64 @@ footer > :nth-child(2){
 .eyeBtn > img{
     width: 100%;
 }
+.capsLock {
+    color: green;
+    font-size: 1.2rem;
+    text-align: center;
+    display: grid;
+    justify-content: start;
+    margin: 0 auto;
+    height: 22px;
+}
+.capsLock > span {
+    font-size: 1.2rem;
+    text-align: center;
+    display: grid;
+    justify-content: start;
+    margin: 0 auto;
+}
+/*     ######################################      login.php    ##########################################     */
+#formLogin {
+    display: grid;
+    gap: 10px;
+    width: 300px;
+}
+#formLogin > input {
+    padding-left: 15px;    
+    height: 30px;
+    justify-content: center;
+    margin: auto 0;
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
+}
+
+#formLogin > a {
+    justify-self: center;
+}
+#formLogin > input:hover {
+    box-shadow: 1px 1px 1px gray;
+}
+#formLogin > .passwordDiv:hover {
+    box-shadow: 1px 1px 1px gray;
+}
+.capsLock {
+    color: green;
+    font-size: 1.2rem;
+    text-align: center;
+    display: grid;
+    justify-content: start;
+    margin: 0 auto;
+    height: 22px;
+}
+.capsLock > span {
+    font-size: 1.2rem;
+    text-align: center;
+    display: grid;
+    justify-content: start;
+    margin: 0 auto;
+}
+
+
 

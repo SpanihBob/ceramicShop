@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
     <?
         $path = $_SERVER['DOCUMENT_ROOT'];
         require_once "$path/system/db.php"; //подкл. к БД
@@ -8,7 +8,7 @@
         $queryCategories -> execute();
         foreach($queryCategories as $rowCategories) {                                           
             echo <<<html
-                    <button class="btnSidebar">
+                    <button class="btnSidebar" data-id="$rowCategories[id]">
                         <img class="sidebarMicroImage" src="../img/$rowCategories[categoryMicroImage]" alt="">
                         <div>$rowCategories[categoryName]</div>
                     </button>
@@ -16,3 +16,7 @@
         }  
     ?>      
 </div>
+<script>
+    let sidebar = document.getElementById("sidebar");
+    
+</script>
