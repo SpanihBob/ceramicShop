@@ -1,6 +1,6 @@
 <header>
     <div>
-        <div class="logo">
+        <div class="logo" id="logo">
             <img src="../img/pottery.png" alt="">
             <img src="../img/Безымянный.jpg" alt="">
         </div>    
@@ -11,5 +11,11 @@
             <a href=""><div class="shopping_cart"></div></a>
         </div>
     </div>
+
+    <script>
+        logo.onclick = () => {
+            window.location.href = "/"
+        }
+    </script>
          
 </header>

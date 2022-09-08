@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS `category` (
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`) VALUES
 	(1, 'Посуда', 'тарелка.png', 'crockery'),
-	(2, 'Коллекции', 'коллекция.png', NULL),
-	(3, 'Интерьер', 'ваза.png', NULL),
-	(4, 'Изделия на заказ', 'на заказ.png', NULL),
-	(5, 'Скидки', 'скидки.png', NULL);
+	(2, 'Коллекции', 'коллекция.png', 'collection'),
+	(3, 'Интерьер', 'ваза.png', 'interior'),
+	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder'),
+	(5, 'Скидки', 'скидки.png', 'sale');
 
 -- Дамп структуры для таблица diploma.crockery
 CREATE TABLE IF NOT EXISTS `crockery` (
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~2 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1662533535);

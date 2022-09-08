@@ -37,18 +37,28 @@
     
     elseif($_SERVER['REDIRECT_URL']=="/profile"):
         require_once "$path/public/profile.php";
-
-    elseif($_SERVER['REDIRECT_URL']=="/signup"):
-        require_once "$path/public/signup.php";
     
     elseif($_SERVER['REDIRECT_URL']=="/debt"):
         require_once "$path/public/debt.php";
+        
+    elseif($_SERVER['REDIRECT_URL']=="/favorites"):
+        require_once "$path/public/favorites.php";
+
+
+    elseif($_SERVER['REDIRECT_URL']=="/collection"):
+        require_once "$path/public/collection.php";
+
+    elseif($_SERVER['REDIRECT_URL']=="/interior"):
+        require_once "$path/public/interior.php";
+
+    elseif($_SERVER['REDIRECT_URL']=="/productsToOrder"):
+        require_once "$path/public/productsToOrder.php";
+
+    elseif($_SERVER['REDIRECT_URL']=="/sale"):
+        require_once "$path/public/sale.php";
 
     elseif($_SERVER['REDIRECT_URL']=="/crockery"):
         require_once "$path/public/crockery.php";
-
-    elseif($_SERVER['REDIRECT_URL']=="/favorites"):
-        require_once "$path/public/favorites.php";
             
     else:
         require_once "$path/public/404.php";

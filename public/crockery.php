@@ -26,7 +26,21 @@
 							html;
 					}  
 				?>
-			</div>		
+			</div>
+			<script>
+				alert("надо доделать вывод товара на экран при нажатии на карточку, вызывать функции из master.js")
+				let crockeryContent = document.querySelector(".crockeryContent");
+				crockeryContent.onclick = event => {
+					// console.log(event.target.className);
+					if(event.target.className == "crockeryCard") {
+						console.log(1);
+					}
+					if(event.target.parentNode.className == "crockeryCard") {
+						console.log(1);
+					}
+				}
+				
+			</script>		
 		</article>
 		<?
 			include_once "$path/private/footer.php"		//FOOTER
