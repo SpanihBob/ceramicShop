@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.6.7-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.8.4-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win64
--- HeidiSQL Версия:              12.0.0.6468
+-- HeidiSQL Версия:              12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS `crockery` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='посуда';
 
--- Дамп данных таблицы diploma.crockery: ~5 rows (приблизительно)
+-- Дамп данных таблицы diploma.crockery: ~4 rows (приблизительно)
 DELETE FROM `crockery`;
 INSERT INTO `crockery` (`id`, `crockeryName`, `crockeryImage`) VALUES
 	(1, 'Тарелки', 'тарелка.jpg'),
 	(2, 'Чайные пары', 'пара.jpg'),
-	(3, 'Соусники', 'соус.jpg'),
-	(4, 'Кружки', 'кружка.jpg');
+	(3, 'Соусники', 'соус4.jpg'),
+	(4, 'Кружки', 'кр4.jpg');
 
 -- Дамп структуры для таблица diploma.main
 CREATE TABLE IF NOT EXISTS `main` (
@@ -68,6 +68,42 @@ INSERT INTO `main` (`id`, `img`, `text`) VALUES
 	(2, 'тарелки1Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
 	(3, 'тарелки2Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. '),
 	(4, 'тарелки3Главная.jpg', 'Это проект о красоте, гармонии и легкости. \r\n\r\nПосуда и декор ручной работы из керамики и фарфора, созданная русским \r\n\r\nдизайнером - керамистом Александрой Малаховой. ');
+
+-- Дамп структуры для таблица diploma.product
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'имя',
+  `category` int(11) DEFAULT NULL COMMENT 'категория',
+  `subcategory` int(11) DEFAULT NULL COMMENT 'подкатегория',
+  `price` int(11) DEFAULT NULL COMMENT 'цена',
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'описание',
+  `amount` int(11) DEFAULT NULL COMMENT 'колличество',
+  `poster` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'картинка',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы diploma.product: ~19 rows (приблизительно)
+DELETE FROM `product`;
+INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`) VALUES
+	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg'),
+	(2, 'тарелка 2', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg'),
+	(3, 'тарелка 3', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тар3.jpg'),
+	(4, 'тарелка 4', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар4.jpg'),
+	(5, 'тарелка 5', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар5.jpg'),
+	(6, 'тарелка 6', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелка.jpg'),
+	(7, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара1.jpg'),
+	(8, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара2.jpg'),
+	(9, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара3.jpg'),
+	(10, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара4.jpg'),
+	(11, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус1.jpg'),
+	(12, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус2.jpg'),
+	(13, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус3.jpg'),
+	(14, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус4.jpg'),
+	(15, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр1.jpg'),
+	(16, 'кружка', 1, 4, 1233, 'сммив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр2.jpg'),
+	(17, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр3.jpg'),
+	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр4.jpg'),
+	(19, 'чайная пара', 1, 2, 123, 'dsfgsdfgs fedgf d d fg d', 4, 'пара.jpg');
 
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -88,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.users: ~2 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1662533535);

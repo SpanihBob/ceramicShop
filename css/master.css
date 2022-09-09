@@ -228,6 +228,13 @@ footer > :nth-child(2){
     padding: 25px;
     gap: 15px;
 }
+.crockeryProduct {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-content: start;
+    padding: 25px;
+    gap: 15px;
+}
 .crockeryCard {
     justify-self: center;
 }
@@ -243,6 +250,18 @@ footer > :nth-child(2){
     font-size: 1.2rem;
     font-style: italic;
 }
+.productDivCrockery {
+    display: grid;
+}
+.dataProductDivCrockery {
+    display: grid;
+}
+.imgProductCrockery > img {
+    height: 200px;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+}
+
 
 /*     ######################################      main.php    ##########################################     */
 #mainContent {
