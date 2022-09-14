@@ -252,15 +252,30 @@ footer > :nth-child(2){
 }
 .productDivCrockery {
     display: grid;
+    justify-content: center;
 }
 .dataProductDivCrockery {
     display: grid;
+}
+.imgProductCrockery {
+    display: grid;
+    align-content: center;
 }
 .imgProductCrockery > img {
     height: 200px;
     box-shadow: var(--boxShadow);
     border-radius: 5px;
 }
+.crockeryProductFull {
+    display: none;
+}
+
+.productDivCrockeryFull {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px auto;    
+}
+
 
 
 /*     ######################################      main.php    ##########################################     */

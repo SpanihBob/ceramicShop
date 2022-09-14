@@ -29,11 +29,13 @@
 				?>
 			</div>
 			<div class="crockeryProduct"></div>
+			<div class="crockeryProductFull"></div>
 		</div>
 
 			<script>
 				const crockeryContent = document.querySelector(".crockeryContent");
 				const crockeryProduct = document.querySelector(".crockeryProduct");
+				const crockeryProductFull = document.querySelector(".crockeryProductFull");
 				crockeryContent.onclick = event => {
 					crockeryProduct.innerHTML = '';
 					// console.log(event.target.className);
@@ -75,25 +77,21 @@
 										let priceDiv = document.createElement("div");					//price
 											let priceText = document.createTextNode(`Цена: ${element.price} р.`);
 
-										// let descriptionDiv = document.createElement("div");				//description
-										// 	let descriptionText = document.createTextNode(`${element.description}`);
-
 										let amountDiv = document.createElement("div");					//amount
 											let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
 
 								productDiv.classList.add("productDivCrockery");
 								dataDiv.classList.add("dataProductDivCrockery");
 								imgDiv.classList.add("imgProductCrockery");
+								productDiv.setAttribute("data-id",element.id)
 
 								nameDiv.appendChild(nameText);
 								priceDiv.appendChild(priceText);
-								// descriptionDiv.appendChild(descriptionText);
 								amountDiv.appendChild(amountText);
 								
 								imgDiv.appendChild(img);
 								dataDiv.appendChild(nameDiv);
 								dataDiv.appendChild(priceDiv);
-								// dataDiv.appendChild(descriptionDiv);
 								dataDiv.appendChild(amountDiv);
 
 								productDiv.appendChild(imgDiv);
@@ -101,12 +99,80 @@
 
 								crockeryProduct.appendChild(productDiv);
 
+								productDiv.onclick = event => {
+									let productDivAttribute;
+									if(event.target==productDiv){
+										productDivAttribute = event.target.getAttribute("data-id");
+									}
+									else {
+										productDivAttribute = event.target.parentNode.parentNode.getAttribute("data-id");
+									}
+									// console.log(productDivAttribute);
+									if(element.id==productDivAttribute) {
+										crockeryProduct.style.display = "none";
+										crockeryProductFull.style.display = "grid";
 
-								// crockeryProduct.innerHTML += `
-								// <div data-id="${element['id']}" class="crockeryCard">
-								// 	<img class="crockeryImg" src="../img1/${element['poster']}" alt="">
-								// 	<div class="crockeryText">${element['description']}</div>
-								// </div>`
+												let productDiv = document.createElement("div");								//parent
+
+												let imgDiv = document.createElement("div");	
+													let img = document.createElement('img');						//создали картинку
+													img.setAttribute("src",`../img1/${element.poster}`)				//for img
+
+												let dataDiv = document.createElement("div");						//for all
+
+													let nameDiv = document.createElement("div");					//name
+														let nameText = document.createTextNode(`${element.name}`);
+
+													let priceDiv = document.createElement("div");					//price
+														let priceText = document.createTextNode(`Цена: ${element.price} р.`);
+
+													let descriptionDiv = document.createElement("div");				//description
+														let descriptionText = document.createTextNode(`${element.description}`);
+
+													let amountDiv = document.createElement("div");					//amount
+														let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
+
+													let imgFullDiv = document.createElement("div");
+													imgFullDiv.classList.add("miniImgFullProductDiv");
+
+													productDiv.classList.add("productDivCrockeryFull");
+													dataDiv.classList.add("dataProductDivCrockeryFull");
+													imgDiv.classList.add("imgProductCrockeryFull");
+
+													nameDiv.appendChild(nameText);
+													priceDiv.appendChild(priceText);
+													descriptionDiv.appendChild(descriptionText);
+													amountDiv.appendChild(amountText);
+
+													imgDiv.appendChild(img);
+													dataDiv.appendChild(nameDiv);
+													dataDiv.appendChild(priceDiv);
+													dataDiv.appendChild(descriptionDiv);
+													dataDiv.appendChild(amountDiv);
+
+													productDiv.appendChild(imgDiv);
+													productDiv.appendChild(dataDiv);
+
+													let imgArr = element.image.split(", ");
+													imgArr.forEach(imgElement => {
+														let imageFullProduct = document.createElement("img");
+														imageFullProduct.setAttribute("src",`../img1/${imgElement}`);
+														imageFullProduct.classList.add("miniImgFullProduct");
+														imgFullDiv.appendChild(imageFullProduct);
+													});
+
+													productDiv.appendChild(imgFullDiv);
+
+													crockeryProductFull.appendChild(productDiv);
+
+
+
+
+										console.log(element);
+									}
+									
+									
+								}
 
 							});
 								
