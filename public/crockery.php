@@ -36,11 +36,14 @@
 				const crockeryContent = document.querySelector(".crockeryContent");
 				const crockeryProduct = document.querySelector(".crockeryProduct");
 				const crockeryProductFull = document.querySelector(".crockeryProductFull");
+
+		//#######################################################			 Выводим список товаров 		######################################################
+
 				crockeryContent.onclick = event => {
 					crockeryProduct.innerHTML = '';
 					// console.log(event.target.className);
 					if(event.target.className == "crockeryCard") {
-						getProduct(event.target, 1);						//эта функция находится в master.js
+						getProduct(event.target, 1);						
 					}
 					if(event.target.parentNode.className == "crockeryCard") {
 						getProduct(event.target.parentNode, 1);
@@ -70,9 +73,10 @@
 										img.setAttribute("src",`../img1/${element.poster}`)				//for img
 
 									let dataDiv = document.createElement("div");						//for all
-									
+									let name = element.name.replace(/^[a-zа-ё]/ug, m => m.toUpperCase());
+
 										let nameDiv = document.createElement("div");					//name
-											let nameText = document.createTextNode(`${element.name}`);
+											let nameText = document.createTextNode(`${name}`);
 
 										let priceDiv = document.createElement("div");					//price
 											let priceText = document.createTextNode(`Цена: ${element.price} р.`);
@@ -98,7 +102,9 @@
 								productDiv.appendChild(dataDiv);
 
 								crockeryProduct.appendChild(productDiv);
-
+								
+					//#######################################################			 Выводим выбранный продукт  		######################################################	
+								
 								productDiv.onclick = event => {
 									let productDivAttribute;
 									if(event.target==productDiv){
@@ -113,6 +119,8 @@
 										crockeryProductFull.style.display = "grid";
 
 												let productDiv = document.createElement("div");								//parent
+												let imgAndPrice = document.createElement("div");				
+												let descDiv = document.createElement("div");								
 
 												let imgDiv = document.createElement("div");	
 													let img = document.createElement('img');						//создали картинку
@@ -121,7 +129,9 @@
 												let dataDiv = document.createElement("div");						//for all
 
 													let nameDiv = document.createElement("div");					//name
-														let nameText = document.createTextNode(`${element.name}`);
+														let nameText = document.createTextNode(`${name}`);
+
+														// element.name.replace(/(?:^)/ug, m => m.toUpperCase());
 
 													let priceDiv = document.createElement("div");					//price
 														let priceText = document.createTextNode(`Цена: ${element.price} р.`);
@@ -131,6 +141,12 @@
 
 													let amountDiv = document.createElement("div");					//amount
 														let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
+
+													let addButton = addInputTypeButton("addButton", "Добавить в корзину", "addButton");		//создаем кнопку "добавить" через функцию в master.js
+													
+													let backButton = addInputTypeButton("backButton", "Назад", "backButton");				//кнопка "назад"
+
+													let buyButton = addInputTypeButton("buyButton", "Купить", "buyButton");					//кнопка "купить"													
 
 													let imgFullDiv = document.createElement("div");
 													imgFullDiv.classList.add("miniImgFullProductDiv");
@@ -147,8 +163,13 @@
 													imgDiv.appendChild(img);
 													dataDiv.appendChild(nameDiv);
 													dataDiv.appendChild(priceDiv);
-													dataDiv.appendChild(descriptionDiv);
 													dataDiv.appendChild(amountDiv);
+													dataDiv.appendChild(addButton);
+													dataDiv.appendChild(buyButton);
+													dataDiv.appendChild(backButton);
+
+													
+													descDiv.appendChild(descriptionDiv);
 
 													productDiv.appendChild(imgDiv);
 													productDiv.appendChild(dataDiv);
@@ -161,26 +182,33 @@
 														imgFullDiv.appendChild(imageFullProduct);
 													});
 
-													productDiv.appendChild(imgFullDiv);
+													dataDiv.appendChild(imgFullDiv);
 
 													crockeryProductFull.appendChild(productDiv);
+													crockeryProductFull.appendChild(descDiv);
+
+					//#######################################################			 кнопка "назад"  		######################################################
+
+						backButton.onclick = () => {
+							crockeryProduct.style.display = "grid";
+							crockeryProductFull.style.display = "none";
+							crockeryProductFull.innerHTML = "";
+						}
 
 
-
-
+					//#######################################################			 увеличиваем картинку  		######################################################									
+						productDiv.onclick = selectedImg => {
+							if(selectedImg.target.tagName == "IMG") {
+								//пишем контекстное меню с картинкой на большом экране!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+							}
+							
+						}
 										console.log(element);
 									}
-									
-									
 								}
-
 							});
-								
-							
 						})
 				}
-				
-				
 			</script>		
 		</article>
 		<?
