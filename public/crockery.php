@@ -30,6 +30,9 @@
 			</div>
 			<div class="crockeryProduct"></div>
 			<div class="crockeryProductFull"></div>
+			<div id="contextMenu">
+				<div id="closeBtn">x</div>
+			</div>
 		</div>
 
 			<script>
@@ -125,6 +128,8 @@
 												let imgDiv = document.createElement("div");	
 													let img = document.createElement('img');						//создали картинку
 													img.setAttribute("src",`../img1/${element.poster}`)				//for img
+													img.classList.add("ImgFullProduct");
+													img.setAttribute("data-id",0);
 
 												let dataDiv = document.createElement("div");						//for all
 
@@ -151,6 +156,13 @@
 													let imgFullDiv = document.createElement("div");
 													imgFullDiv.classList.add("miniImgFullProductDiv");
 
+													
+													let leftArrow = document.createElement("div");
+														leftArrow.innerText = "<";
+														leftArrow.id = "leftArrow";
+													let rightArrow = document.createElement("div");
+														rightArrow.innerText = ">";
+														rightArrow.id = "rightArrow";
 													productDiv.classList.add("productDivCrockeryFull");
 													dataDiv.classList.add("dataProductDivCrockeryFull");
 													imgDiv.classList.add("imgProductCrockeryFull");
@@ -174,36 +186,119 @@
 													productDiv.appendChild(imgDiv);
 													productDiv.appendChild(dataDiv);
 
+													imgFullDiv.appendChild(leftArrow);
+
 													let imgArr = element.image.split(", ");
-													imgArr.forEach(imgElement => {
+													let i = 1
+													imgArr.forEach(imgElement => {														
 														let imageFullProduct = document.createElement("img");
 														imageFullProduct.setAttribute("src",`../img1/${imgElement}`);
-														imageFullProduct.classList.add("miniImgFullProduct");
+														imageFullProduct.classList.add("ImgFullProduct");														
+														imageFullProduct.setAttribute("data-id",`${i}`);
+														if(i>3) {
+															imageFullProduct.setAttribute("style",`display:none`);
+														}
 														imgFullDiv.appendChild(imageFullProduct);
+														i++;
 													});
+													imgFullDiv.appendChild(rightArrow);
 
 													dataDiv.appendChild(imgFullDiv);
 
 													crockeryProductFull.appendChild(productDiv);
 													crockeryProductFull.appendChild(descDiv);
 
+					//################################################			 кнопки смотреть мини картинки  		###############################################
+
+													leftArrow.onclick = () => {
+														let leftArrowArr = document.querySelector(".miniImgFullProductDiv").children;														
+														for(let htmlTag = 0; htmlTag < leftArrowArr.length; htmlTag++) {
+															if(leftArrowArr[htmlTag].tagName == "IMG"	/* && leftArrowArr[htmlTag].getAttribute("style") == "block" */) {
+																console.log(leftArrowArr[htmlTag]);
+															}
+														}
+														// leftArrowArr.forEach(element => {
+														// 	console.log(element.tagName);
+														// });
+													}
+
+
+
 					//#######################################################			 кнопка "назад"  		######################################################
 
-						backButton.onclick = () => {
-							crockeryProduct.style.display = "grid";
-							crockeryProductFull.style.display = "none";
-							crockeryProductFull.innerHTML = "";
-						}
+													backButton.onclick = () => {
+														crockeryProduct.style.display = "grid";
+														crockeryProductFull.style.display = "none";
+														crockeryProductFull.innerHTML = "";
+													}
 
 
-					//#######################################################			 увеличиваем картинку  		######################################################									
-						productDiv.onclick = selectedImg => {
-							if(selectedImg.target.tagName == "IMG") {
-								//пишем контекстное меню с картинкой на большом экране!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-							}
-							
-						}
-										console.log(element);
+					//#######################################################			 увеличиваем картинку  		######################################################
+
+													productDiv.onclick = selectedImg => {
+														if(selectedImg.target.tagName == "IMG") {
+
+															let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
+
+															contextMenu.style.display = "grid";
+															let contextMenuParentDiv = document.createElement("div");
+																contextMenuParentDiv.classList.add("contextMenuParentDiv");
+
+															let contextMenuChildDiv1 = document.createElement("div");
+																contextMenuChildDiv1.id = "seeStart";
+																contextMenuChildDiv1.innerText = "<";
+																contextMenuChildDiv1.classList.add("seeStartAndEnd");
+
+															let contextMenuChildDiv2 = document.createElement("div");
+																contextMenuChildDiv2.id = "seeEnd";
+																contextMenuChildDiv2.innerText = ">";
+																contextMenuChildDiv2.classList.add("seeStartAndEnd");
+
+															let contextMenuImage = document.createElement("img");
+															contextMenuImage.classList.add("contextMenuImage");
+															contextMenuImage.setAttribute("src", selectedImg.target.getAttribute("src"));
+
+															contextMenuParentDiv.appendChild(contextMenuChildDiv1);
+															contextMenuParentDiv.appendChild(contextMenuImage);
+															contextMenuParentDiv.appendChild(contextMenuChildDiv2);
+
+															contextMenu.appendChild(contextMenuParentDiv);
+
+				//#######################################################			 закрываем картинку  		######################################################
+
+															closeBtn.onclick = () => {
+																contextMenu.style.display = "none";
+																contextMenuParentDiv.remove();			//удаляем элемент
+															}
+				//#######################################################			 листаем картинку 	 		######################################################
+
+															seeStart.onclick = () => {
+																let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
+																imageDataId = imageDataId - 1;																
+																if(imageDataId >= 0) {																	
+																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+																}
+																if(imageDataId < 0) {
+																	imageDataId = allImageContextMenu.length-1;
+																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+																}																
+															}	
+
+															seeEnd.onclick = () => {
+																let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
+																imageDataId = imageDataId + 1;
+
+																if(imageDataId <= allImageContextMenu.length - 1) {																	
+																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+																}
+																if(imageDataId > allImageContextMenu.length - 1) {
+																	imageDataId = 0;
+																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+																}																	
+															}															
+														}														
+													}
+										// console.log(element);
 									}
 								}
 							});

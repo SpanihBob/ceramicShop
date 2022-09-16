@@ -3,7 +3,10 @@
     --firstColor: #ffffff;
     --secondColor: #eae6e4;
     --boxShadow: 3px 3px 3px gray;
-    --boxShadowHover: 1px 1px 1px gray;;
+    --boxShadowMini: 1px 1px 3px gray;
+
+    --boxShadowHover: 1px 1px 1px gray;
+    --boxShadowHoverMini: 0px 0px 3px gray;
 }
 body {
     background: var(--secondColor);
@@ -243,6 +246,10 @@ footer > :nth-child(2){
     height: 350px;
     box-shadow: var(--boxShadow);
     border-radius: 5px;
+    cursor: pointer;
+}
+.crockeryImg:hover {
+    box-shadow: var(--boxShadowHover);
 }
 .crockeryText {
     margin-top: 10px;
@@ -266,6 +273,10 @@ footer > :nth-child(2){
     height: 200px;
     box-shadow: var(--boxShadow);
     border-radius: 5px;
+    cursor: pointer;
+}
+.imgProductCrockery > img:hover {
+    box-shadow: var(--boxShadowHover);
 }
 .crockeryProductFull {
     display: none;
@@ -295,16 +306,25 @@ footer > :nth-child(2){
     width: 100%;
     box-shadow: var(--boxShadow);
     border-radius: 5px;
+    cursor: pointer;
+}
+.imgProductCrockeryFull > img:hover{
+    box-shadow: var(--boxShadowHover);
 }
 .miniImgFullProductDiv {
    display: grid;
-   grid-template-columns: 1fr 1fr 1fr 1fr; 
+   grid-template-columns: 20px 1fr 1fr 1fr 20px; 
    gap: 3px;
 }
 .miniImgFullProductDiv > img{
    width: 90%;
    box-shadow: var(--boxShadow);
    border-radius: 5px;
+   cursor: pointer;
+   gap: 5px;
+}
+.miniImgFullProductDiv > img:hover{
+   box-shadow: var(--boxShadowHover);
 }
 .dataProductDivCrockeryFull {
     display: grid;
@@ -314,6 +334,81 @@ footer > :nth-child(2){
 
 .dataProductDivCrockeryFull > :nth-child(1) {
     font-size: 1.5rem;
+}
+#contextMenu {
+    display: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(104 102 102 / 84%);
+    z-index: 100;
+    align-content: center;
+    justify-content: center;
+}
+#closeBtn {
+    position: absolute;
+    line-height: 22px;
+    text-align: center;
+    top: 5px;
+    right: 5px;
+    z-index: 101;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #d4d3d3;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    box-shadow: 1px 1px 3px #ffffff;
+    cursor: pointer;
+}
+#closeBtn:hover {
+    box-shadow: 0px 0px 0px #ffffff;
+}
+.contextMenuImage {
+    /* width: 50vw; */                  /*доделать ширину через адаптацию или js*/
+    border-radius: 5px;
+    box-shadow: var(--boxShadow);
+}
+.seeStartAndEnd {    
+    line-height: 40px;
+    text-align: center;
+    z-index: 101;
+    width: 60px;
+    height: 60px;
+    border: 4px solid #d4d3d3;
+    border-radius: 5px;
+    color: #ffffff;
+    box-shadow: 1px 1px 3px #ffffff;
+    cursor: pointer;
+    justify-self: center;
+    align-self: center;
+    font-size: 3rem;
+}
+#rightArrow, #leftArrow {
+    line-height: 22px;
+    text-align: center;
+    width: 20px;
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    color: gray;
+    font-size: 1.5rem;
+    box-shadow: var(--boxShadowMini);
+    cursor: pointer;
+    align-self: stretch;
+    display: grid;
+    align-content: center;
+}
+#rightArrow:hover, #leftArrow:hover {
+    box-shadow: var(--boxShadowHoverMini);
+}
+.contextMenuParentDiv {
+    display: grid;
+    grid-template-columns: 100px 1fr 100px;
+}
+.ImgFullProduct {
+    justify-self: center;
 }
 
 
