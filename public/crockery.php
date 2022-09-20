@@ -196,7 +196,7 @@
 														imageFullProduct.classList.add("ImgFullProduct");														
 														imageFullProduct.setAttribute("data-id",`${i}`);
 														if(i>3) {
-															imageFullProduct.setAttribute("style",`display:none`);
+															imageFullProduct.style.display = "none";
 														}
 														imgFullDiv.appendChild(imageFullProduct);
 														i++;
@@ -210,19 +210,40 @@
 
 					//################################################			 кнопки смотреть мини картинки  		###############################################
 
-													leftArrow.onclick = () => {
-														let leftArrowArr = document.querySelector(".miniImgFullProductDiv").children;														
-														for(let htmlTag = 0; htmlTag < leftArrowArr.length; htmlTag++) {
-															if(leftArrowArr[htmlTag].tagName == "IMG"	/* && leftArrowArr[htmlTag].getAttribute("style") == "block" */) {
-																console.log(leftArrowArr[htmlTag]);
+													let leftArrowArr = document.querySelectorAll(".miniImgFullProductDiv > img");	//получаем все картинки в div.miniImgFullProductDiv 
+													leftArrow.onclick = () => {	
+														let condition = false;		
+														for(let i = 0; i < leftArrowArr.length; i++) {	
+															if(getComputedStyle(leftArrowArr[0]).display=="none") {
+																condition = true;
+															}	
+
+															if(getComputedStyle(leftArrowArr[i]).display=="block") {																
+																let dataId = +leftArrowArr[i].getAttribute("data-id");
+																if(condition) {
+																	leftArrowArr[dataId - 2].style.display = "block";
+																	leftArrowArr[dataId-1].style.display = "none";
+																}	
 															}
 														}
-														// leftArrowArr.forEach(element => {
-														// 	console.log(element.tagName);
-														// });
 													}
-
-
+													rightArrow.onclick = () => {
+														let condition = false;		
+														for(let i = leftArrowArr.length-1; i >= 0; i--) {	
+															console.log();
+															if(getComputedStyle(leftArrowArr[leftArrowArr.length-1]).display=="none") {
+																condition = true;
+															}	
+															if(getComputedStyle(leftArrowArr[i]).display=="block") {																
+																let dataId = +leftArrowArr[i].getAttribute("data-id");
+																if(condition) {
+																	leftArrowArr[dataId-1].style.display = "none";
+																	leftArrowArr[dataId].style.display = "block";
+																}	
+															}
+														}
+													}
+													
 
 					//#######################################################			 кнопка "назад"  		######################################################
 
