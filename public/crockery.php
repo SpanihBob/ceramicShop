@@ -40,11 +40,10 @@
 				const crockeryProduct = document.querySelector(".crockeryProduct");
 				const crockeryProductFull = document.querySelector(".crockeryProductFull");
 
-		//#######################################################			 Выводим список товаров 		######################################################
+		//#############################################			 Выводим список товаров при нажатии на категорию посуды		###############################################
 
 				crockeryContent.onclick = event => {
 					crockeryProduct.innerHTML = '';
-					// console.log(event.target.className);
 					if(event.target.className == "crockeryCard") {
 						getProduct(event.target, 1);						
 					}
@@ -65,6 +64,7 @@
 							})
 						.then(response =>response.json())
 						.then(data => {
+							// console.log(data);
 							crockeryContent.style.display = "none";
 							crockeryProduct.style.display = "grid";
 
@@ -73,7 +73,9 @@
 
 									let imgDiv = document.createElement("div");	
 										let img = document.createElement('img');						//создали картинку
-										img.setAttribute("src",`../img1/${element.poster}`)				//for img
+										let mainImage = element.image.split(", ")[0];
+										console.log(mainImage);
+										img.setAttribute("src",`../img1/${mainImage}`)				//for img
 
 									let dataDiv = document.createElement("div");						//for all
 									let name = element.name.replace(/^[a-zа-ё]/ug, m => m.toUpperCase());
@@ -127,9 +129,9 @@
 
 												let imgDiv = document.createElement("div");	
 													let img = document.createElement('img');						//создали картинку
-													img.setAttribute("src",`../img1/${element.poster}`)				//for img
+													img.setAttribute("src",`../img1/${mainImage}`)				//for img
 													img.classList.add("ImgFullProduct");
-													img.setAttribute("data-id",0);
+													img.setAttribute("data-id",1);
 
 												let dataDiv = document.createElement("div");						//for all
 
@@ -254,9 +256,17 @@
 													}
 
 
+					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
+
+					productDiv.onclick = event => {
+						if(event.target.tagName == "IMG") {
+							img.setAttribute("src",`../img1/${event.target.getAttribute("src")}`)
+						}}
+
+
 					//#######################################################			 увеличиваем картинку  		######################################################
 
-													productDiv.onclick = selectedImg => {
+													productDiv.ondblclick = selectedImg => {
 														if(selectedImg.target.tagName == "IMG") {
 
 															let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
@@ -316,6 +326,12 @@
 																	imageDataId = 0;
 																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 																}																	
+															}
+
+				//#######################################################			 добывление в корзину 	 		######################################################
+				
+															addButton.onclick = () => {
+
 															}															
 														}														
 													}
