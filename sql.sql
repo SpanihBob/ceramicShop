@@ -19,6 +19,19 @@
 CREATE DATABASE IF NOT EXISTS `diploma` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `diploma`;
 
+-- Дамп структуры для таблица diploma.cart
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL COMMENT 'id товара',
+  `user_id` int(11) DEFAULT NULL COMMENT 'id пользователя',
+  `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
+  `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+
+-- Дамп данных таблицы diploma.cart: ~0 rows (приблизительно)
+DELETE FROM `cart`;
+
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
