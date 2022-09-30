@@ -6,15 +6,15 @@
         </div>    
         <input type="search" name="searchProduct" id="searchProduct">    
         <div class="headerBtn">
-            <a href=""><div class="guest"></div></a>
-            <a href=""><div class="favorites"></div></a>
-            <a href=""><div class="shopping_cart"></div></a>
+            <a href="/account"><div id="guest"></div></a>
+            <a href=""><div id="favorites"></div></a>
+            <a href=""><div id="shopping_cart"></div></a>
         </div>
     </div>
 
     <script>
         logo.onclick = () => {
-            window.location.href = "/"
+            window.location.href = "/";
         }
     </script>
          

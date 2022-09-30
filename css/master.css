@@ -70,7 +70,7 @@ header > div{
     height: 30px;
     width: 30px;
 }
-.shopping_cart {
+#shopping_cart {
     display: block;
     height: 30px;
     width: 30px;            
@@ -78,11 +78,11 @@ header > div{
     background-size: 100% 100%;
     transition: .3s;
 }
-.shopping_cart:hover {
+#shopping_cart:hover {
     background: url(../img/shopping-trolley--v3.png);
     background-size: 100% 100%;
 }
-.favorites {
+#favorites {
     display: block;
     height: 30px;
     width: 30px;            
@@ -90,11 +90,11 @@ header > div{
     background-size: 100% 100%;
     transition: .3s;
 }
-.favorites:hover {
+#favorites:hover {
     background: url(../img/hearts\ \(1\).png);
     background-size: 100% 100%;
 }
-.guest {
+#guest {
     display: block;
     height: 30px;
     width: 30px;            
@@ -102,7 +102,7 @@ header > div{
     background-size: 100% 100%;
     transition: .3s;
 }
-.guest:hover {
+#guest:hover {
     background: url(../img/guest-male--v2.png);
     background-size: 100% 100%;
 }
@@ -586,4 +586,9 @@ footer > :nth-child(2){
     display: grid;
     justify-content: start;
     margin: 0 auto;
+}
+
+/*     ######################################      personalAccount.php    ##########################################     */
+.personalAccountContent{
+    
 }

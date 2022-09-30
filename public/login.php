@@ -15,7 +15,7 @@ if( isset( $_POST['loginSend'] )) {
              $_SESSION['auth']=true;
              $_SESSION['login'] = $_POST['login'];
              $_SESSION['id'] = $seLogin['id'];
-             $_SESSION['avatar'] = "$path/download/$seLogin[avatar]";
+             $_SESSION['avatar'] = "$path/img/$seLogin[avatar]";
 
              header("Location: /main");//производим переход на страницу
          }

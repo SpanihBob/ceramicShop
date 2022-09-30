@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
 
 -- Дамп данных таблицы diploma.category: ~5 rows (приблизительно)
 DELETE FROM `category`;
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `main` (
   `img` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `text` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='главная';
 
 -- Дамп данных таблицы diploma.main: ~4 rows (приблизительно)
 DELETE FROM `main`;
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `poster` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'картинка',
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
 
 -- Дамп данных таблицы diploma.product: ~19 rows (приблизительно)
 DELETE FROM `product`;
@@ -122,26 +122,26 @@ INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `descri
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `street` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `house` int(11) DEFAULT NULL,
-  `apartment` int(11) DEFAULT NULL,
-  `postcode` int(11) DEFAULT NULL,
-  `avatar` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `time_signup` int(20) DEFAULT NULL,
+  `login` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'логин',
+  `password` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'пароль',
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'емайл',
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'имя',
+  `lastname` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'фамилия',
+  `country` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'город',
+  `city` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'страна',
+  `street` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'улица',
+  `house` int(11) DEFAULT NULL COMMENT 'дом',
+  `apartment` int(11) DEFAULT NULL COMMENT 'квартира',
+  `postcode` int(11) DEFAULT NULL COMMENT 'индекс',
+  `avatar` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'аватарка',
+  `time_signup` int(20) DEFAULT NULL COMMENT 'время создания учетной записи',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~0 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
-	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1662533535);
+	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Петрова', 'Россия', 'Ижевск', 'Пушкинская', 23, 12, 426000, 'ava.jpg', 1662533535);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -44,6 +44,8 @@
     elseif($_SERVER['REDIRECT_URL']=="/favorites"):
         require_once "$path/public/favorites.php";
 
+    elseif($_SERVER['REDIRECT_URL']=="/account"):
+        require_once "$path/public/personalAccount.php";
 
     elseif($_SERVER['REDIRECT_URL']=="/collection"):
         require_once "$path/public/collection.php";
