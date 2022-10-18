@@ -6,15 +6,15 @@
 <body>
 	<div class="container">			
 		<?
-			include_once "$path/private/header.php";		//HEADER
+			include_once "$path/private/header.php";						//HEADER
 		?>	
 
-		<article class="article">						<!-- ARTICLE -->
+		<article class="article">											<!-- ARTICLE -->
 			<?
-				include_once "$path/private/sidebar.php";		//SIDEBAR
+				include_once "$path/private/sidebar.php";					//SIDEBAR
 			?>
 			<div>
-			<div class="crockeryContent">								<!-- CONTENT -->
+			<div class="crockeryContent">									<!-- CONTENT -->
 				<?
 					$queryCrockery = $dbPDO -> prepare("SELECT * FROM crockery");
 					$queryCrockery -> execute();
