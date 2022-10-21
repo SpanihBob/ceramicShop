@@ -590,5 +590,23 @@ footer > :nth-child(2){
 
 /*     ######################################      personalAccount.php    ##########################################     */
 .personalAccountContent{
-    
+    margin-right: 20px;
+}
+.personalAccountContent > div{
+    display: grid;
+    grid-template-columns: 150px auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px auto 3px auto;
+}
+#redactButton{
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    height: 50px;
+}
+.avatarImgPersonalAccount{
+    max-width: 300px;
 }

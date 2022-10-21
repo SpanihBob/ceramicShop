@@ -20,21 +20,62 @@
 					$queryCrockery = $dbPDO -> prepare("SELECT * FROM users WHERE login = '$_SESSION[login]'");
 					$queryCrockery -> execute(); 
 					$arr = $queryCrockery->fetch(PDO::FETCH_ASSOC);            
-						echo <<<html
-								<div>$arr[login] </div>
-								<div>$arr[email] </div>
-								<div>$arr[name] </div>
-								<div>$arr[lastname] </div>
-								<div>$arr[country] </div>
-								<div>$arr[city] </div>
-								<div>$arr[street] </div>
-								<div>$arr[house] </div>
-								<div>$arr[apartment] </div>
-								<div>$arr[postcode] </div>
-								<img src="../img/$arr[avatar]" alt="">
-								<div>$arr[time_signup] </div>
-							html;
 				?>
+				<div>
+					<div>Логин:</div>
+					<div id="loginDiv"></div>
+				</div>
+				<div>
+					<div>Почта:</div>
+					<div id="emailDiv"></div>
+				</div>
+				<div>
+					<div>Имя:</div>
+					<div id="nameDiv"></div>
+				</div>
+				<div>
+					<div>Фамилия:</div>
+					<div id="lastnameDiv"></div>
+				</div>
+				<div>
+					<div>Страна:</div>
+					<div id="countryDiv"></div>
+				</div>
+				<div>
+					<div>Город:</div>
+					<div id="cityDiv"></div>
+				</div>
+				<div>
+					<div>Улица:</div>
+					<div id="streetDiv"></div>
+				</div>
+				<div>
+					<div>Дом:</div>
+					<div id="houseDiv"></div>
+				</div>
+				<div>
+					<div>Квартира:</div>
+					<div id="apartmentDiv"></div>
+				</div>
+				<div>
+					<div>Почтовый индекс:</div>
+					<div id="postcodeDiv"></div>
+				</div>
+				<div>
+					<div>На сайте уже:</div>
+					<div id="timeDiv"></div>
+				</div>
+				<div>
+					<div>Аватар:</div>
+					<div id="avatarDiv"></div>
+				</div>				
+				<button id="redactButton">Редактировать</button>
+				
+				
+				
+				
+				
+				
 
 
 
@@ -51,36 +92,52 @@
 				.then(data => {
 					// console.log(data);
 					data.forEach(element => {
-						// console.log(element);
+						console.log(element);
 						const parentDiv = document.createElement("div");
 
-							const loginDiv = document.createElement("div");
-							const emailDiv = document.createElement("div");
-							const nameDiv = document.createElement("div");
-							const lastnameDiv = document.createElement("div");
-							const countryDiv = document.createElement("div");
-							const cityDiv = document.createElement("div");
-							const streetDiv = document.createElement("div");
-							const houseDiv = document.createElement("div");
-							const apartmentDiv = document.createElement("div");
-							const postcodeDiv = document.createElement("div");
-							const avatarDiv = document.createElement("div");
+							const loginDiv = document.getElementById("loginDiv");
+							const emailDiv = document.getElementById("emailDiv");
+							const nameDiv = document.getElementById("nameDiv");
+							const lastnameDiv = document.getElementById("lastnameDiv");
+							const countryDiv = document.getElementById("countryDiv");
+							const cityDiv = document.getElementById("cityDiv");
+							const streetDiv = document.getElementById("streetDiv");
+							const houseDiv = document.getElementById("houseDiv");
+							const apartmentDiv = document.getElementById("apartmentDiv");
+							const postcodeDiv = document.getElementById("postcodeDiv");
+							const avatarDiv = document.getElementById("avatarDiv");
 								const avatarImg = document.createElement("img");
-							const timeDiv = document.createElement("div");
+							const timeDiv = document.getElementById("timeDiv");
 
 
-							personalAccountContent.appendChild(loginDiv);
-							personalAccountContent.appendChild(emailDiv);
-							personalAccountContent.appendChild(nameDiv);
-							personalAccountContent.appendChild(lastnameDiv);
-							personalAccountContent.appendChild(countryDiv);
-							personalAccountContent.appendChild(cityDiv);
-							personalAccountContent.appendChild(streetDiv);
-							personalAccountContent.appendChild(houseDiv);
-							personalAccountContent.appendChild(apartmentDiv);
-							personalAccountContent.appendChild(postcodeDiv);
-							personalAccountContent.appendChild(avatarDiv);
-							personalAccountContent.appendChild(timeDiv);
+							loginDiv.textContent=`${data[0].login}`;
+							emailDiv.textContent=`${data[0].email}`;
+							nameDiv.textContent=`${data[0].name}`;
+							lastnameDiv.textContent=`${data[0].lastname}`;
+							countryDiv.textContent=`${data[0].country}`;
+							cityDiv.textContent=`${data[0].city}`;
+							streetDiv.textContent=`${data[0].street}`;
+							houseDiv.textContent=`${data[0].house}`;
+							apartmentDiv.textContent=`${data[0].apartment}`;
+							postcodeDiv.textContent=`${data[0].postcode}`;
+							timeDiv.textContent=`${data[0].time_signup * 1000}`;
+
+
+							avatarImg.src=`../img/${data[0].avatar}`;
+							loginDiv.classList.add("loginDivPersonalAccount");
+							emailDiv.classList.add("emailDivPersonalAccount");
+							nameDiv.classList.add("nameDivPersonalAccount");
+							lastnameDiv.classList.add("lastnameDivPersonalAccount");
+							countryDiv.classList.add("countryDivPersonalAccount");
+							streetDiv.classList.add("streetDivPersonalAccount");
+							houseDiv.classList.add("houseDivPersonalAccount");
+							apartmentDiv.classList.add("apartmentDivPersonalAccount");
+							postcodeDiv.classList.add("postcodeDivPersonalAccount");
+							timeDiv.classList.add("timeDivPersonalAccount");
+							avatarImg.classList.add("avatarImgPersonalAccount");
+
+							
+							avatarDiv.appendChild(avatarImg);
 					})
 				})
 				
