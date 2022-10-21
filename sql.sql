@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~0 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Петрова', 'Россия', 'Ижевск', 'Пушкинская', 23, 12, 426000, 'ava.jpg', 1662533535);
