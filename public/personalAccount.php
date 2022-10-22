@@ -70,16 +70,6 @@
 					<div id="avatarDiv"></div>
 				</div>				
 				<button id="redactButton">Редактировать</button>
-				
-				
-				
-				
-				
-				
-
-
-
-
 			</div>
 			<div class="personalAccountForm"></div>
 		</div>
