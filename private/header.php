@@ -26,12 +26,16 @@ if(isset($_POST['modalContextMenuExit'])) {
 </header>
 <div id="modalWindow">
     <div id="modalContextMenu">
-        <div id="modalContextMenuSignUp">Регистрация</div>
-        <div id="modalContextMenuLogIn">Вход</div>
-        <div id="modalContextMenuProfile">Профиль</div>
-        <form action="" method="post" id="modalContextMenuExitForm">
-            <input type="submit" value="Выход" name="modalContextMenuExit">
-        </form>
+        <? if(!isset($_SESSION['login'])) { ?>
+            <div id="modalContextMenuSignUp">Регистрация</div>
+            <div id="modalContextMenuLogIn">Вход</div>
+        <?}?>
+        <? if(isset($_SESSION['login'])) { ?>
+            <div id="modalContextMenuProfile">Профиль</div>
+            <form action="" method="post" id="modalContextMenuExitForm">
+                <input type="submit" value="Выход" name="modalContextMenuExit">
+            </form>
+        <?}?>
     </div>
 </div>
 <script>
@@ -48,6 +52,12 @@ if(isset($_POST['modalContextMenuExit'])) {
         else if((event.target.id == 'modalContextMenu') || (event.target.parentNode.id == 'modalContextMenu')){
             if(event.target.id == 'modalContextMenuProfile'){
                 window.location.href = "/account";
+            }
+            if(event.target.id == 'modalContextMenuSignUp'){
+                window.location.href = "/signup";
+            }
+            if(event.target.id == 'modalContextMenuLogIn'){
+                window.location.href = "/login";
             }
             console.log(12321);
         }

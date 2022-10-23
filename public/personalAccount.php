@@ -71,16 +71,64 @@
 				</div>				
 				<button id="redactButton">Редактировать</button>
 			</div>
-			<div class="personalAccountForm"></div>
+			<form action="" method="post" id="personalAccountForm">
+				<div class="personalAccountContent">
+					<div>
+						<div>Логин:</div>
+						<input type="text" name="loginInput" id="loginInput">
+					</div>
+					<div>
+						<div>Почта:</div>
+						<input type="text" name="emailInput" id="emailInput">
+					</div>
+					<div>
+						<div>Имя:</div>
+						<input type="text" name="nameInput" id="nameInput">
+					</div>
+					<div>
+						<div>Фамилия:</div>
+						<input type="text" name="lastnameInput" id="lastnameInput">
+					</div>
+					<div>
+						<div>Страна:</div>
+						<input type="text" name="countryInput" id="countryInput">
+					</div>
+					<div>
+						<div>Город:</div>
+						<input type="text" name="cityInput" id="cityInput">
+					</div>
+					<div>
+						<div>Улица:</div>
+						<input type="text" name="streetInput" id="streetInput">
+					</div>
+					<div>
+						<div>Дом:</div>
+						<input type="text" name="houseInput" id="houseInput">
+					</div>
+					<div>
+						<div>Квартира:</div>
+						<input type="text" name="apartmentInput" id="apartmentInput">
+					</div>
+					<div>
+						<div>Почтовый индекс:</div>
+						<input type="text" name="postcodeInput" id="postcodeInput">
+					</div>
+					<div>
+						<div>Аватар:</div>
+						<input type="image" src="" alt="" name="avatarInput" id="avatarInput">
+					</div>
+				</div>	
+				<input type="submit" value="Изменить">			
+				<button id="backButton">Назад</button>
+			</form>			
 		</div>
 
 			<script>
 				const personalAccountContent = document.querySelector(".personalAccountContent");
-				const personalAccountForm = document.querySelector(".personalAccountForm");
+				const personalAccountForm = document.querySelector("#personalAccountForm");
 				fetch("/system/getUserAccount.php")
 				.then(response =>response.json())
 				.then(data => {
-					// console.log(data);
 					data.forEach(element => {
 						console.log(element);
 						const parentDiv = document.createElement("div");
@@ -112,6 +160,17 @@
 							postcodeDiv.textContent=`${data[0].postcode}`;
 							timeDiv.textContent=`${data[0].time_signup * 1000}`;
 
+							loginInput.setAttribute("value", `${data[0].login}`);
+							emailInput.setAttribute("value", `${data[0].email}`);
+							nameInput.setAttribute("value", `${data[0].name}`);
+							lastnameInput.setAttribute("value", `${data[0].lastname}`);
+							countryInput.setAttribute("value", `${data[0].country}`);
+							cityInput.setAttribute("value", `${data[0].city}`);
+							streetInput.setAttribute("value", `${data[0].street}`);
+							houseInput.setAttribute("value", `${data[0].house}`);
+							apartmentInput.setAttribute("value", `${data[0].apartment}`);
+							postcodeInput.setAttribute("value", `${data[0].postcode}`);
+
 
 							avatarImg.src=`../img/${data[0].avatar}`;
 							loginDiv.classList.add("loginDivPersonalAccount");
@@ -126,10 +185,21 @@
 							timeDiv.classList.add("timeDivPersonalAccount");
 							avatarImg.classList.add("avatarImgPersonalAccount");
 
-							
 							avatarDiv.appendChild(avatarImg);
+
+							redactButton.onclick = () => {
+								personalAccountContent.style.display = 'none';
+								personalAccountForm.style.display = 'grid';
+							}
+							backButton.onclick = () => {
+								personalAccountContent.style.display = 'block';
+								personalAccountForm.style.display = 'none';
+							}
+
+
 					})
 				})
+
 				
 			</script>
 		</article>

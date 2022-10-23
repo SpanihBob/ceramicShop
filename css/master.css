@@ -129,6 +129,7 @@ header > div{
 }
 #modalContextMenu > div:hover {
     background: var(--secondColor);
+    cursor: pointer;
 }
 #modalContextMenuExitForm > input {
     border: none;
@@ -136,6 +137,7 @@ header > div{
 }
 #modalContextMenuExitForm :hover {
     background: var(--secondColor);
+    cursor: pointer;
 }
 
 /*     ######################################      footer    ##########################################     */
@@ -641,3 +643,32 @@ footer > :nth-child(2){
 .avatarImgPersonalAccount{
     max-width: 300px;
 }
+#personalAccountForm {
+    display: none;
+}
+#personalAccountForm > input, #backButton {
+    margin-right: 20px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;   
+    height: 40px;
+}
+#personalAccountForm > div > div {
+    padding-left: 15px;    
+    height: 40px;
+    /* justify-content: center; */
+    /* margin: auto 0; */
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
+}
+#personalAccountForm > div > div > input {
+    border: none;
+    background: none;
+}
+/* #personalAccountForm :hover {
+    box-shadow: var(--boxShadowHover);
+} */
