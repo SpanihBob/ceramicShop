@@ -113,7 +113,6 @@ header > div{
     height: 100vh;
     top: 0;
     left: 0;
-    transition: 1s;
 }
 #modalContextMenu {
     position: absolute;
@@ -328,7 +327,6 @@ footer > :nth-child(2){
 .input:hover {
     box-shadow: var(--boxShadowHover);
 }
-
 .productDivCrockeryFull {
     display: grid;
     grid-template-columns: 1.3fr 1fr 20px;
@@ -643,10 +641,10 @@ footer > :nth-child(2){
 .avatarImgPersonalAccount{
     max-width: 300px;
 }
-#personalAccountForm {
+#personalAccountForm, #avaForm {
     display: none;
 }
-#personalAccountForm > input, #backButton {
+#personalAccountFormSubmit, #backButton, #redactButton {
     margin-right: 20px;
     margin-bottom: 5px;
     border-radius: 15px;
@@ -655,20 +653,17 @@ footer > :nth-child(2){
     cursor: pointer;   
     height: 40px;
 }
-#personalAccountForm > div > div {
-    padding-left: 15px;    
-    height: 40px;
-    /* justify-content: center; */
-    /* margin: auto 0; */
+#personalAccountFormSubmit{
+    width: 100%;
+}
+#personalAccountForm > form > div , #personalAccountContent > div {
+    padding-left: 15px; 
     border-radius: 15px;
     border: 1px solid gray;
     box-shadow: var(--boxShadow);
     cursor: pointer;
 }
-#personalAccountForm > div > div > input {
+#personalAccountForm > form > div > input {
     border: none;
     background: none;
 }
-/* #personalAccountForm :hover {
-    box-shadow: var(--boxShadowHover);
-} */

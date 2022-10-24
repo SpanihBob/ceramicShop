@@ -15,12 +15,17 @@
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
 			<div>
-			<div class="personalAccountContent">								<!-- CONTENT -->
+			<div class="personalAccountContent" id="personalAccountContent">								<!-- CONTENT -->
 				<?
 					$queryCrockery = $dbPDO -> prepare("SELECT * FROM users WHERE login = '$_SESSION[login]'");
 					$queryCrockery -> execute(); 
 					$arr = $queryCrockery->fetch(PDO::FETCH_ASSOC);            
 				?>
+				<div>
+					<div>Аватар:</div>
+					<div id="avatarDiv"></div>
+					<button id="changeAva">Сменить аватарку</button>
+				</div>	
 				<div>
 					<div>Логин:</div>
 					<div id="loginDiv"></div>
@@ -64,15 +69,25 @@
 				<div>
 					<div>На сайте уже:</div>
 					<div id="timeDiv"></div>
-				</div>
-				<div>
-					<div>Аватар:</div>
-					<div id="avatarDiv"></div>
-				</div>				
+				</div>							
 				<button id="redactButton">Редактировать</button>
 			</div>
-			<form action="" method="post" id="personalAccountForm">
-				<div class="personalAccountContent">
+
+			<div id="avaForm">
+				<div>
+					<div>Аватар:</div>
+					<div id="changeAvatarDiv"></div>
+				</div>
+				<form action="" method="post" enctype="multipart/form-data">
+					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->
+					<input type="file" name="file1" id="file1"><br>
+					<input type="submit" value="send" name="send">
+				</form>
+				<button id="avaBackButton">Назад</button>
+			</div>
+			
+			<div id="personalAccountForm">
+				<form action="" method="post" class="personalAccountContent">
 					<div>
 						<div>Логин:</div>
 						<input type="text" name="loginInput" id="loginInput">
@@ -113,14 +128,12 @@
 						<div>Почтовый индекс:</div>
 						<input type="text" name="postcodeInput" id="postcodeInput">
 					</div>
-					<div>
-						<div>Аватар:</div>
-						<input type="image" src="" alt="" name="avatarInput" id="avatarInput">
-					</div>
-				</div>	
-				<input type="submit" value="Изменить">			
+					<input type="submit" value="Сохранить изменения" id="personalAccountFormSubmit">
+				</form>	
 				<button id="backButton">Назад</button>
-			</form>			
+			</div>
+			
+						
 		</div>
 
 			<script>
@@ -191,11 +204,18 @@
 								personalAccountContent.style.display = 'none';
 								personalAccountForm.style.display = 'grid';
 							}
+							changeAva.onclick = () => {
+								personalAccountContent.style.display = 'none';
+								avaForm.style.display = 'grid';
+							}
 							backButton.onclick = () => {
 								personalAccountContent.style.display = 'block';
 								personalAccountForm.style.display = 'none';
 							}
-
+							avaBackButton.onclick = () => {
+								personalAccountContent.style.display = 'block';
+								avaForm.style.display = 'none';
+							}
 
 					})
 				})
