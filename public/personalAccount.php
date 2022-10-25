@@ -1,6 +1,34 @@
 <?
 	include_once "$path/private/head.php";
-    // print_r($_SESSION['login']) ;
+    print_r($_SESSION['login']) ;
+
+    echo "<pre>";
+    echo "_POST:";
+    print_r($_POST);
+    echo "_FILES:";
+    print_r($_FILES);
+    echo "</pre>";
+
+    // создаем регулярное выражение для поиска нужного формата
+    // "/(\.png$)|(\.jpeg$)/" - регулярка
+    // $_FILES['file1']['name'] - имя искомого файла
+    // $arrImage - в какую переменную сохранить
+    preg_match_all("/(\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$)/", $_FILES['file1']['name'], $arrImage);
+
+    echo "расш загр файла:";
+    print_r($arrImage);
+
+
+    $randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
+    $nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
+
+    
+
+    if(isset($_POST['sendModifiedImage']) && preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
+        //переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
+        move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
+        $db->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
+    }
 ?>
 
 
@@ -81,7 +109,7 @@
 				<form action="" method="post" enctype="multipart/form-data">
 					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->
 					<input type="file" name="file1" id="file1"><br>
-					<input type="submit" value="send" name="send">
+					<input type="submit" value="Отправить" name="sendModifiedImage">
 				</form>
 				<button id="avaBackButton">Назад</button>
 			</div>
