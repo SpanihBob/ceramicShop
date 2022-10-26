@@ -8,27 +8,31 @@
     echo "_FILES:";
     print_r($_FILES);
     echo "</pre>";
+	if(isset($_POST['sendModifiedImage'])) {
+			// создаем регулярное выражение для поиска нужного формата
+		// "/(\.png$)|(\.jpeg$)/" - регулярка
+		// $_FILES['file1']['name'] - имя искомого файла
+		// $arrImage - в какую переменную сохранить
+		preg_match_all("/(\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$)/", $_FILES['file1']['name'], $arrImage);
 
-    // создаем регулярное выражение для поиска нужного формата
-    // "/(\.png$)|(\.jpeg$)/" - регулярка
-    // $_FILES['file1']['name'] - имя искомого файла
-    // $arrImage - в какую переменную сохранить
-    preg_match_all("/(\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$)/", $_FILES['file1']['name'], $arrImage);
-
-    echo "расш загр файла:";
-    print_r($arrImage);
+		// echo "расш загр файла:";
+		// print_r($arrImage);
 
 
-    $randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
-    $nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
+		$randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
+		$nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
 
-    
+		
 
-    if(isset($_POST['sendModifiedImage']) && preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
-        //переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
-        move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
-        $db->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
-    }
+		if(preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
+			//переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
+			move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
+			$dbPDO->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
+		}
+	}
+    if(isset($_POST['personalAccountFormSubmit'])) {
+		echo "ffdgfdgfdg";
+	}
 ?>
 
 
@@ -156,12 +160,10 @@
 						<div>Почтовый индекс:</div>
 						<input type="text" name="postcodeInput" id="postcodeInput">
 					</div>
-					<input type="submit" value="Сохранить изменения" id="personalAccountFormSubmit">
+					<input type="submit" value="Сохранить изменения" id="personalAccountFormSubmit" name="personalAccountFormSubmit">
 				</form>	
 				<button id="backButton">Назад</button>
 			</div>
-			
-						
 		</div>
 
 			<script>
@@ -213,7 +215,7 @@
 							postcodeInput.setAttribute("value", `${data[0].postcode}`);
 
 
-							avatarImg.src=`../img/${data[0].avatar}`;
+							avatarImg.src=`../download/${data[0].avatar}`;
 							loginDiv.classList.add("loginDivPersonalAccount");
 							emailDiv.classList.add("emailDivPersonalAccount");
 							nameDiv.classList.add("nameDivPersonalAccount");
