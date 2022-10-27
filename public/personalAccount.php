@@ -1,38 +1,6 @@
 <?
 	include_once "$path/private/head.php";
     print_r($_SESSION['login']) ;
-
-    echo "<pre>";
-    echo "_POST:";
-    print_r($_POST);
-    echo "_FILES:";
-    print_r($_FILES);
-    echo "</pre>";
-	if(isset($_POST['sendModifiedImage'])) {
-			// создаем регулярное выражение для поиска нужного формата
-		// "/(\.png$)|(\.jpeg$)/" - регулярка
-		// $_FILES['file1']['name'] - имя искомого файла
-		// $arrImage - в какую переменную сохранить
-		preg_match_all("/(\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$)/", $_FILES['file1']['name'], $arrImage);
-
-		// echo "расш загр файла:";
-		// print_r($arrImage);
-
-
-		$randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
-		$nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
-
-		
-
-		if(preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
-			//переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
-			move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
-			$dbPDO->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
-		}
-	}
-    if(isset($_POST['personalAccountFormSubmit'])) {
-		echo "ffdgfdgfdg";
-	}
 ?>
 
 
@@ -49,9 +17,9 @@
 			<div>
 			<div class="personalAccountContent" id="personalAccountContent">								<!-- CONTENT -->
 				<?
-					$queryCrockery = $dbPDO -> prepare("SELECT * FROM users WHERE login = '$_SESSION[login]'");
-					$queryCrockery -> execute(); 
-					$arr = $queryCrockery->fetch(PDO::FETCH_ASSOC);            
+					// $queryCrockery = $dbPDO -> prepare("SELECT * FROM users WHERE login = '$_SESSION[login]'");
+					// $queryCrockery -> execute(); 
+					// $arr = $queryCrockery->fetch(PDO::FETCH_ASSOC);            
 				?>
 				<div>
 					<div>Аватар:</div>
@@ -246,7 +214,21 @@
 								personalAccountContent.style.display = 'block';
 								avaForm.style.display = 'none';
 							}
-
+							personalAccountForm.onsubmit = () => {
+								event.preventDefault();
+								fetch("/system/changeAccountInformation.php", {
+									method: 'post',
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+									},
+									body: `changeLogin=${loginInput.value}&changeEmail=${emailInput.value}&changeName=${nameInput.value}&changeLastname=${lastnameInput.value}&changeCountry=${countryInput.value}&changeCity=${cityInput.value}&changeStreet=${streetInput.value}&changeHouse=${houseInput.value}&changeApartment=${apartmentInput.value}&changePostcode=${postcodeInput.value}&personalAccountFormSubmit=${personalAccountFormSubmit.value}`,
+									})
+								.then(response =>response.text())
+								.then(
+									data=>{console.log(data);}
+									// window.location.href = '/login';
+									)
+                    		}
 					})
 				})
 
