@@ -1,6 +1,43 @@
 <?
 	include_once "$path/private/head.php";
     print_r($_SESSION['login']) ;
+    print_r($_SESSION) ;
+	
+
+    // echo "_POST:";
+    // print_r($_POST);
+    // echo "_FILES:";
+    // print_r($_FILES);
+    // echo "</pre>";
+   
+
+    if(isset($_POST['sendModifiedImage'])) {
+            // создаем регулярное выражение для поиска нужного формата
+        // "/(\.png$)|(\.jpeg$)/" - регулярка
+        // $_FILES['file1']['name'] - имя искомого файла
+        // $arrImage - в какую переменную сохранить
+        preg_match_all("/(\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$)/", $_FILES['file1']['name'], $arrImage);
+
+        // echo "расш загр файла:";
+        // print_r($arrImage);
+
+
+        $randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
+        $nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
+		$nameFile1 = strval($nameFile);
+
+        
+
+        if(preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
+			//
+			unlink($_SESSION['avatar']);
+            //переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
+            move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
+            $dbPDO->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
+			$_SESSION['avatar'] = "download/$nameFile1";
+			
+        }
+    }
 ?>
 
 
@@ -78,7 +115,7 @@
 					<div>Аватар:</div>
 					<div id="changeAvatarDiv"></div>
 				</div>
-				<form action="" method="post" enctype="multipart/form-data">
+				<form action="" method="post" enctype="multipart/form-data" id="changeAvatarForm">
 					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->
 					<input type="file" name="file1" id="file1"><br>
 					<input type="submit" value="Отправить" name="sendModifiedImage">
@@ -136,7 +173,8 @@
 
 			<script>
 				const personalAccountContent = document.querySelector(".personalAccountContent");
-				const personalAccountForm = document.querySelector("#personalAccountForm");
+				const personalAccountForm = document.querySelector("#personalAccountForm"); 
+				const changeAvatarForm = document.querySelector("#changeAvatarForm"); 
 				fetch("/system/getUserAccount.php")
 				.then(response =>response.json())
 				.then(data => {
@@ -214,7 +252,7 @@
 								personalAccountContent.style.display = 'block';
 								avaForm.style.display = 'none';
 							}
-							personalAccountForm.onsubmit = () => {
+							personalAccountForm.onsubmit = () => {						//изменение данных пользователя в БД
 								event.preventDefault();
 								fetch("/system/changeAccountInformation.php", {
 									method: 'post',
@@ -224,11 +262,22 @@
 									body: `changeLogin=${loginInput.value}&changeEmail=${emailInput.value}&changeName=${nameInput.value}&changeLastname=${lastnameInput.value}&changeCountry=${countryInput.value}&changeCity=${cityInput.value}&changeStreet=${streetInput.value}&changeHouse=${houseInput.value}&changeApartment=${apartmentInput.value}&changePostcode=${postcodeInput.value}&personalAccountFormSubmit=${personalAccountFormSubmit.value}`,
 									})
 								.then(response =>response.text())
-								.then(
-									data=>{console.log(data);}
-									// window.location.href = '/login';
-									)
+								.then(window.location.href = '/account')
                     		}
+							// changeAvatarForm.onsubmit = () => {						//изменение данных пользователя в БД
+							// 	event.preventDefault();
+							// 	fetch("/system/changeAccountInformation.php", {
+							// 		method: 'post',
+							// 		headers: {
+							// 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							// 		},
+							// 		body: data,
+							// 		})
+							// 		// .then(() => {console.log('Загружено'); })
+      						// 		// .catch(() => { console.log('Ошибка');})
+							// 		.then(response =>response.text())
+							// 		.then(data => {console.log(data);})
+                    		// }
 					})
 				})
 
