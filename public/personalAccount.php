@@ -21,12 +21,8 @@
         // echo "расш загр файла:";
         // print_r($arrImage);
 
-
         $randomSalt=mt_rand(10000, 99999);//создаем случайное число от 10000 до 99999
-        $nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];
-		//$nameFile1 = strval($nameFile);				//????????????????????????????????
-
-        
+        $nameFile = $_SESSION['login'].$randomSalt.$arrImage[0][0];        
 
         if(preg_match("/\w+((\.png$)|(\.jpeg$)|(\.jfif$)|(\.jpg$))/",$nameFile)) {
 			//
@@ -34,8 +30,7 @@
             //переместить загруженный файл из $_FILES['tmp_name'] в "download/имя файла.txt
             move_uploaded_file($_FILES['file1']['tmp_name'], "download/$nameFile");
             $dbPDO->query("UPDATE `users` SET `avatar`='$nameFile' WHERE `login`='$_SESSION[login]'");
-			$_SESSION['avatar'] = "download/$nameFile1";//&&&&&&&&&&?????????????????????????????????????????????????????????
-			
+			$_SESSION['avatar'] = "download/$nameFile";
         }
     }
 ?>

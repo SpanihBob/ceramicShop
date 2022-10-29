@@ -16,8 +16,8 @@ if(isset($_POST['modalContextMenuExit'])) {
         <input type="search" name="searchProduct" id="searchProduct">    
         <div class="headerBtn">
             <!-- <a href="/account"></a> --><div id="guest"></div>
-            <a href=""><div id="favorites"></div></a>
-            <a href=""><div id="shopping_cart"></div></a>
+            <div id="favorites"></div>
+            <div id="shopping_cart"></div>
         </div>
     </div>
 
@@ -60,6 +60,12 @@ if(isset($_POST['modalContextMenuExit'])) {
                 window.location.href = "/login";
             }
             console.log(12321);
+        }
+        else if(event.target.id == 'favorites'){
+            window.location.href = "/favorites";
+        }
+        else if(event.target.id == 'shopping_cart'){
+            window.location.href = "/cart";
         }
         else {
             modalWindow.style.display = 'none';

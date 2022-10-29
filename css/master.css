@@ -362,7 +362,6 @@ footer > :nth-child(2){
     align-content: start;
     gap: 10px;
 }
-
 .dataProductDivCrockeryFull > :nth-child(1) {
     font-size: 1.5rem;
 }
@@ -383,7 +382,7 @@ footer > :nth-child(2){
     line-height: 22px;
     text-align: center;
     top: 5px;
-    right: 5px;
+    right: 25px;
     z-index: 101;
     width: 30px;
     height: 30px;
@@ -645,7 +644,7 @@ footer > :nth-child(2){
     display: none;
 }
 #personalAccountFormSubmit, #backButton, #redactButton {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     margin-bottom: 5px;
     border-radius: 15px;
     border: 1px solid gray;
