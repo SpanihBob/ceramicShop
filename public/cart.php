@@ -8,7 +8,6 @@
 		<?
 			include_once "$path/private/header.php";		//HEADER
 		?>	
-
 		<article class="article">						<!-- ARTICLE -->
 			<?
 				include_once "$path/private/sidebar.php";		//SIDEBAR
@@ -17,6 +16,8 @@
 				<h1>Корзина</h1>
 			</div>	
             <script>
+				const cartContent = document.getElementsByClassName('cartContent');
+				console.log(cartContent);
 				window.onload = () => {
 					fetch(`/system/addToCart.php`)                          //подключаемся к файлу /system/postbooks.php                
 					.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
@@ -25,16 +26,62 @@
 						console.log(element);
 						const cartParentDiv = document.createElement('div');
                             const imgDiv = document.createElement('div');
-                                const Img = document.createElement('img');  //картинка
+                                const img = document.createElement('img');  //картинка
                             
                             const infoDiv = document.createElement('div');  //
                                 const nameDiv = document.createElement('div');//имя
+                                const delCrockeryDiv = document.createElement('div');//удаление товара
                                 const summDiv = document.createElement('div');//цена итоговая
                                 const amountDiv = document.createElement('div');//кол-во
                                     const delDiv = document.createElement('div');//del
                                     const numDiv = document.createElement('div');//number
                                     const addDiv = document.createElement('div');//add
-                                const delCrockeryDiv = document.createElement('div');//удаление товара
+
+							cartParentDiv.id = element.id;
+							cartParentDiv.classList.add('cartProduct');
+							imgDiv.classList.add('cartProductImgDiv');
+							infoDiv.classList.add('cartInfoDiv');
+							amountDiv.classList.add('cartAmountDiv');
+							delCrockeryDiv.classList.add('cartDelProduct');
+
+							img.setAttribute("src",`../img1/${element.poster}`);
+							nameDiv.innerText = `${element.name}`;
+							delDiv.innerText = `-`;
+							numDiv.innerText = `${element.count}`;
+							addDiv.innerText = `+`;
+							summDiv.innerText = `${element.price * numDiv.innerText}`;
+
+							imgDiv.appendChild(img);
+
+							amountDiv.appendChild(delDiv);
+							amountDiv.appendChild(numDiv);
+							amountDiv.appendChild(addDiv);
+
+							infoDiv.appendChild(nameDiv);
+							infoDiv.appendChild(delCrockeryDiv);
+							infoDiv.appendChild(amountDiv);
+							infoDiv.appendChild(summDiv);
+
+							cartParentDiv.appendChild(imgDiv);
+							cartParentDiv.appendChild(infoDiv);
+							
+							cartContent[0].appendChild(cartParentDiv);
+
+
+
+
+
+
+
+
+
+
+
+//          создаем корзину для выбранных товаров и надо добавить возможность добавления в карзину
+
+
+
+
 
 
 						// 	const mainImg_0 = document.createElement('img');			//создали главную картинку
