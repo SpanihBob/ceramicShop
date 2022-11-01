@@ -17,13 +17,13 @@
 			</div>	
             <script>
 				const cartContent = document.getElementsByClassName('cartContent');
-				console.log(cartContent);
+				// console.log(cartContent);
 				window.onload = () => {
 					fetch(`/system/addToCart.php`)                          //подключаемся к файлу /system/postbooks.php                
 					.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 					.then(data => {
                         data.forEach(element => {
-						console.log(element);
+						// console.log(element);
 						const cartParentDiv = document.createElement('div');
                             const imgDiv = document.createElement('div');
                                 const img = document.createElement('img');  //картинка
@@ -43,6 +43,10 @@
 							infoDiv.classList.add('cartInfoDiv');
 							amountDiv.classList.add('cartAmountDiv');
 							delCrockeryDiv.classList.add('cartDelProduct');
+
+							delDiv.classList.add('delProduct');
+							numDiv.classList.add('productQuantity');
+							addDiv.classList.add('addProduct');
 
 							img.setAttribute("src",`../img1/${element.poster}`);
 							nameDiv.innerText = `${element.name}`;
@@ -66,6 +70,46 @@
 							cartParentDiv.appendChild(infoDiv);
 							
 							cartContent[0].appendChild(cartParentDiv);
+					// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
+							
+					function counter(productCount) {
+						if(element.count){
+							let count = element.count;
+							return {
+								add: function() {
+										count++
+										return count;
+									},
+								del: function() {
+										count--;
+										return count;
+									},
+								reset: function() {
+										return count=0;
+									}
+							};
+						}
+						else {console.log('корзина пуста');}						
+					}			
+					// //________________________________________________________________________________________________________________
+
+					let c = counter();		
+					cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
+						// console.log(event.target.className);	
+						if(event.target.className == "addProduct") {
+							// console.log(c.add());
+							numDiv.innerText = c.add();
+						} 
+						else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
+							// console.log(c.del());
+							numDiv.innerText = c.del();
+						}
+						else if(event.target.className == "cartDelProduct") {
+							// console.log(c.reset());
+							numDiv.innerText = c.reset();
+						}
+						summDiv.innerText = `${element.price * numDiv.innerText}`;
+					} 
 
 
 
@@ -137,7 +181,7 @@
                         })
 					})					
 				}
-						
+					
 			</script>	
 		</article>
 		<?
