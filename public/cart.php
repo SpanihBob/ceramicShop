@@ -101,13 +101,15 @@
 								} 
 								else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
 									if(numDiv.innerText==1){
-										alert("вы уверены, что хотите удалить товар?")
+										removeItemFromCart();
+										return;
 									}
 									numDiv.innerText = c.del();
 									
 								}
 								else if(event.target.className == "cartDelProduct") {
-									numDiv.innerText = c.reset();
+									// numDiv.innerText = c.reset();
+									removeItemFromCart()
 								}
 								summDiv.innerText = `${element.price * numDiv.innerText}`;	// выводим колличество_товара*цена_товара
 
@@ -124,14 +126,17 @@
 										const popupMenuParent = document.createElement('div');			//родитель
 
 										const popupMenuQuestion = document.createElement('div');				//вопрос
+										
 										const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
-										const popupMenuQuestionImage = document.createElement('img');				//картинка
+											const popupMenuQuestionImage = document.createElement('img');				//картинка
+											const popupMenuQuestionName = document.createElement('div');				
 
 										const ButtonDiv = document.createElement('div');				
-										const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
-										const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
+											const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+											const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
 
 										popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
+										popupMenuQuestionName.innerText = `${element.name}`;
 										popupMenuButtonNo.innerText = "Нет";
 										popupMenuButtonYes.innerText = "Да";
 										popupMenuQuestionImage.setAttribute("src",`../img1/${element.poster}`);
@@ -139,21 +144,41 @@
 										popupMenuParent.classList.add('popupMenuParent');
 										popupMenu.classList.add('popupMenu');
 										popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
+										popupMenuQuestionImageParent.classList.add('popupMenuQuestionImageParent');
 										ButtonDiv.classList.add('ButtonDiv');
+
+										// popupMenuButtonNo.id = "popupMenuButtonNo";
+										// popupMenuButtonYes.id = "popupMenuButtonYes";
 
 										popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
 
 										popupMenu.appendChild(popupMenuQuestion);
+										popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
+										popupMenuQuestionImageParent.appendChild(popupMenuQuestionName);
 										popupMenu.appendChild(popupMenuQuestionImageParent);
-										popupMenu.appendChild(popupMenuQuestionImage);
 										ButtonDiv.appendChild(popupMenuButtonNo);
 										ButtonDiv.appendChild(popupMenuButtonYes);
 										popupMenu.appendChild(ButtonDiv);
 
 										popupMenuParent.appendChild(popupMenu);
 										cartContent[0].appendChild(popupMenuParent);
+
+										popupMenuButtonNo.onclick = () => {			//если нажали нет
+											popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+										}
+										popupMenuButtonYes.onclick = () => {			//если нажали да
+											fetch("/system/delToCart.php", {
+											method: 'post',
+											headers: {
+												"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+											},
+											body: `productId=${element.product_id}`,
+											})
+											popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+											window.location.href = '/cart'
+										}
 									}
-									removeItemFromCart()
+									
 								// //________________________________________________________________________________________________________________
 								
 							} 
