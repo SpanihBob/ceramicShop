@@ -19,7 +19,7 @@
 				const cartContent = document.getElementsByClassName('cartContent');
 				// console.log(cartContent);
 				window.onload = () => {
-					fetch(`/system/addToCart.php`)                          //подключаемся к файлу /system/postbooks.php                
+					fetch(`/system/removeFromCart.php`)                          //подключаемся к файлу /system/postbooks.php                
 					.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 					.then(data => {
                         data.forEach(element => {
@@ -72,112 +72,91 @@
 							cartContent[0].appendChild(cartParentDiv);
 					// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
 							
-					function counter(productCount) {
-						if(element.count){
-							let count = element.count;
-							return {
-								add: function() {
-										count++
-										return count;
-									},
-								del: function() {
-										count--;
-										return count;
-									},
-								reset: function() {
-										return count=0;
-									}
-							};
-						}
-						else {console.log('корзина пуста');}						
-					}			
+							function counter(productCount) {
+								if(element.count){
+									let count = element.count;
+									return {
+										add: function() {
+												count++
+												return count;
+											},
+										del: function() {
+												count--;
+												return count;
+											},
+										reset: function() {
+												return count=0;
+											}
+									};
+								}
+								else {console.log('корзина пуста');}						
+							}			
 					// //________________________________________________________________________________________________________________
 
-					let c = counter();		
-					cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
-						// console.log(event.target.className);	
-						if(event.target.className == "addProduct") {
-							// console.log(c.add());
-							numDiv.innerText = c.add();
-						} 
-						else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
-							// console.log(c.del());
-							numDiv.innerText = c.del();
-						}
-						else if(event.target.className == "cartDelProduct") {
-							// console.log(c.reset());
-							numDiv.innerText = c.reset();
-						}
-						summDiv.innerText = `${element.price * numDiv.innerText}`;
-					} 
+							let c = counter();		
+							cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
+								// console.log(event.target.className);	
+								if(event.target.className == "addProduct") {
+									numDiv.innerText = c.add();
+								} 
+								else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
+									if(numDiv.innerText==1){
+										alert("вы уверены, что хотите удалить товар?")
+									}
+									numDiv.innerText = c.del();
+									
+								}
+								else if(event.target.className == "cartDelProduct") {
+									numDiv.innerText = c.reset();
+								}
+								summDiv.innerText = `${element.price * numDiv.innerText}`;	// выводим колличество_товара*цена_товара
 
+								fetch("/system/updateToCart.php", {
+									method: 'post',
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+									},
+									body: `productId=${element.product_id}&productCount=${numDiv.innerText}`,
+									})
+								// //____________________функция подтверждения удаления товара из корзины____________________________________________
+									function removeItemFromCart() {
+										const popupMenu = document.createElement('div');				//сама менюшка
+										const popupMenuParent = document.createElement('div');			//родитель
 
+										const popupMenuQuestion = document.createElement('div');				//вопрос
+										const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
+										const popupMenuQuestionImage = document.createElement('img');				//картинка
 
+										const ButtonDiv = document.createElement('div');				
+										const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+										const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
 
+										popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
+										popupMenuButtonNo.innerText = "Нет";
+										popupMenuButtonYes.innerText = "Да";
+										popupMenuQuestionImage.setAttribute("src",`../img1/${element.poster}`);
 
+										popupMenuParent.classList.add('popupMenuParent');
+										popupMenu.classList.add('popupMenu');
+										popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
+										ButtonDiv.classList.add('ButtonDiv');
 
+										popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
 
+										popupMenu.appendChild(popupMenuQuestion);
+										popupMenu.appendChild(popupMenuQuestionImageParent);
+										popupMenu.appendChild(popupMenuQuestionImage);
+										ButtonDiv.appendChild(popupMenuButtonNo);
+										ButtonDiv.appendChild(popupMenuButtonYes);
+										popupMenu.appendChild(ButtonDiv);
 
-
-
-
-//          создаем корзину для выбранных товаров и надо добавить возможность добавления в карзину
-
-
-
-
-
-
-						// 	const mainImg_0 = document.createElement('img');			//создали главную картинку
-						// 		mainImg_0.setAttribute("src",`../img1/${data[0].img}`)	//добавили в нее изображение
-						// 	const mainTextDiv_0 = document.createElement('div');		//создали div для главного текста
-						// 	const mainText_0 = document.createTextNode(`${data[0].text}`);//создали главный текст
-
-						// 	mainImgParentDiv.classList.add("mainImgParentDiv");
-						// 	mainTextDiv_0.classList.add("mainTextDiv_0");
-						// 	mainImg_0.classList.add("imgOpacity");
-
-						// const mainCardParentDiv = document.createElement('div');		//создали родительский div для карточек
-						// mainCardParentDiv.classList.add("mainCardParentDiv");
-
-						// for(let i = 1; i < data.length; i++) {
-						// 	const mainCardDiv = document.createElement('div');			//создали div для карточки
-						// 	const mainImg = document.createElement('img');				//создали картинку
-						// 		mainImg.setAttribute("src",`../img1/${data[i].img}`)		//добавили в нее изображение
-						// 	const mainTextDiv = document.createElement('div');		//создали div для главного текста
-						// 	const mainText = document.createTextNode(`${data[i].text}`);//создали главный текст
-
-						// 	mainCardDiv.id = (`mainCard${data[i].id}`);
-						// 	mainImg.classList.add("mainImg");
-						// 	mainImg.classList.add("imgOpacity");
-						// 	mainTextDiv.classList.add("mainTextDiv");
-
-						// 	mainTextDiv.appendChild(mainText);
-						// 	if(i%2!=0){
-						// 		mainCardDiv.appendChild(mainImg);
-						// 		mainCardDiv.appendChild(mainTextDiv);
-						// 		mainCardParentDiv.appendChild(mainCardDiv);
-						// 	}
-						// 	else {
-						// 		mainCardDiv.appendChild(mainTextDiv);
-						// 		mainCardDiv.appendChild(mainImg);							
-						// 		mainCardParentDiv.appendChild(mainCardDiv);
-						// 	}
-						// }					
-						// mainTextDiv_0.appendChild(mainText_0);
-						// mainImgParentDiv.appendChild(mainImg_0);
-						// mainContent.appendChild(mainImgParentDiv);
-						// mainContent.appendChild(mainTextDiv_0);
-						// mainContent.appendChild(mainCardParentDiv);
-
-						// let image = document.querySelectorAll(".imgOpacity");
-						// image.forEach(element => {
-						// 	if(window.getComputedStyle(element, null).opacity==0){
-						// 		element.style.opacity = 1;
-						// }
-						// });
-						
-						
+										popupMenuParent.appendChild(popupMenu);
+										cartContent[0].appendChild(popupMenuParent);
+									}
+									removeItemFromCart()
+								// //________________________________________________________________________________________________________________
+								
+							} 
                         })
 					})					
 				}
