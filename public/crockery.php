@@ -55,6 +55,23 @@
 
 				function getProduct(event, catId) {
 					let attribute = event.getAttribute("data-id");
+
+					//_________________________________________________Функция для вывода товара в корзине(start)________________________________________________
+					let userCart = ( function() {					
+						userCartArr = [];
+						fetch(`/system/removeFromCart.php`)                                    
+						.then(response => response.json())                  
+						.then(data => {
+							data.forEach(element => {
+								userCartArr.push(element.product_id);
+							})})							
+						return userCartArr;
+					})
+					// console.log(userCart());
+					//_________________________________________________Функция для вывода товара в корзине(end)________________________________________________
+
+
+
 					fetch("/system/getProduct.php", {
 							method: 'post',
 							headers: {
@@ -74,7 +91,7 @@
 									let imgDiv = document.createElement("div");	
 										let img = document.createElement('img');						//создали картинку
 										let mainImage = element.image.split(", ")[0];
-										console.log(mainImage);
+										// console.log(mainImage);
 										img.setAttribute("src",`../img1/${mainImage}`)				//for img
 
 									let dataDiv = document.createElement("div");						//for all
@@ -138,8 +155,6 @@
 													let nameDiv = document.createElement("div");					//name
 														let nameText = document.createTextNode(`${name}`);
 
-														// element.name.replace(/(?:^)/ug, m => m.toUpperCase());
-
 													let priceDiv = document.createElement("div");					//price
 														let priceText = document.createTextNode(`Цена: ${element.price} р.`);
 
@@ -149,11 +164,11 @@
 													let amountDiv = document.createElement("div");					//amount
 														let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
 
-													let addButton = addInputTypeButton("addButton", "Добавить в корзину", "addButton");		//создаем кнопку "добавить" через функцию в master.js
+													let addButton = addInputTypeButton("addButton", "Добавить в корзину");		//создаем кнопку "добавить" через функцию в master.js
 													
-													let backButton = addInputTypeButton("backButton", "Назад", "backButton");				//кнопка "назад"
+													let backButton = addInputTypeButton("backButton", "Назад");				//кнопка "назад"
 
-													let buyButton = addInputTypeButton("buyButton", "Купить", "buyButton");					//кнопка "купить"													
+													let buyButton = addInputTypeButton("buyButton", "Купить");					//кнопка "купить"													
 
 													let imgFullDiv = document.createElement("div");
 													imgFullDiv.classList.add("miniImgFullProductDiv");
@@ -254,6 +269,18 @@
 														crockeryProductFull.innerHTML = "";
 													}
 
+					//####################################################			 добывление товара в корзину 	 		###################################################
+
+													addButton.onclick = () => {
+														fetch("/system/addToCart.php", {
+															method: 'post',
+															headers: {
+																"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+															},
+															body: `productId=${element.id}&productCount=1`,
+														})
+													}		
+
 					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
 
 					productDiv.onclick = event => {
@@ -261,7 +288,7 @@
 							img.setAttribute("src",`../img1/${event.target.getAttribute("src")}`)
 						}}
 
-					//#######################################################			 увеличиваем картинку  		######################################################
+					//##########################################			 увеличиваем картинку при двойном клике 		#################################################
 
 													productDiv.ondblclick = selectedImg => {
 														if(selectedImg.target.tagName == "IMG") {
@@ -292,7 +319,7 @@
 
 															contextMenu.appendChild(contextMenuParentDiv);
 
-				//#######################################################			 закрываем картинку  		######################################################
+				//#########################################			 закрываем увеличеную двойным кликом картинку 		###############################################
 
 															closeBtn.onclick = () => {
 																contextMenu.style.display = "none";
@@ -325,11 +352,7 @@
 																}																	
 															}
 
-				//#######################################################			 добывление в корзину 	 		######################################################
-				
-															addButton.onclick = () => {
-
-															}															
+													
 														}														
 													}
 										// console.log(element);

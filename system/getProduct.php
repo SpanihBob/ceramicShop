@@ -10,4 +10,5 @@
 
     $query=$dbPDO->query("SELECT * FROM product WHERE subcategory = '$_POST[productId]' AND category =  '$_POST[catId]'");
     echo json_encode($query->fetchAll(PDO::FETCH_ASSOC));    //выводит всю таблицу 
+    
 ?>
