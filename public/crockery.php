@@ -57,9 +57,9 @@
 					let attribute = event.getAttribute("data-id");
 
 					//_________________________________________________Функция для вывода товара в корзине(start)________________________________________________
-					let userCart = ( function() {					
+					let userCart = (function() {					
 						userCartArr = [];
-						fetch(`/system/removeFromCart.php`)                                    
+						fetch(`/system/whatIsInTheCart.php`)                                    
 						.then(response => response.json())                  
 						.then(data => {
 							data.forEach(element => {
@@ -67,7 +67,11 @@
 							})})							
 						return userCartArr;
 					})
-					// console.log(userCart());
+					setTimeout(() => console.log(userCart()[0]),1000);
+					// let q = ( async function(){
+					// 	const userCartArr = await userCart();
+					// })
+					// console.log(q());
 					//_________________________________________________Функция для вывода товара в корзине(end)________________________________________________
 
 
