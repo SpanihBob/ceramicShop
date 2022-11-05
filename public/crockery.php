@@ -56,22 +56,16 @@
 				function getProduct(event, catId) {
 					let attribute = event.getAttribute("data-id");
 
-					//_________________________________________________Функция для вывода товара в корзине(start)________________________________________________
-					let userCart = (function() {					
-						userCartArr = [];
-						fetch(`/system/whatIsInTheCart.php`)                                    
-						.then(response => response.json())                  
-						.then(data => {
-							data.forEach(element => {
-								userCartArr.push(element.product_id);
-							})})							
-						return userCartArr;
-					})
-					setTimeout(() => console.log(userCart()[0]),1000);
-					// let q = ( async function(){
-					// 	const userCartArr = await userCart();
-					// })
-					// console.log(q());
+					//_______________________Функция для вывода товара в корзине(start) через асинхронную функцию______________________________________________
+					let userCartArr = [];					
+					let userCart = (async function() {
+						const response = await fetch(`/system/whatIsInTheCart.php`);
+						const post = await response.json();
+						return post;
+					})					
+					userCart().then(res=>res.forEach(element =>userCartArr.push(element.product_id)));
+					
+					console.log(userCartArr);
 					//_________________________________________________Функция для вывода товара в корзине(end)________________________________________________
 
 
