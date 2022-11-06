@@ -64,26 +64,43 @@
 						return post;
 					})					
 					userCart().then(res=>res.forEach(element =>userCartArr.push(element.product_id)));
-					
 					console.log(userCartArr);
+					if(userCartArr==[])console.log("вот оно");
+					else {console.log("агага");
+							console.log(userCartArr);
+						}
+
+
+						// if(userCartArr.includes(element.id)){
+						// 					dataDivAddToCartText.style.display = "block";
+						// 					dataDivAddToCartBtn.style.display = "none";
+						// 				}
+						// 				else {									
+						// 					dataDivAddToCartText.style.display = "none";
+						// 					dataDivAddToCartBtn.style.display = "block";
+						// 				}
 					//_________________________________________________Функция для вывода товара в корзине(end)________________________________________________
 
 
 
-					fetch("/system/getProduct.php", {
+					//________________________вывод категории посуды________________
+					let displayTheCategoryOfDishes = (async function() {
+						let response = await fetch("/system/getProduct.php", {
 							method: 'post',
 							headers: {
 								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 							},
 							body: `productId=${attribute}&catId=${catId}`,
 							})
-						.then(response =>response.json())
-						.then(data => {
-							// console.log(data);
+						let CategoryOfDishes = await response.json();
+						return CategoryOfDishes;
+					})
+					displayTheCategoryOfDishes().then(res => {
+							console.log(res);
 							crockeryContent.style.display = "none";
 							crockeryProduct.style.display = "grid";
 
-							data.forEach(element => {
+							res.forEach(element => {
 								let productDiv = document.createElement("div");								//parent
 
 									let imgDiv = document.createElement("div");	
@@ -92,37 +109,49 @@
 										// console.log(mainImage);
 										img.setAttribute("src",`../img1/${mainImage}`)				//for img
 
-									let dataDiv = document.createElement("div");						//for all
+									let dataDiv = document.createElement("div");						//div для данных
 									let name = element.name.replace(/^[a-zа-ё]/ug, m => m.toUpperCase());
 
-										let nameDiv = document.createElement("div");					//name
+										let nameDiv = document.createElement("div");					//название
 											let nameText = document.createTextNode(`${name}`);
 
-										let priceDiv = document.createElement("div");					//price
+										let priceDiv = document.createElement("div");					//цена
 											let priceText = document.createTextNode(`Цена: ${element.price} р.`);
 
-										let amountDiv = document.createElement("div");					//amount
+										let amountDiv = document.createElement("div");					//колличество
 											let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
+
+										let dataDivAddToCartBtn = document.createElement("div");
+											let dataDivAddToCartBtnText = document.createTextNode(`Добавить в корзину`);
+
+										let dataDivAddToCartText = document.createElement("div");
+											let dataDivAddToCartTextInfo = document.createTextNode(`Товар в корзине`);
 
 								productDiv.classList.add("productDivCrockery");
 								dataDiv.classList.add("dataProductDivCrockery");
 								imgDiv.classList.add("imgProductCrockery");
+								dataDivAddToCartBtn.classList.add("dataDivAddToCartBtn");
 								productDiv.setAttribute("data-id",element.id)
 
 								nameDiv.appendChild(nameText);
 								priceDiv.appendChild(priceText);
 								amountDiv.appendChild(amountText);
+								dataDivAddToCartBtn.appendChild(dataDivAddToCartBtnText);
+								dataDivAddToCartText.appendChild(dataDivAddToCartTextInfo);
 								
 								imgDiv.appendChild(img);
 								dataDiv.appendChild(nameDiv);
 								dataDiv.appendChild(priceDiv);
 								dataDiv.appendChild(amountDiv);
-
+									dataDiv.appendChild(dataDivAddToCartText);
+									dataDiv.appendChild(dataDivAddToCartBtn);
+									
 								productDiv.appendChild(imgDiv);
 								productDiv.appendChild(dataDiv);
 
 								crockeryProduct.appendChild(productDiv);
 								
+							
 					//#######################################################			 Выводим выбранный продукт  		######################################################	
 								
 								productDiv.onclick = event => {

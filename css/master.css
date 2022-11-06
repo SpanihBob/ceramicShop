@@ -440,6 +440,14 @@ footer > :nth-child(2){
 .ImgFullProduct {
     justify-self: center;
 }
+.dataDivAddToCartBtn{
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    background-color: buttonface;
+    padding: 3px;
+    width: 100%;
+}
 
 
 
