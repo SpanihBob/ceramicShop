@@ -49,40 +49,11 @@
 					}
 					if(event.target.parentNode.className == "crockeryCard") {
 						getProduct(event.target.parentNode, 1);
-					}
-				
+					}				
 				}
 
 				function getProduct(event, catId) {
 					let attribute = event.getAttribute("data-id");
-
-					//_______________________Функция(асинхронная) для вывода товара в корзине(start)______________________________________________
-					let userCartArr = [];					
-					let userCart = (async function() {
-						const response = await fetch(`/system/whatIsInTheCart.php`);
-						const post = await response.json();
-						return post;
-					})					
-					userCart().then(res=>res.forEach(element =>userCartArr.push(element.product_id)));
-					console.log(userCartArr);
-					if(userCartArr==[])console.log("вот оно");
-					else {console.log("агага");
-							console.log(userCartArr);
-						}
-
-
-						// if(userCartArr.includes(element.id)){
-						// 					dataDivAddToCartText.style.display = "block";
-						// 					dataDivAddToCartBtn.style.display = "none";
-						// 				}
-						// 				else {									
-						// 					dataDivAddToCartText.style.display = "none";
-						// 					dataDivAddToCartBtn.style.display = "block";
-						// 				}
-					//_________________________________________________Функция для вывода товара в корзине(end)________________________________________________
-
-
-
 					//________________________вывод категории посуды________________
 					let displayTheCategoryOfDishes = (async function() {
 						let response = await fetch("/system/getProduct.php", {
@@ -96,7 +67,7 @@
 						return CategoryOfDishes;
 					})
 					displayTheCategoryOfDishes().then(res => {
-							console.log(res);
+							// console.log(res);
 							crockeryContent.style.display = "none";
 							crockeryProduct.style.display = "grid";
 
@@ -151,18 +122,55 @@
 
 								crockeryProduct.appendChild(productDiv);
 								
-							
-					//#######################################################			 Выводим выбранный продукт  		######################################################	
-								
+
+
+//_______________________Функция(асинхронная) для вывода товара в корзине(start)______________________________________________
+					let userCartArr = [];					
+					let userCart = (async function() {
+						const response = await fetch(`/system/whatIsInTheCart.php`);
+						const post = await response.json();
+						return post;
+					})					
+					userCart().then(res=>{
+						console.log(res );
+						res.forEach(element =>userCartArr.push(element.product_id));
+						
+						function dysplayNoneOrBlock(a, b){
+							if(userCartArr.includes(element.id)){
+											a.style.display = "block";
+											b.style.display = "none";
+							}
+							else {									
+								a.style.display = "none";
+								b.style.display = "block";
+							}
+						}
+						dysplayNoneOrBlock(dataDivAddToCartText, dataDivAddToCartBtn);
+					// //_________________________________________________Функция для отправки товара в базу данных________________________________________________
+
+					function addProductsToTheDatabase() {
+						fetch("/system/addToCart.php", {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							},
+							body: `productId=${element.id}&productCount=1`,
+						})
+					}
+
+					//########################			 нажимаем кнопку добавить в корзину  		###########################			
 								productDiv.onclick = event => {
-									let productDivAttribute;
-									if(event.target==productDiv){
-										productDivAttribute = event.target.getAttribute("data-id");
+									if(event.target == dataDivAddToCartBtn) {
+										addProductsToTheDatabase();
+										itemInCart.style.display = "block";
+										addButton.style.display = "none";
+										dataDivAddToCartText.style.display = "block";
+										dataDivAddToCartBtn.style.display = "none";
 									}
-									else {
-										productDivAttribute = event.target.parentNode.parentNode.getAttribute("data-id");
-									}
-									// console.log(productDivAttribute);
+					//########################			 Выводим выбранный продукт  		###########################	
+									if(event.target==img){
+									let productDivAttribute = productDiv.getAttribute("data-id");
+									
 									if(element.id==productDivAttribute) {
 										crockeryProduct.style.display = "none";
 										crockeryProductFull.style.display = "grid";
@@ -193,6 +201,9 @@
 
 													let addButton = addInputTypeButton("addButton", "Добавить в корзину");		//создаем кнопку "добавить" через функцию в master.js
 													
+													let itemInCart = document.createElement("div");
+														let itemInCartText = document.createTextNode("товар в корзине");
+
 													let backButton = addInputTypeButton("backButton", "Назад");				//кнопка "назад"
 
 													let buyButton = addInputTypeButton("buyButton", "Купить");					//кнопка "купить"													
@@ -211,15 +222,19 @@
 													dataDiv.classList.add("dataProductDivCrockeryFull");
 													imgDiv.classList.add("imgProductCrockeryFull");
 
+													itemInCart.appendChild(itemInCartText);
+													
 													nameDiv.appendChild(nameText);
 													priceDiv.appendChild(priceText);
 													descriptionDiv.appendChild(descriptionText);
 													amountDiv.appendChild(amountText);
-
+													
+													
 													imgDiv.appendChild(img);
 													dataDiv.appendChild(nameDiv);
 													dataDiv.appendChild(priceDiv);
 													dataDiv.appendChild(amountDiv);
+													dataDiv.appendChild(itemInCart);
 													dataDiv.appendChild(addButton);
 													dataDiv.appendChild(buyButton);
 													dataDiv.appendChild(backButton);
@@ -229,6 +244,8 @@
 
 													productDiv.appendChild(imgDiv);
 													productDiv.appendChild(dataDiv);
+
+													dysplayNoneOrBlock(itemInCart, addButton);
 
 													imgFullDiv.appendChild(leftArrow);
 
@@ -288,24 +305,24 @@
 														}
 													}
 
+
+					
 					//#######################################################			 кнопка "назад"  		######################################################
 
-													backButton.onclick = () => {
-														crockeryProduct.style.display = "grid";
-														crockeryProductFull.style.display = "none";
-														crockeryProductFull.innerHTML = "";
-													}
+					backButton.onclick = () => {
+						crockeryProduct.style.display = "grid";
+						crockeryProductFull.style.display = "none";
+						crockeryProductFull.innerHTML = "";
+					}
 
 					//####################################################			 добывление товара в корзину 	 		###################################################
 
-													addButton.onclick = () => {
-														fetch("/system/addToCart.php", {
-															method: 'post',
-															headers: {
-																"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-															},
-															body: `productId=${element.id}&productCount=1`,
-														})
+					addButton.onclick = () => {
+						addProductsToTheDatabase();															
+						itemInCart.style.display = "block";
+						addButton.style.display = "none";
+						dataDivAddToCartText.style.display = "block";
+						dataDivAddToCartBtn.style.display = "none";													
 													}		
 
 					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
@@ -377,14 +394,14 @@
 																	imageDataId = 0;
 																	contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 																}																	
-															}
-
-													
+															}													
 														}														
 													}
 										// console.log(element);
 									}
-								}
+								}}
+					})
+					
 							});
 						})
 				}
