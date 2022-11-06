@@ -56,7 +56,7 @@
 				function getProduct(event, catId) {
 					let attribute = event.getAttribute("data-id");
 
-					//_______________________Функция для вывода товара в корзине(start) через асинхронную функцию______________________________________________
+					//_______________________Функция(асинхронная) для вывода товара в корзине(start)______________________________________________
 					let userCartArr = [];					
 					let userCart = (async function() {
 						const response = await fetch(`/system/whatIsInTheCart.php`);
