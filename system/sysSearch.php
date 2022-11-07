@@ -17,20 +17,20 @@
 
     // принимаем $_GET['searchProduct']
     if(isset($_GET['searchProduct'])) {
-        $queryCat = $dbPDO -> query("SELECT * FROM category WHERE categoryName LIKE '$_GET[searchProduct]%' ORDER BY categoryName ASC");    //выбираем соответствие шаблону с сортировкой по возрастанию, %-позволяет не писать слово целиком
-        if( $queryCat -> rowCount() > 0) {
-            echo "<h3>Совпадения по категориям</h3>";
-            foreach($queryCat as $row) {
-                echo "<div><a href='/search?idcat=$row[id]'> $row[categoryName] </a></div>";
-            }                        
-        }
-        $queryCrockery = $dbPDO -> query("SELECT * FROM crockery WHERE crockeryName LIKE '$_GET[searchProduct]%' ORDER BY crockeryName ASC");    //выбираем соответствие шаблону с сортировкой по возрастанию, %-позволяет не писать слово целиком
-        if( $queryCrockery -> rowCount() > 0) {
-            echo "<h3>Совпадения по категориям</h3>";
-            foreach($queryCrockery as $row) {
-                echo "<div><a href='/search?idcrockery=$row[id]'> $row[crockeryName] </a></div>";
-            }                        
-        }
+        // $queryCat = $dbPDO -> query("SELECT * FROM category WHERE categoryName LIKE '$_GET[searchProduct]%' ORDER BY categoryName ASC");    //выбираем соответствие шаблону с сортировкой по возрастанию, %-позволяет не писать слово целиком
+        // if( $queryCat -> rowCount() > 0) {
+        //     echo "<h3>Совпадения по категориям</h3>";
+        //     foreach($queryCat as $row) {
+        //         echo "<div><a href='/search?idcat=$row[id]'> $row[categoryName] </a></div>";
+        //     }                        
+        // }
+        // $queryCrockery = $dbPDO -> query("SELECT * FROM crockery WHERE crockeryName LIKE '$_GET[searchProduct]%' ORDER BY crockeryName ASC");    //выбираем соответствие шаблону с сортировкой по возрастанию, %-позволяет не писать слово целиком
+        // if( $queryCrockery -> rowCount() > 0) {
+        //     echo "<h3>Совпадения по категориям</h3>";
+        //     foreach($queryCrockery as $row) {
+        //         echo "<div><a href='/search?idcrockery=$row[id]'> $row[crockeryName] </a></div>";
+        //     }                        
+        // }
         $queryProduct = $dbPDO -> query("SELECT * FROM product WHERE name LIKE '$_GET[searchProduct]%' ORDER BY name ASC");
         if( $queryProduct -> rowCount() > 0) {
             echo "<h3>Совпадения по товарам</h3>";

@@ -18,8 +18,14 @@
 				const cartContent = document.getElementsByClassName('cartContent');
 				// console.log(cartContent);
 				window.onload = () => {
-					fetch(`/system/removeFromFavor.php`)                          //подключаемся к файлу /system/postbooks.php                
-					.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+					fetch(`/system/removeFromFavorAndCart.php`, {
+										method: 'post',
+										headers: {
+											"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+										},
+										body: `filePhp=favor`,
+										})                                        
+					.then(response => response.json())                                  
 					.then(data => {						
 						// console.log(data[0]);
 						if(data[0]==undefined){
@@ -68,15 +74,8 @@
 									if(event.target.className == "cartDelProduct") {
 										removeItemFromFavor()
 									}
-									summDiv.innerText = `${element.price}`;	// выводим колличество_товара*цена_товара
+									summDiv.innerText = `${element.price}`;	// выводим цена_товара
 
-									fetch("/system/updateToCart.php", {
-										method: 'post',
-										headers: {
-											"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-										},
-										body: `productId=${element.product_id}&productCount=${numDiv.innerText}`,
-										})
 									// //____________________функция подтверждения удаления товара из корзины____________________________________________
 										function removeItemFromFavor() {
 											const popupMenu = document.createElement('div');				//сама менюшка
@@ -124,12 +123,12 @@
 												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 											}
 											popupMenuButtonYes.onclick = () => {			//если нажали да
-												fetch("/system/delToFavor.php", {
+												fetch("/system/delToFavorAndCart.php", {
 												method: 'post',
 												headers: {
 													"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 												},
-												body: `productId=${element.product_id}`,
+												body: `productId=${element.product_id}&filePhp=favor`,
 												})
 												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 												window.location.href = '/favorites'

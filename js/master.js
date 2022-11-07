@@ -9,7 +9,6 @@ function addInputTypeButton(name, value) {
     Button.setAttribute("type","button");
     Button.setAttribute("name",name);
     Button.setAttribute("value",value);
-    // Button.id=id;
     Button.classList.add("input");
     return Button;
 }

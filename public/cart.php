@@ -19,8 +19,14 @@
 				const cartContent = document.getElementsByClassName('cartContent');
 				// console.log(cartContent);
 				window.onload = () => {
-					fetch(`/system/removeFromCart.php`)                          //подключаемся к файлу /system/postbooks.php                
-					.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+					fetch(`/system/removeFromFavorAndCart.php`, {
+										method: 'post',
+										headers: {
+											"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+										},
+										body: `filePhp=cart`,
+										})                                         
+					.then(response => response.json())                                
 					.then(data => {						
 						// console.log(data[0]);
 						if(data[0]==undefined){
@@ -174,15 +180,15 @@
 												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 											}
 											popupMenuButtonYes.onclick = () => {			//если нажали да
-												fetch("/system/delToCart.php", {
+												fetch("/system/delToFavorAndCart.php", {
 												method: 'post',
 												headers: {
 													"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 												},
-												body: `productId=${element.product_id}`,
+												body: `productId=${element.product_id}&filePhp=favor`,
 												})
 												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-												window.location.href = '/cart'
+												window.location.href = '/cart';
 											}
 										}
 											

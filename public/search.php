@@ -21,18 +21,19 @@
 				?>
 			</div>
             <script>
-                document.querySelector(".main__search").onclick = event => {            
-                    if(event.target.className == "mainCard__cont_row3__productToCart") {
-                        console.log(event.path[3].dataset.productId);
-                        fetch("/system/addToCart.php", {
-                            method: 'post',
-                            headers: {
-                                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                            },
-                            body: `product_id=${event.path[3].dataset.productId}`,
-                        }) 
-                    }
-                }                
+                
+                // document.querySelector(".main__search").onclick = event => {            
+                //     if(event.target.className == "mainCard__cont_row3__productToCart") {
+                //         console.log(event.path[3].dataset.productId);
+                //         fetch("/system/addToCart.php", {
+                //             method: 'post',
+                //             headers: {
+                //                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                //             },
+                //             body: `product_id=${event.path[3].dataset.productId}`,
+                //         }) 
+                //     }
+                // }                
             </script>		
 		</article>
 		<?
