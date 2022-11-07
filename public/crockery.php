@@ -54,7 +54,7 @@
 
 				function getProduct(event, catId) {
 					let attribute = event.getAttribute("data-id");
-					//________________________вывод категории посуды________________
+		//________________________     вывод категории посуды     ________________________
 					let displayTheCategoryOfDishes = (async function() {
 						let response = await fetch("/system/getProduct.php", {
 							method: 'post',
@@ -75,12 +75,12 @@
 								let productDiv = document.createElement("div");								//parent
 
 									let imgDiv = document.createElement("div");	
-										let img = document.createElement('img');						//создали картинку
+										let img = document.createElement('img');							//создали картинку
 										let mainImage = element.image.split(", ")[0];
 										// console.log(mainImage);
-										img.setAttribute("src",`../img1/${mainImage}`)				//for img
+										img.setAttribute("src",`../img1/${mainImage}`)						//for img
 
-									let dataDiv = document.createElement("div");						//div для данных
+									let dataDiv = document.createElement("div");							//div для данных
 									let name = element.name.replace(/^[a-zа-ё]/ug, m => m.toUpperCase());
 
 										let nameDiv = document.createElement("div");					//название
@@ -101,7 +101,7 @@
 								productDiv.classList.add("productDivCrockery");
 								dataDiv.classList.add("dataProductDivCrockery");
 								imgDiv.classList.add("imgProductCrockery");
-								dataDivAddToCartBtn.classList.add("dataDivAddToCartBtn");
+								dataDivAddToCartBtn.classList.add("input");
 								productDiv.setAttribute("data-id",element.id)
 
 								nameDiv.appendChild(nameText);
@@ -124,7 +124,7 @@
 								
 
 
-//_______________________Функция(асинхронная) для вывода товара в корзине(start)______________________________________________
+//_______________________Функция для вывода товара которые лежат в корзине(start)______________________________________________
 					let userCartArr = [];					
 					let userCart = (async function() {
 						const response = await fetch(`/system/whatIsInTheCart.php`);
@@ -146,7 +146,30 @@
 							}
 						}
 						dysplayNoneOrBlock(dataDivAddToCartText, dataDivAddToCartBtn);
-					// //_________________________________________________Функция для отправки товара в базу данных________________________________________________
+
+//_______________________Функция для вывода товара из избранного______________________________________________
+					let userFavorArr = [];					
+					let userFavor = (async function() {
+						const response = await fetch(`/system/whatIsInTheFavor.php`);
+						const post = await response.json();
+						return post;
+					})					
+					userFavor().then(userFavorRes=>{
+						console.log(userFavorRes);
+						userFavorRes.forEach(el =>userFavorArr.push(el.product_id));
+						
+						function favorDysplayNoneOrBlock(a, b){
+							if(userFavorArr.includes(element.id)){
+											a.style.display = "block";
+											b.style.display = "none";
+							}
+							else {									
+								a.style.display = "none";
+								b.style.display = "block";
+							}
+						}
+						// favorDysplayNoneOrBlock(dataDivAddToCartText, dataDivAddToCartBtn);
+					// //_________________________________________________Функция для отправки товара в корзину (базу данных)________________________________________________
 
 					function addProductsToTheDatabase() {
 						fetch("/system/addToCart.php", {
@@ -158,12 +181,12 @@
 						})
 					}
 
-					//########################			 нажимаем кнопку добавить в корзину  		###########################			
-								productDiv.onclick = event => {
+					//########################			 нажимаем кнопку добавить в корзину  		###########################	
+								let switchState = false;		
+								productDiv.onclick = event => {									
 									if(event.target == dataDivAddToCartBtn) {
 										addProductsToTheDatabase();
-										itemInCart.style.display = "block";
-										addButton.style.display = "none";
+										switchState = true;
 										dataDivAddToCartText.style.display = "block";
 										dataDivAddToCartBtn.style.display = "none";
 									}
@@ -202,7 +225,12 @@
 													let addButton = addInputTypeButton("addButton", "Добавить в корзину");		//создаем кнопку "добавить" через функцию в master.js
 													
 													let itemInCart = document.createElement("div");
-														let itemInCartText = document.createTextNode("товар в корзине");
+														let itemInCartText = document.createTextNode("Tовар в корзине");
+
+													let addFavor = addInputTypeButton("addFavor", "Добавить в избранное");		//создаем кнопку "добавить" через функцию в master.js
+													
+													let itemInFavor = document.createElement("div");
+														let itemInFavorText = document.createTextNode("В избранном");
 
 													let backButton = addInputTypeButton("backButton", "Назад");				//кнопка "назад"
 
@@ -221,8 +249,11 @@
 													productDiv.classList.add("productDivCrockeryFull");
 													dataDiv.classList.add("dataProductDivCrockeryFull");
 													imgDiv.classList.add("imgProductCrockeryFull");
+													itemInCart.classList.add("textInfo");
+													itemInFavor.classList.add("textInfo");
 
 													itemInCart.appendChild(itemInCartText);
+													itemInFavor.appendChild(itemInFavorText);
 													
 													nameDiv.appendChild(nameText);
 													priceDiv.appendChild(priceText);
@@ -236,6 +267,8 @@
 													dataDiv.appendChild(amountDiv);
 													dataDiv.appendChild(itemInCart);
 													dataDiv.appendChild(addButton);
+													dataDiv.appendChild(addFavor);
+													dataDiv.appendChild(itemInFavor);
 													dataDiv.appendChild(buyButton);
 													dataDiv.appendChild(backButton);
 
@@ -246,6 +279,7 @@
 													productDiv.appendChild(dataDiv);
 
 													dysplayNoneOrBlock(itemInCart, addButton);
+													favorDysplayNoneOrBlock(itemInFavor, addFavor);
 
 													imgFullDiv.appendChild(leftArrow);
 
@@ -268,6 +302,13 @@
 
 													crockeryProductFull.appendChild(productDiv);
 													crockeryProductFull.appendChild(descDiv);
+
+													// console.log(switchState);
+													if(switchState==true){
+														itemInCart.style.display = "block";
+														addButton.style.display = "none";
+													}
+													
 
 					//################################################			 кнопки смотреть мини картинки  		###############################################
 
@@ -323,7 +364,21 @@
 						addButton.style.display = "none";
 						dataDivAddToCartText.style.display = "block";
 						dataDivAddToCartBtn.style.display = "none";													
-													}		
+													}	
+
+					//####################################################			 добывление товара в избранное 	 		###################################################
+
+					addFavor.onclick = () => {
+						fetch("/system/addToFavor.php", {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							},
+							body: `productId=${element.id}`,
+						})															
+						itemInFavor.style.display = "block";
+						addFavor.style.display = "none";											
+					}		
 
 					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
 
@@ -334,34 +389,34 @@
 
 					//##########################################			 увеличиваем картинку при двойном клике 		#################################################
 
-													productDiv.ondblclick = selectedImg => {
-														if(selectedImg.target.tagName == "IMG") {
+					productDiv.ondblclick = selectedImg => {
+						if(selectedImg.target.tagName == "IMG") {
 
-															let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
+							let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
 
-															contextMenu.style.display = "grid";
-															let contextMenuParentDiv = document.createElement("div");
-																contextMenuParentDiv.classList.add("contextMenuParentDiv");
+							contextMenu.style.display = "grid";
+							let contextMenuParentDiv = document.createElement("div");
+								contextMenuParentDiv.classList.add("contextMenuParentDiv");
 
-															let contextMenuChildDiv1 = document.createElement("div");
-																contextMenuChildDiv1.id = "seeStart";
-																contextMenuChildDiv1.innerText = "<";
-																contextMenuChildDiv1.classList.add("seeStartAndEnd");
+							let contextMenuChildDiv1 = document.createElement("div");
+								contextMenuChildDiv1.id = "seeStart";
+								contextMenuChildDiv1.innerText = "<";
+								contextMenuChildDiv1.classList.add("seeStartAndEnd");
 
-															let contextMenuChildDiv2 = document.createElement("div");
-																contextMenuChildDiv2.id = "seeEnd";
-																contextMenuChildDiv2.innerText = ">";
-																contextMenuChildDiv2.classList.add("seeStartAndEnd");
+							let contextMenuChildDiv2 = document.createElement("div");
+								contextMenuChildDiv2.id = "seeEnd";
+								contextMenuChildDiv2.innerText = ">";
+								contextMenuChildDiv2.classList.add("seeStartAndEnd");
 
-															let contextMenuImage = document.createElement("img");
-															contextMenuImage.classList.add("contextMenuImage");
-															contextMenuImage.setAttribute("src", selectedImg.target.getAttribute("src"));
+							let contextMenuImage = document.createElement("img");
+							contextMenuImage.classList.add("contextMenuImage");
+							contextMenuImage.setAttribute("src", selectedImg.target.getAttribute("src"));
 
-															contextMenuParentDiv.appendChild(contextMenuChildDiv1);
-															contextMenuParentDiv.appendChild(contextMenuImage);
-															contextMenuParentDiv.appendChild(contextMenuChildDiv2);
+							contextMenuParentDiv.appendChild(contextMenuChildDiv1);
+							contextMenuParentDiv.appendChild(contextMenuImage);
+							contextMenuParentDiv.appendChild(contextMenuChildDiv2);
 
-															contextMenu.appendChild(contextMenuParentDiv);
+							contextMenu.appendChild(contextMenuParentDiv);
 
 				//#########################################			 закрываем увеличеную двойным кликом картинку 		###############################################
 
@@ -402,7 +457,7 @@
 								}}
 					})
 					
-							});
+							})})
 						})
 				}
 			</script>		
