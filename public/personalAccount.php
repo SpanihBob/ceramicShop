@@ -1,7 +1,7 @@
 <?
 	include_once "$path/private/head.php";
-    print_r($_SESSION['login']) ;
-    print_r($_SESSION) ;
+    // print_r($_SESSION['login']) ;
+    // print_r($_SESSION) ;
 	
 
     // echo "_POST:";
@@ -113,17 +113,17 @@
 				<form action="" method="post" enctype="multipart/form-data" id="changeAvatarForm">
 					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->
 					<input type="file" name="file1" id="file1"><br>
-					<input type="submit" value="Отправить" name="sendModifiedImage">
+					<input type="submit" value="Отправить" name="sendModifiedImage" id="sendModifiedImage">
 				</form>
 				<button id="avaBackButton">Назад</button>
 			</div>
 			
 			<div id="personalAccountForm">
 				<form action="" method="post" class="personalAccountContent">
-					<div>
+					<!-- <div>
 						<div>Логин:</div>
 						<input type="text" name="loginInput" id="loginInput">
-					</div>
+					</div> -->
 					<div>
 						<div>Почта:</div>
 						<input type="text" name="emailInput" id="emailInput">
@@ -161,8 +161,9 @@
 						<input type="text" name="postcodeInput" id="postcodeInput">
 					</div>
 					<input type="submit" value="Сохранить изменения" id="personalAccountFormSubmit" name="personalAccountFormSubmit">
+					<button id="backButton">Назад</button>
 				</form>	
-				<button id="backButton">Назад</button>
+				
 			</div>
 		</div>
 
@@ -204,7 +205,7 @@
 							postcodeDiv.textContent=`${data[0].postcode}`;
 							timeDiv.textContent=`${data[0].time_signup * 1000}`;
 
-							loginInput.setAttribute("value", `${data[0].login}`);
+							// loginInput.setAttribute("value", `${data[0].login}`);
 							emailInput.setAttribute("value", `${data[0].email}`);
 							nameInput.setAttribute("value", `${data[0].name}`);
 							lastnameInput.setAttribute("value", `${data[0].lastname}`);
@@ -217,7 +218,7 @@
 
 
 							avatarImg.src=`../download/${data[0].avatar}`;
-							loginDiv.classList.add("loginDivPersonalAccount");
+							// loginDiv.classList.add("loginDivPersonalAccount");
 							emailDiv.classList.add("emailDivPersonalAccount");
 							nameDiv.classList.add("nameDivPersonalAccount");
 							lastnameDiv.classList.add("lastnameDivPersonalAccount");
@@ -243,7 +244,8 @@
 								personalAccountContent.style.display = 'block';
 								personalAccountForm.style.display = 'none';
 							}
-							avaBackButton.onclick = () => {
+							avaBackButton.onclick = (event) => {
+								event.preventDefault;
 								personalAccountContent.style.display = 'block';
 								avaForm.style.display = 'none';
 							}
@@ -259,20 +261,6 @@
 								.then(response =>response.text())
 								.then(window.location.href = '/account')
                     		}
-							// changeAvatarForm.onsubmit = () => {						//изменение данных пользователя в БД
-							// 	event.preventDefault();
-							// 	fetch("/system/changeAccountInformation.php", {
-							// 		method: 'post',
-							// 		headers: {
-							// 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-							// 		},
-							// 		body: data,
-							// 		})
-							// 		// .then(() => {console.log('Загружено'); })
-      						// 		// .catch(() => { console.log('Ошибка');})
-							// 		.then(response =>response.text())
-							// 		.then(data => {console.log(data);})
-                    		// }
 					})
 				})
 
