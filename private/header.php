@@ -12,8 +12,10 @@ if(isset($_POST['modalContextMenuExit'])) {
         <div class="logo" id="logo">
             <img src="../img/pottery.png" alt="">
             <img src="../img/Безымянный.jpg" alt="">
-        </div>    
-        <input type="search" name="searchProduct" id="searchProduct">    
+        </div>
+        <form action="/search" method="get" name="searchForm">
+            <input type="text" name="searchProduct" id="searchProduct" placeholder="Найти...">
+        </form>   
         <div class="headerBtn">
             <!-- <a href="/account"></a> --><div id="guest"></div>
             <div id="favorites"></div>

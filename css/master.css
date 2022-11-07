@@ -58,6 +58,7 @@ header > div{
     border-radius: 15px;
     border: 1px solid gray;
     padding: 10px;
+    width: 100%;
 }
 .headerBtn {
     display: grid;
