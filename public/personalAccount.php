@@ -105,14 +105,13 @@
 				<button id="redactButton">Редактировать</button>
 			</div>
 
-			<div id="avaForm">
-				<div>
-					<div>Аватар:</div>
-					<div id="changeAvatarDiv"></div>
-				</div>
+			<div id="avaForm">				
 				<form action="" method="post" enctype="multipart/form-data" id="changeAvatarForm">
-					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->
-					<input type="file" name="file1" id="file1"><br>
+					<!-- enctype="multipart/form-data" за отправку файлов теперь отвечает $_FILES -->					
+					<label>
+						<input type="file" name="file1" id="file1"><br>
+						<div id="sendFile">Выберете файл</div>
+					</label>
 					<input type="submit" value="Отправить" name="sendModifiedImage" id="sendModifiedImage">
 				</form>
 				<button id="avaBackButton">Назад</button>

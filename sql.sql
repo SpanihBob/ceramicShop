@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
 -- Дамп данных таблицы diploma.cart: ~0 rows (приблизительно)
 DELETE FROM `cart`;
@@ -50,6 +50,20 @@ INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTab
 	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder'),
 	(5, 'Скидки', 'скидки.png', 'sale');
 
+-- Дамп структуры для таблица diploma.collections
+CREATE TABLE IF NOT EXISTS `collections` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы diploma.collections: ~2 rows (приблизительно)
+DELETE FROM `collections`;
+INSERT INTO `collections` (`id`, `name`, `image`) VALUES
+	(1, 'Фантазия', 'keramicheskaya-posuda-2.jpg'),
+	(2, 'Времена года', 'keramicheskaya-posuda-2.jpg');
+
 -- Дамп структуры для таблица diploma.crockery
 CREATE TABLE IF NOT EXISTS `crockery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,6 +79,19 @@ INSERT INTO `crockery` (`id`, `crockeryName`, `crockeryImage`) VALUES
 	(2, 'Чайные пары', 'пара.jpg'),
 	(3, 'Соусники', 'соус4.jpg'),
 	(4, 'Кружки', 'кр4.jpg');
+
+-- Дамп структуры для таблица diploma.favor
+CREATE TABLE IF NOT EXISTS `favor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы diploma.favor: ~1 rows (приблизительно)
+DELETE FROM `favor`;
+INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
+	(16, 1, 5);
 
 -- Дамп структуры для таблица diploma.main
 CREATE TABLE IF NOT EXISTS `main` (
@@ -99,25 +126,46 @@ CREATE TABLE IF NOT EXISTS `product` (
 -- Дамп данных таблицы diploma.product: ~19 rows (приблизительно)
 DELETE FROM `product`;
 INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`) VALUES
-	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'пара.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg'),
-	(2, 'тарелка 2', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'пара.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(3, 'тарелка 3', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара.jpg', 'тар3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(4, 'тарелка 4', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'пара.jpg', 'тар4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(5, 'тарелка 5', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'пара.jpg', 'тар5.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(6, 'тарелка 6', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара.jpg', 'тарелка.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(7, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара.jpg', 'пара1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(8, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара.jpg', 'пара2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(9, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара.jpg', 'пара3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(10, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара.jpg', 'пара4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(11, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара.jpg', 'соус1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(12, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара.jpg', 'соус2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(13, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара.jpg', 'соус3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(14, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара.jpg', 'соус4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(15, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'пара.jpg', 'кр1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(16, 'кружка', 1, 4, 1233, 'сммив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'пара.jpg', 'кр2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(17, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'пара.jpg', 'кр3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'пара.jpg', 'кр4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg'),
+	(2, 'тарелка 2', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(3, 'тарелка 3', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тар3.jpg', 'тар3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(4, 'тарелка 4', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар4.jpg', 'тар4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(5, 'тарелка 5', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар5.jpg', 'тар5.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(6, 'тарелка 6', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелка.jpg', 'тарелка.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(7, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара1.jpg', 'пара1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(8, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара2.jpg', 'пара2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(9, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара3.jpg', 'пара3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(10, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара4.jpg', 'пара4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(11, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус1.jpg', 'соус1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(12, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус2.jpg', 'соус2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(13, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус3.jpg', 'соус3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(14, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус4.jpg', 'соус4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(15, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр1.jpg', 'кр1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(16, 'кружка', 1, 4, 1233, 'сммив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр2.jpg', 'кр2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(17, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр3.jpg', 'кр3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр4.jpg', 'кр4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
 	(19, 'чайная пара', 1, 2, 123, 'dsfgsdfgs fedgf d d fg d', 4, 'пара.jpg', 'пара.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg');
+
+-- Дамп структуры для таблица diploma.product_collections
+CREATE TABLE IF NOT EXISTS `product_collections` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'имя',
+  `category` int(11) DEFAULT NULL COMMENT 'категория',
+  `subcategory` int(11) DEFAULT NULL COMMENT 'подкатегория',
+  `price` int(11) DEFAULT NULL COMMENT 'цена',
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'описание',
+  `amount` int(11) DEFAULT NULL COMMENT 'колличество',
+  `poster` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'картинка',
+  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='продукты';
+
+-- Дамп данных таблицы diploma.product_collections: ~3 rows (приблизительно)
+DELETE FROM `product_collections`;
+INSERT INTO `product_collections` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`) VALUES
+	(1, 'Фантазия 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg'),
+	(2, 'Осенняя', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
+	(3, 'Весенняя', 1, 2, 123, 'ывмвыамвамва', 4, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg');
 
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -138,10 +186,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~0 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~1 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`) VALUES
-	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 237, 12, 426000, '11137691.jpg', 1662533535);
+	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 2, 12, 426000, '11116602.jpg', 1662533535);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

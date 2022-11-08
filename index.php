@@ -62,6 +62,9 @@
     elseif($_SERVER['REDIRECT_URL']=="/productsToOrder"):
         require_once "$path/public/productsToOrder.php";
 
+    elseif($_SERVER['REDIRECT_URL']=="/product"):
+        require_once "$path/public/product.php";
+
     elseif($_SERVER['REDIRECT_URL']=="/sale"):
         require_once "$path/public/sale.php";
 
