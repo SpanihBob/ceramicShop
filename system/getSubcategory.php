@@ -5,10 +5,12 @@
 
     $_POST['subcategoryId'] = trim($_POST['subcategoryId']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
     $_POST['subcategoryId'] = htmlspecialchars($_POST['subcategoryId']);                    //Преобразует специальные символы в HTML-сущности
-    $_POST['table'] = trim($_POST['table']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
-    $_POST['table'] = htmlspecialchars($_POST['table']);                    //Преобразует специальные символы в HTML-сущности
 
-    $_SESSION['transferredData'] = [$_POST['subcategoryId'],$_POST['table']];
-    // print_r($_SESSION['transferredData']); 
+    $_POST['productCat'] = trim($_POST['productCat']);                                
+    $_POST['productCat'] = htmlspecialchars($_POST['productCat']);                   
+    
+
+    $_SESSION['subcategoryId'] = $_POST['subcategoryId'];
+    $_SESSION['productCat'] = $_POST['productCat'];
     
 ?>

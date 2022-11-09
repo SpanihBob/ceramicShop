@@ -27,10 +27,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~0 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~3 rows (приблизительно)
 DELETE FROM `cart`;
+INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
+	(64, 9, 5, 1, 1667974136),
+	(68, 21, 5, 1, 1667983684),
+	(70, 22, 5, 1, 1667992933);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -86,12 +90,14 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~1 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~2 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(16, 1, 5);
+	(16, 1, 5),
+	(17, 5, 5),
+	(18, 2, 5);
 
 -- Дамп структуры для таблица diploma.main
 CREATE TABLE IF NOT EXISTS `main` (
@@ -120,52 +126,35 @@ CREATE TABLE IF NOT EXISTS `product` (
   `amount` int(11) DEFAULT NULL COMMENT 'колличество',
   `poster` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'картинка',
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `table_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
 
--- Дамп данных таблицы diploma.product: ~19 rows (приблизительно)
+-- Дамп данных таблицы diploma.product: ~22 rows (приблизительно)
 DELETE FROM `product`;
-INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`) VALUES
-	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg'),
-	(2, 'тарелка 2', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(3, 'тарелка 3', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тар3.jpg', 'тар3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(4, 'тарелка 4', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар4.jpg', 'тар4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(5, 'тарелка 5', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар5.jpg', 'тар5.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(6, 'тарелка 6', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелка.jpg', 'тарелка.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(7, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара1.jpg', 'пара1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(8, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара2.jpg', 'пара2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(9, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара3.jpg', 'пара3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(10, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара4.jpg', 'пара4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(11, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус1.jpg', 'соус1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(12, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус2.jpg', 'соус2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(13, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус3.jpg', 'соус3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(14, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус4.jpg', 'соус4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(15, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр1.jpg', 'кр1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(16, 'кружка', 1, 4, 1233, 'сммив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр2.jpg', 'кр2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(17, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр3.jpg', 'кр3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр4.jpg', 'кр4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(19, 'чайная пара', 1, 2, 123, 'dsfgsdfgs fedgf d d fg d', 4, 'пара.jpg', 'пара.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg');
-
--- Дамп структуры для таблица diploma.product_collections
-CREATE TABLE IF NOT EXISTS `product_collections` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'имя',
-  `category` int(11) DEFAULT NULL COMMENT 'категория',
-  `subcategory` int(11) DEFAULT NULL COMMENT 'подкатегория',
-  `price` int(11) DEFAULT NULL COMMENT 'цена',
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'описание',
-  `amount` int(11) DEFAULT NULL COMMENT 'колличество',
-  `poster` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'картинка',
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='продукты';
-
--- Дамп данных таблицы diploma.product_collections: ~3 rows (приблизительно)
-DELETE FROM `product_collections`;
-INSERT INTO `product_collections` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`) VALUES
-	(1, 'Фантазия 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg'),
-	(2, 'Осенняя', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg'),
-	(3, 'Весенняя', 1, 2, 123, 'ывмвыамвамва', 4, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg');
+INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`, `table_name`) VALUES
+	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product'),
+	(2, 'тарелка 2', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар2.jpg', 'тар2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(3, 'тарелка 3', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тар3.jpg', 'тар3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(4, 'тарелка 4', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар4.jpg', 'тар4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(5, 'тарелка 5', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, 'тар5.jpg', 'тар5.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(6, 'тарелка 6', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелка.jpg', 'тарелка.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(7, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара1.jpg', 'пара1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(8, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара2.jpg', 'пара2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(9, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'пара3.jpg', 'пара3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(10, 'чайная пара', 1, 2, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'пара4.jpg', 'пара4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(11, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус1.jpg', 'соус1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(12, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус2.jpg', 'соус2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(13, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус3.jpg', 'соус3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(14, 'Соусник', 1, 3, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 7, 'соус4.jpg', 'соус4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(15, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр1.jpg', 'кр1.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(16, 'кружка', 1, 4, 1233, 'сммив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр2.jpg', 'кр2.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(17, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр3.jpg', 'кр3.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр4.jpg', 'кр4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(19, 'чайная пара', 1, 2, 123, 'dsfgsdfgs fedgf d d fg d', 4, 'пара.jpg', 'пара.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
+	(20, 'Весенняя', 2, 2, 4332, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 2, 'images (10).jpg', 'images (10).jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_collections'),
+	(21, 'Осенняя', 2, 2, 3223, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 3, 'images (10).jpg', 'images (10).jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_collections'),
+	(22, 'Фэнтази', 2, 1, 4432, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелки3главная.jpg', 'тарелки3главная.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product_collections');
 
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (

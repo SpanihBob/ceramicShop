@@ -215,3 +215,17 @@ function favoritesAndCart(filePhp, patch, text) {
 }
 // // ###########################################      функция для избранного и корзины(end)    ###################################################
 
+
+
+// //_________________________________________________Функция для отправки товара в корзину (базу данных)________________________________________________
+
+function addProductsToTheDatabase(elementId) {
+	fetch("/system/addToCartAndFavor.php", {
+		method: 'post',
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+		},
+		body: `productId=${elementId}&cartOrFavor=cart`,
+	})
+}
+
