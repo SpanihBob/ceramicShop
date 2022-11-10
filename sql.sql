@@ -27,14 +27,17 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~7 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
-	(64, 9, 5, 1, 1667974136),
-	(68, 21, 5, 1, 1667983684),
-	(70, 22, 5, 1, 1667992933);
+	(85, 2, 5, 7, 1668081583),
+	(86, 22, 5, 1, 1668081610),
+	(87, 24, 5, 1, 1668081618),
+	(88, 23, 5, 1, 1668081638),
+	(89, 9, 5, 1, 1668081724),
+	(90, 10, 5, 1, 1668081738);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -51,8 +54,7 @@ INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTab
 	(1, 'Посуда', 'тарелка.png', 'crockery'),
 	(2, 'Коллекции', 'коллекция.png', 'collection'),
 	(3, 'Интерьер', 'ваза.png', 'interior'),
-	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder'),
-	(5, 'Скидки', 'скидки.png', 'sale');
+	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder');
 
 -- Дамп структуры для таблица diploma.collections
 CREATE TABLE IF NOT EXISTS `collections` (
@@ -71,14 +73,14 @@ INSERT INTO `collections` (`id`, `name`, `image`) VALUES
 -- Дамп структуры для таблица diploma.crockery
 CREATE TABLE IF NOT EXISTS `crockery` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `crockeryName` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `crockeryImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='посуда';
 
 -- Дамп данных таблицы diploma.crockery: ~4 rows (приблизительно)
 DELETE FROM `crockery`;
-INSERT INTO `crockery` (`id`, `crockeryName`, `crockeryImage`) VALUES
+INSERT INTO `crockery` (`id`, `name`, `image`) VALUES
 	(1, 'Тарелки', 'тарелка.jpg'),
 	(2, 'Чайные пары', 'пара.jpg'),
 	(3, 'Соусники', 'соус4.jpg'),
@@ -90,14 +92,26 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~2 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~6 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(16, 1, 5),
-	(17, 5, 5),
-	(18, 2, 5);
+	(35, 10, 5);
+
+-- Дамп структуры для таблица diploma.interior
+CREATE TABLE IF NOT EXISTS `interior` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Дамп данных таблицы diploma.interior: ~2 rows (приблизительно)
+DELETE FROM `interior`;
+INSERT INTO `interior` (`id`, `name`, `image`) VALUES
+	(1, 'Вазы', '4846_big.jpg'),
+	(2, 'Скульптура', 'sfdgvkdmfbgkls.jpg');
 
 -- Дамп структуры для таблица diploma.main
 CREATE TABLE IF NOT EXISTS `main` (
@@ -128,9 +142,9 @@ CREATE TABLE IF NOT EXISTS `product` (
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `table_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
 
--- Дамп данных таблицы diploma.product: ~22 rows (приблизительно)
+-- Дамп данных таблицы diploma.product: ~25 rows (приблизительно)
 DELETE FROM `product`;
 INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `description`, `amount`, `poster`, `image`, `table_name`) VALUES
 	(1, 'тарелка 1', 1, 1, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 4, 'тар1.jpg', 'тар1.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product'),
@@ -153,8 +167,11 @@ INSERT INTO `product` (`id`, `name`, `category`, `subcategory`, `price`, `descri
 	(18, 'кружка', 1, 4, 1233, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 8, 'кр4.jpg', 'кр4.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
 	(19, 'чайная пара', 1, 2, 123, 'dsfgsdfgs fedgf d d fg d', 4, 'пара.jpg', 'пара.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product'),
 	(20, 'Весенняя', 2, 2, 4332, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 2, 'images (10).jpg', 'images (10).jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_collections'),
-	(21, 'Осенняя', 2, 2, 3223, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 3, 'images (10).jpg', 'images (10).jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_collections'),
-	(22, 'Фэнтази', 2, 1, 4432, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелки3главная.jpg', 'тарелки3главная.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product_collections');
+	(21, 'Осенняя', 2, 2, 3223, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 3, '1020x0_zktohkkeioyanctl_jpg_6b12.jpg', '1020x0_zktohkkeioyanctl_jpg_6b12.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_collections'),
+	(22, 'Фэнтази', 2, 1, 4432, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 6, 'тарелки3главная.jpg', 'тарелки3главная.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product_collections'),
+	(23, 'Ваза 1', 3, 1, 3223, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 5, '400.jpg', '400.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product_interior'),
+	(24, 'Ваза 2', 3, 1, 2343, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 3, '400.jpg', '400.jpg, 1.jpg, 2.jpg, 3.jpg, 4.jpg, 5.jpg, 6.jpg, 7.jpg', 'product_interior'),
+	(25, 'Скульптура', 3, 2, 3421, 'ив ифвбьаоифьбво иафывлоиафылвоиалыбои влоиыв', 3, 'sfdgvkdmfbgkls.jpg', 'sfdgvkdmfbgkls.jpg, тар1.jpg, тар2.jpg, тар3.jpg, тар1.jpg, тар1.jpg', 'product_interior');
 
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (

@@ -47,7 +47,10 @@ if(isset($_POST['modalContextMenuExit'])) {
         window.location.href = "/";
     }
     window.onclick = (event) => {
-        if(event.target.id == 'guest'){
+        if(event.target.id == 'searchProduct') {            
+            //написать код поисковика
+        }
+        else if(event.target.id == 'guest'){
             modalContextMenu.style.left = `${event.clientX - 170}px`;
             modalWindow.style.display = 'block';
         }
@@ -72,6 +75,9 @@ if(isset($_POST['modalContextMenuExit'])) {
         else {
             modalWindow.style.display = 'none';
         }
+        
+
+
     }
     
     

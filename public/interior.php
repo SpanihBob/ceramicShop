@@ -6,16 +6,22 @@
 <body>
 	<div class="container">			
 		<?
-			include_once "$path/private/header.php";		//HEADER
+			include_once "$path/private/header.php";						//HEADER
 		?>	
 
-		<article class="article">						<!-- ARTICLE -->
+		<article class="article">											<!-- ARTICLE -->
 			<?
-				include_once "$path/private/sidebar.php";		//SIDEBAR
+				include_once "$path/private/sidebar.php";					//SIDEBAR
 			?>
-			<div class="crockeryContent">								<!-- CONTENT -->
-				interior.php
-			</div>		
+			<div>
+				<div class="crockeryContent" id="content">									<!-- CONTENT -->				
+				</div>
+			</div>
+		
+
+			<script>
+				loadCategory('interior','product_interior')
+			</script>		
 		</article>
 		<?
 			include_once "$path/private/footer.php"		//FOOTER
