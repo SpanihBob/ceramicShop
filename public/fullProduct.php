@@ -15,7 +15,7 @@
 			?>
 			
             <div>
-				<div class="crockeryContent" id="content">		<!-- CONTENT -->				
+				<div id="content">		<!-- CONTENT -->				
 				</div>
                 <div id="contextMenu">
 				    <div id="closeBtn">x</div>
@@ -29,261 +29,324 @@
 
 
     <script>
-		const crockeryContent = document.querySelector(".crockeryContent");
+		const crockeryContent = document.getElementById('content')
         window.onload=()=>{								//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товара на экран %%%%%%%%%%%%%%%%%%%%%%%%%%//
-					fetch(`/system/displayFullProductPage.php`)                                       
-					.then(response => response.json())                                  
-					.then(data => {	
-                        const content = document.getElementById("content");
-						data.forEach(element => {
-                            console.log(element);
-                //             let productDiv = document.createElement("div");								//parent
-                //                 let imgAndPrice = document.createElement("div");				
-                //                 let descDiv = document.createElement("div");								
+			fetch(`/system/displayFullProductPage.php`)                                       
+			.then(response => response.json())                                  
+			.then(data => {	
+				data.forEach(element => {
+					console.log(element);
+					let productDiv = document.createElement("div");								//parent
+						let imgAndPrice = document.createElement("div");						//картинка			
+						let descDiv = document.createElement("div");							//описание								
 
-                //                 let imgDiv = document.createElement("div");	
-                //                     let img = document.createElement('img');						//создали картинку
-                //                     img.setAttribute("src",`../img1/${mainImage}`)				//for img
-                //                     img.classList.add("ImgFullProduct");
-                //                     img.setAttribute("data-id",1);
+							let imgDiv = document.createElement("div");	
+								let img = document.createElement('img');						//создали картинку
+								let mainImage = element.image.split(", ")[0];
+								console.log(mainImage);
+								img.setAttribute("src",`../img1/${mainImage}`)					//атрибуты img для главной картинки
+								img.classList.add("ImgFullProduct");
+								img.setAttribute("data-id",1);
 
-                //                 let dataDiv = document.createElement("div");						//for all
+                                let dataDiv = document.createElement("div");					//div для данных о продукте
 
-                //                     let nameDiv = document.createElement("div");					//name
-                //                         let nameText = document.createTextNode(`${name}`);
+			                    let nameDiv = document.createElement("div");									//name
+			                        let nameText = document.createTextNode(`${element.name}`);
 
-                //                     let priceDiv = document.createElement("div");					//price
-                //                         let priceText = document.createTextNode(`Цена: ${element.price} р.`);
+			                    let priceDiv = document.createElement("div");									//price
+			                        let priceText = document.createTextNode(`Цена: ${element.price} р.`);
 
-                //                     let descriptionDiv = document.createElement("div");				//description
-                //                         let descriptionText = document.createTextNode(`${element.description}`);
+			                    let descriptionDiv = document.createElement("div");								//description
+			                        let descriptionText = document.createTextNode(`${element.description}`);
 
-                //                     let amountDiv = document.createElement("div");					//amount
-                //                         let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
+								let amountDiv = document.createElement("div");									//amount
+									let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
 
-                //                     let addButton = addInputTypeButton("addButton", "Добавить в корзину");		//создаем кнопку "добавить" через функцию в master.js
+
+								//кнопки "добавить в корзину" и "добавить в избранное"
+		                    	let addButton = addInputTypeButton("addButton", "Добавить в корзину");		//создаем кнопку "добавить в корзину" через функцию в master.js
                                     
-                //                     let itemInCart = document.createElement("div");
-                //                         let itemInCartText = document.createTextNode("Tовар в корзине");
+			                    let itemInCart = document.createElement("div");								//div для информации если товар уже в корзине 
+			                        let itemInCartText = document.createTextNode("Tовар в корзине");
 
-                //                     let addFavor = addInputTypeButton("addFavor", "Добавить в избранное");		//создаем кнопку "добавить" через функцию в master.js
+			                    let addFavor = addInputTypeButton("addFavor", "Добавить в избранное");		//создаем кнопку "добавить в избранное" через функцию в master.js
                                     
-                //                     let itemInFavor = document.createElement("div");
-                //                         let itemInFavorText = document.createTextNode("В избранном");
+			                    let itemInFavor = document.createElement("div");							//div для информации если товар уже в избранном 
+			                        let itemInFavorText = document.createTextNode("В избранном");
 
-                //                     let backButton = addInputTypeButton("backButton", "Назад");				//кнопка "назад"
+		                    	let backButton = addInputTypeButton("backButton", "Назад");					//кнопка "назад"
 
-                //                     let buyButton = addInputTypeButton("buyButton", "Купить");					//кнопка "купить"													
+		                    	let buyButton = addInputTypeButton("buyButton", "Купить");					//кнопка "купить"													
 
-                //                     let imgFullDiv = document.createElement("div");
-                //                     imgFullDiv.classList.add("miniImgFullProductDiv");
-
+								let imgFullDiv = document.createElement("div");								//div для мини-картинок
+								imgFullDiv.classList.add("miniImgFullProductDiv");
                                     
-                //                     let leftArrow = document.createElement("div");
-                //                         leftArrow.innerText = "<";
-                //                         leftArrow.id = "leftArrow";
-                //                     let rightArrow = document.createElement("div");
-                //                         rightArrow.innerText = ">";
-                //                         rightArrow.id = "rightArrow";
-                //                     productDiv.classList.add("productDivCrockeryFull");
-                //                     dataDiv.classList.add("dataProductDivCrockeryFull");
-                //                     imgDiv.classList.add("imgProductCrockeryFull");
-                //                     itemInCart.classList.add("textInfo");
-                //                     itemInFavor.classList.add("textInfo");
+                                    let leftArrow = document.createElement("div");							//кнопка влево для листания мини-картинок
+                                        leftArrow.innerText = "<";
+                                        leftArrow.id = "leftArrow";
+                                    let rightArrow = document.createElement("div");							//кнопка вправо для листания мини-картинок
+                                        rightArrow.innerText = ">";
+                                        rightArrow.id = "rightArrow";
 
-                //                     itemInCart.appendChild(itemInCartText);
-                //                     itemInFavor.appendChild(itemInFavorText);
+								// добавляем атрибуты
+			                    productDiv.classList.add("productDivCrockeryFull");
+			                    dataDiv.classList.add("dataProductDivCrockeryFull");
+			                    imgDiv.classList.add("imgProductCrockeryFull");
+			                    itemInCart.classList.add("textInfo");
+			                    itemInFavor.classList.add("textInfo");
+
+							itemInCart.appendChild(itemInCartText);
+							itemInFavor.appendChild(itemInFavorText);
+							
+							nameDiv.appendChild(nameText);
+							priceDiv.appendChild(priceText);
+							descriptionDiv.appendChild(descriptionText);
+							amountDiv.appendChild(amountText);
+							
+							
+							imgDiv.appendChild(img);
+							dataDiv.appendChild(nameDiv);
+							dataDiv.appendChild(priceDiv);
+							dataDiv.appendChild(amountDiv);
+							dataDiv.appendChild(itemInCart);
+							dataDiv.appendChild(addButton);
+							dataDiv.appendChild(addFavor);
+							dataDiv.appendChild(itemInFavor);
+							dataDiv.appendChild(buyButton);
+							dataDiv.appendChild(backButton);
                                     
-                //                     nameDiv.appendChild(nameText);
-                //                     priceDiv.appendChild(priceText);
-                //                     descriptionDiv.appendChild(descriptionText);
-                //                     amountDiv.appendChild(amountText);
-                                    
-                                    
-                //                     imgDiv.appendChild(img);
-                //                     dataDiv.appendChild(nameDiv);
-                //                     dataDiv.appendChild(priceDiv);
-                //                     dataDiv.appendChild(amountDiv);
-                //                     dataDiv.appendChild(itemInCart);
-                //                     dataDiv.appendChild(addButton);
-                //                     dataDiv.appendChild(addFavor);
-                //                     dataDiv.appendChild(itemInFavor);
-                //                     dataDiv.appendChild(buyButton);
-                //                     dataDiv.appendChild(backButton);
+							descDiv.appendChild(descriptionDiv);
 
-                                    
-                //                     descDiv.appendChild(descriptionDiv);
+							productDiv.appendChild(imgDiv);
+							productDiv.appendChild(dataDiv);
 
-                //                     productDiv.appendChild(imgDiv);
-                //                     productDiv.appendChild(dataDiv);
+							//_______________________Функция для вывода товара которые лежат в корзине(start)______________________________________________
+							let userCartArr = [];					
+							let userCart = (async function() {
+								const response = await fetch(`/system/whatIsInTheCart.php`);
+								const post = await response.json();
+								return post;
+							})					
+							userCart().then(res=>{
+								// console.log(res );
+								res.forEach(element =>userCartArr.push(element.product_id));
+								
+								function dysplayNoneOrBlock(a, b){
+									if(userCartArr.includes(element.id)){
+													a.style.display = "block";
+													b.style.display = "none";
+									}
+									else {									
+										a.style.display = "none";
+										b.style.display = "block";
+									}
+								}
+								dysplayNoneOrBlock(itemInCart, addButton);
 
-                //                     dysplayNoneOrBlock(itemInCart, addButton);
-                //                     favorDysplayNoneOrBlock(itemInFavor, addFavor);
+							//_______________________Функция для вывода товара из избранного______________________________________________
+							let userFavorArr = [];					
+							let userFavor = (async function() {
+								const response = await fetch(`/system/whatIsInTheFavor.php`);
+								const post = await response.json();
+								return post;
+							})					
+							userFavor().then(userFavorRes=>{
+								userFavorRes.forEach(el =>userFavorArr.push(el.product_id));
+								
+								function favorDysplayNoneOrBlock(a, b){
+									if(userFavorArr.includes(element.id)){
+													a.style.display = "block";
+													b.style.display = "none";
+									}
+									else {									
+										a.style.display = "none";
+										b.style.display = "block";
+									}
+								}
+								favorDysplayNoneOrBlock(itemInFavor, addFavor);
 
-                //                     imgFullDiv.appendChild(leftArrow);
+							//_____________________Функция для отправки товара в корзину (базу данных)____________________________________________
 
-                //                     let imgArr = element.image.split(", ");
-                //                     let i = 1;
-                //                     imgArr.forEach(imgElement => {														
-                //                         let imageFullProduct = document.createElement("img");
-                //                         imageFullProduct.setAttribute("src",`../img1/${imgElement}`);
-                //                         imageFullProduct.classList.add("ImgFullProduct");														
-                //                         imageFullProduct.setAttribute("data-id",`${i}`);
-                //                         if(i>3) {
-                //                             imageFullProduct.style.display = "none";
-                //                         }
-                //                         imgFullDiv.appendChild(imageFullProduct);
-                //                         i++;
-                //                     });
-                //                     imgFullDiv.appendChild(rightArrow);
+								function addProductsToTheDatabase() {
+									fetch("/system/addToCartAndFavor.php", {
+										method: 'post',
+										headers: {
+											"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+										},
+										body: `productId=${element.id}&cartOrFavor=cart`,
+									})
+								}
+								imgFullDiv.appendChild(leftArrow);
 
-                //                     dataDiv.appendChild(imgFullDiv);
+								let imgArr = element.image.split(", ");
+								let i = 1
+								imgArr.forEach(imgElement => {														
+									let imageFullProduct = document.createElement("img");
+									imageFullProduct.setAttribute("src",`../img1/${imgElement}`);
+									imageFullProduct.classList.add("ImgFullProduct");														
+									imageFullProduct.setAttribute("data-id",`${i}`);
+									if(i>3) {
+										imageFullProduct.style.display = "none";
+									}
+									imgFullDiv.appendChild(imageFullProduct);
+									i++;
+								});
+								imgFullDiv.appendChild(rightArrow);
 
-                //                     crockeryContent.appendChild(productDiv);
-                //                     crockeryContent.appendChild(descDiv);
+								dataDiv.appendChild(imgFullDiv);
 
-                //                     // console.log(switchState);
-                //                     if(switchState==true){
-                //                         itemInCart.style.display = "block";
-                //                         addButton.style.display = "none";
-                //                     }
+								crockeryContent.appendChild(productDiv);
+								crockeryContent.appendChild(descDiv);
+							//########################			 нажимаем кнопку добавить в корзину  		###########################	
+								addButton.onclick = () => {	
+									addProductsToTheDatabase();
+									itemInCart.style.display = "block";
+									addButton.style.display = "none";
+								}
+								
+					//################################################			 кнопки смотреть мини картинки  		###############################################
 
-                //                     //################################################			 кнопки смотреть мини картинки  		###############################################
+					let leftArrowArr = document.querySelectorAll(".miniImgFullProductDiv > img");	//получаем все картинки в div.miniImgFullProductDiv 
+													leftArrow.onclick = () => {	
+														let condition = false;		
+														for(let i = 0; i < leftArrowArr.length; i++) {	
+															if(getComputedStyle(leftArrowArr[0]).display=="none") {
+																condition = true;
+															}	
 
-				// 									let leftArrowArr = document.querySelectorAll(".miniImgFullProductDiv > img");	//получаем все картинки в div.miniImgFullProductDiv 
-				// 									leftArrow.onclick = () => {	
-				// 										let condition = false;		
-				// 										for(let i = 0; i < leftArrowArr.length; i++) {	
-				// 											if(getComputedStyle(leftArrowArr[0]).display=="none") {
-				// 												condition = true;
-				// 											}	
-
-				// 											if(getComputedStyle(leftArrowArr[i]).display=="block") {																
-				// 												let dataId = +leftArrowArr[i].getAttribute("data-id");
-				// 												if(condition) {
-				// 													leftArrowArr[dataId - 2].style.display = "block";
-				// 													leftArrowArr[dataId-1].style.display = "none";
-				// 												}	
-				// 											}
-				// 										}
-				// 									}
-				// 									rightArrow.onclick = () => {
-				// 										let condition = false;		
-				// 										for(let i = leftArrowArr.length-1; i >= 0; i--) {
-				// 											if(getComputedStyle(leftArrowArr[leftArrowArr.length-1]).display=="none") {
-				// 												condition = true;
-				// 											}	
-				// 											if(getComputedStyle(leftArrowArr[i]).display=="block") {																
-				// 												let dataId = +leftArrowArr[i].getAttribute("data-id");
-				// 												if(condition) {
-				// 													leftArrowArr[dataId-1].style.display = "none";
-				// 													leftArrowArr[dataId].style.display = "block";
-				// 												}	
-				// 											}
-				// 										}
-				// 									}
+															if(getComputedStyle(leftArrowArr[i]).display=="block") {																
+																let dataId = +leftArrowArr[i].getAttribute("data-id");
+																if(condition) {
+																	leftArrowArr[dataId - 2].style.display = "block";
+																	leftArrowArr[dataId-1].style.display = "none";
+																}	
+															}
+														}
+													}
+													rightArrow.onclick = () => {
+														let condition = false;		
+														for(let i = leftArrowArr.length-1; i >= 0; i--) {
+															if(getComputedStyle(leftArrowArr[leftArrowArr.length-1]).display=="none") {
+																condition = true;
+															}	
+															if(getComputedStyle(leftArrowArr[i]).display=="block") {																
+																let dataId = +leftArrowArr[i].getAttribute("data-id");
+																if(condition) {
+																	leftArrowArr[dataId-1].style.display = "none";
+																	leftArrowArr[dataId].style.display = "block";
+																}	
+															}
+														}
+													}
 
 
-				// 	//####################################################			 добывление товара в корзину 	 		###################################################
+					
+					//#######################################################			 кнопка "назад"  		######################################################
 
-				// 	addButton.onclick = () => {
-				// 		addProductsToTheDatabase(element.id);															
-				// 		itemInCart.style.display = "block";
-				// 		addButton.style.display = "none";
-				// 		dataDivAddToCartText.style.display = "block";
-				// 		dataDivAddToCartBtn.style.display = "none";													
-				// 									}	
+					backButton.onclick = () => {
+						window.location.href = '/product';
+					}
 
-				// 	//####################################################			 добывление товара в избранное 	 		###################################################
+					//####################################################			 добывление товара в корзину 	 		###################################################
 
-				// 	addFavor.onclick = () => {
-				// 		fetch("/system/addToCartAndFavor.php", {
-				// 			method: 'post',
-				// 			headers: {
-				// 				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-				// 			},
-				// 			body: `productId=${element.id}&cartOrFavor=favor`,
-				// 		})															
-				// 		itemInFavor.style.display = "block";
-				// 		addFavor.style.display = "none";											
-				// 	}		
+					addButton.onclick = () => {
+						addProductsToTheDatabase();															
+						itemInCart.style.display = "block";
+						addButton.style.display = "none";
+						dataDivAddToCartText.style.display = "block";
+						dataDivAddToCartBtn.style.display = "none";													
+													}	
 
-				// 	//#########################################			 выводим картинку при нажатии - на главную  		##############################################
+					//####################################################			 добывление товара в избранное 	 		###################################################
 
-				// 	productDiv.onclick = event => {
-				// 		if(event.target.tagName == "IMG") {
-				// 			img.setAttribute("src",`../img1/${event.target.getAttribute("src")}`);
-                //         }}
+					addFavor.onclick = () => {
+						fetch("/system/addToCartAndFavor.php", {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							},
+							body: `productId=${element.id}&cartOrFavor=favor`,
+						})															
+						itemInFavor.style.display = "block";
+						addFavor.style.display = "none";											
+					}		
 
-                //         //##########################################			 увеличиваем картинку при двойном клике 		#################################################
+					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
 
-				// 	productDiv.ondblclick = selectedImg => {
-				// 		if(selectedImg.target.tagName == "IMG") {
+					productDiv.onclick = event => {
+						if(event.target.tagName == "IMG") {
+							img.setAttribute("src",`../img1/${event.target.getAttribute("src")}`)
+						}}
 
-				// 			let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
+						
+					//##########################################			 увеличиваем картинку при двойном клике 		#################################################
 
-				// 			contextMenu.style.display = "grid";
-				// 			let contextMenuParentDiv = document.createElement("div");
-				// 				contextMenuParentDiv.classList.add("contextMenuParentDiv");
+					productDiv.ondblclick = selectedImg => {
+						if(selectedImg.target.tagName == "IMG") {
 
-				// 			let contextMenuChildDiv1 = document.createElement("div");
-				// 				contextMenuChildDiv1.id = "seeStart";
-				// 				contextMenuChildDiv1.innerText = "<";
-				// 				contextMenuChildDiv1.classList.add("seeStartAndEnd");
+							let imageDataId = +selectedImg.target.getAttribute("data-id");	//находим data-id картинки
 
-				// 			let contextMenuChildDiv2 = document.createElement("div");
-				// 				contextMenuChildDiv2.id = "seeEnd";
-				// 				contextMenuChildDiv2.innerText = ">";
-				// 				contextMenuChildDiv2.classList.add("seeStartAndEnd");
+							contextMenu.style.display = "grid";
+							let contextMenuParentDiv = document.createElement("div");
+								contextMenuParentDiv.classList.add("contextMenuParentDiv");
 
-				// 			let contextMenuImage = document.createElement("img");
-				// 			contextMenuImage.classList.add("contextMenuImage");
-				// 			contextMenuImage.setAttribute("src", selectedImg.target.getAttribute("src"));
+							let contextMenuChildDiv1 = document.createElement("div");
+								contextMenuChildDiv1.id = "seeStart";
+								contextMenuChildDiv1.innerText = "<";
+								contextMenuChildDiv1.classList.add("seeStartAndEnd");
 
-				// 			contextMenuParentDiv.appendChild(contextMenuChildDiv1);
-				// 			contextMenuParentDiv.appendChild(contextMenuImage);
-				// 			contextMenuParentDiv.appendChild(contextMenuChildDiv2);
+							let contextMenuChildDiv2 = document.createElement("div");
+								contextMenuChildDiv2.id = "seeEnd";
+								contextMenuChildDiv2.innerText = ">";
+								contextMenuChildDiv2.classList.add("seeStartAndEnd");
 
-				// 			contextMenu.appendChild(contextMenuParentDiv);
+							let contextMenuImage = document.createElement("img");
+							contextMenuImage.classList.add("contextMenuImage");
+							contextMenuImage.setAttribute("src", selectedImg.target.getAttribute("src"));
 
-				// //#########################################			 закрываем увеличеную двойным кликом картинку 		###############################################
+							contextMenuParentDiv.appendChild(contextMenuChildDiv1);
+							contextMenuParentDiv.appendChild(contextMenuImage);
+							contextMenuParentDiv.appendChild(contextMenuChildDiv2);
 
-				// 			closeBtn.onclick = () => {
-				// 				contextMenu.style.display = "none";
-				// 				contextMenuParentDiv.remove();			//удаляем элемент
-				// 			}
-				// //#######################################################			 листаем картинку 	 		######################################################
+							contextMenu.appendChild(contextMenuParentDiv);
 
-				// 								seeStart.onclick = () => {
-				// 									let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
-				// 									imageDataId = imageDataId - 1;																
-				// 									if(imageDataId >= 0) {																	
-				// 										contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
-				// 									}
-				// 									if(imageDataId < 0) {
-				// 										imageDataId = allImageContextMenu.length-1;
-				// 										contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
-				// 									}																
-				// 								}	
+				//#########################################			 закрываем увеличеную двойным кликом картинку 		###############################################
 
-				// 								seeEnd.onclick = () => {
-				// 									let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
-				// 									imageDataId = imageDataId + 1;
+							closeBtn.onclick = () => {
+								contextMenu.style.display = "none";
+								contextMenuParentDiv.remove();			//удаляем элемент
+							}
+				//#######################################################			 листаем картинку 	 		######################################################
 
-				// 									if(imageDataId <= allImageContextMenu.length - 1) {																	
-				// 										contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
-				// 									}
-				// 									if(imageDataId > allImageContextMenu.length - 1) {
-				// 										imageDataId = 0;
-				// 										contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
-				// 									}																	
-				// 								}													
-				// 							}														
-				// 						}
-                    }
-                )
-                })
-			}
+							seeStart.onclick = () => {
+								let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
+								imageDataId = imageDataId - 1;																
+								if(imageDataId >= 0) {																	
+									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+								}
+								if(imageDataId < 0) {
+									imageDataId = allImageContextMenu.length-1;
+									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+								}																
+							}	
+
+							seeEnd.onclick = () => {
+								let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
+								imageDataId = imageDataId + 1;
+
+								if(imageDataId <= allImageContextMenu.length - 1) {																	
+									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+								}
+								if(imageDataId > allImageContextMenu.length - 1) {
+									imageDataId = 0;
+									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
+								}}													
+							}}
+						})
+					})
+				})
+            })
+		}
     </script>
 </body>
 </html>

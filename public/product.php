@@ -33,7 +33,6 @@
 					.then(response => response.json())                                  
 					.then(data => {						
 						console.log(data);
-						const content = document.getElementById("content");
 						data.forEach(element => {
 							let productDiv = document.createElement("div");								//parent
 

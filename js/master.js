@@ -229,3 +229,51 @@ function addProductsToTheDatabase(elementId) {
 	})
 }
 
+
+
+// // ###########################################      функция для загрузки категории    ###################################################
+function loadCategory(cat, productCat){
+	fetch(`/system/changeToCategoryPage.php`, {
+			method: 'post',
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+			},
+			body: `tableName=${cat}`
+			})                                        
+	.then(response => response.json())                                  
+	.then(data => {
+		const content = document.getElementById("content");
+		data.forEach(element => {
+			console.log(element);
+			let subcategoryDiv = document.createElement("div");
+			let subcategoryImg = document.createElement("img");
+			let subcategoryText = document.createElement("div");
+
+			subcategoryDiv.setAttribute("data-id",`${element.id}`);
+			subcategoryImg.setAttribute("src",`../img1/${element.image}`);
+			subcategoryText.innerText=`${element.name}`;
+			
+			subcategoryDiv.classList.add("crockeryCard");
+			subcategoryImg.classList.add("crockeryImg");
+			subcategoryText.classList.add("crockeryText");
+
+			subcategoryDiv.appendChild(subcategoryImg);
+			subcategoryDiv.appendChild(subcategoryText);
+			content.appendChild(subcategoryDiv);
+
+			subcategoryDiv.onclick = () => {
+				let subcategoryId = subcategoryDiv.getAttribute('data-id');		//получили id
+					fetch("/system/getSubcategory.php", {
+						method: 'post',
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+						},
+						body: `subcategoryId=${subcategoryId}&productCat=${productCat}`,
+					})
+					.then(data=>
+						{window.location.href = "/product"}
+					)
+			}
+		})
+	})
+}
