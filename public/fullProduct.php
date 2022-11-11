@@ -252,9 +252,7 @@
 					addButton.onclick = () => {
 						addProductsToTheDatabase();															
 						itemInCart.style.display = "block";
-						addButton.style.display = "none";
-						dataDivAddToCartText.style.display = "block";
-						dataDivAddToCartBtn.style.display = "none";													
+						addButton.style.display = "none";													
 													}	
 
 					//####################################################			 добывление товара в избранное 	 		###################################################

@@ -267,7 +267,7 @@ footer > :nth-child(2){
     gap: 15px;
 }
 .crockeryProduct {
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-content: start;
     padding: 25px;

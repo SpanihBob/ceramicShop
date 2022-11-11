@@ -12,28 +12,16 @@
 			<?
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
-			<div class="crockeryContent">
-                <div class="nameContent">								<!-- CONTENT -->
+			<div class="crockeryProduct">
+                <!-- <div class="nameContent">								
                     название
-                </div>									
-				<?
-					require_once "$path/system/sysSearch.php";
-				?>
+                </div> -->
 			</div>
             <script>
-                
-                // document.querySelector(".main__search").onclick = event => {            
-                //     if(event.target.className == "mainCard__cont_row3__productToCart") {
-                //         console.log(event.path[3].dataset.productId);
-                //         fetch("/system/addToCart.php", {
-                //             method: 'post',
-                //             headers: {
-                //                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                //             },
-                //             body: `product_id=${event.path[3].dataset.productId}`,
-                //         }) 
-                //     }
-                // }                
+                const crockeryContent = document.querySelector(".crockeryProduct");
+				window.onload=()=>{				
+					displayProductPage("system/sysSearch");     
+				}                  
             </script>		
 		</article>
 		<?
