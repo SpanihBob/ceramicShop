@@ -17,14 +17,11 @@ if(isset($_POST['modalContextMenuExit'])) {
             <input type="text" name="searchProduct" id="searchProduct" placeholder="Найти...">
         </form>   
         <div class="headerBtn">
-            <!-- <a href="/account"></a> --><div id="guest"></div>
+            <div id="guest"></div>
             <div id="favorites"></div>
             <div id="shopping_cart"></div>
         </div>
     </div>
-
-    
-         
 </header>
 <div id="modalWindow">
     <div id="modalContextMenu">

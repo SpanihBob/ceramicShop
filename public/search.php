@@ -17,6 +17,9 @@
                     название
                 </div> -->
 			</div>
+			<?  
+                // require_once "$path/system/sysSearch.php";
+            ?> 
             <script>
                 const crockeryContent = document.querySelector(".crockeryProduct");
 				window.onload=()=>{				
