@@ -273,6 +273,13 @@ footer > :nth-child(2){
     padding: 25px;
     gap: 15px;
 }
+.crockeryProductDataFalse {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: start;
+    padding: 25px;
+    gap: 15px;
+}
 .crockeryCard {
     justify-self: center;
 }
@@ -707,6 +714,7 @@ footer > :nth-child(2){
 .cartProduct {
     display: grid;
     grid-template-columns: 200px 1fr;
+    margin: 3px;
 }
 .cartProductImgDiv img {
     width: 200px;
@@ -778,4 +786,13 @@ footer > :nth-child(2){
 .popupMenuQuestionImageParent > div{
     justify-self: center;
     align-self: center;
+}
+.cartProductImgDiv > img {
+    height: 200px;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.cartProductImgDiv > img:hover {
+    box-shadow: var(--boxShadowHover);
 }

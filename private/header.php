@@ -58,7 +58,6 @@ if(isset($_POST['modalContextMenuExit'])) {
             if(event.target.id == 'modalContextMenuLogIn'){
                 window.location.href = "/login";
             }
-            console.log(12321);
         }
         else if(event.target.id == 'favorites'){
             window.location.href = "/favorites";

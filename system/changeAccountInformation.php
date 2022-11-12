@@ -2,11 +2,15 @@
     $path = $_SERVER['DOCUMENT_ROOT'];
     require_once "$path/system/db.php";
     session_start();
+    echo "<pre>";
+    echo "SESSION <br>";
     print_r($_SESSION);
+    echo "get: <br>";
+    print_r($_GET);
 
-    echo "_POST:";
+    echo "_POST: <br>";
     print_r($_POST);
-    echo "_FILES:";
+    echo "_FILES: <br>";
     print_r($_FILES);
     echo "</pre>";
    

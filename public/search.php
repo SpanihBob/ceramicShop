@@ -1,5 +1,9 @@
 <?
 	include_once "$path/private/head.php";
+	$_GET['searchProduct'] = trim($_GET['searchProduct']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
+	$_GET['searchProduct'] = htmlspecialchars($_GET['searchProduct']);                    //Преобразует специальные символы в HTML-сущности
+	$_SESSION['searchProduct'] = $_GET['searchProduct'];
+	
 ?>
 
 
@@ -23,7 +27,7 @@
             <script>
                 const crockeryContent = document.querySelector(".crockeryProduct");
 				window.onload=()=>{				
-					displayProductPage("system/sysSearch");     
+					displayProductPage("sysSearch");     
 				}                  
             </script>		
 		</article>

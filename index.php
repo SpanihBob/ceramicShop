@@ -35,8 +35,8 @@
     elseif($_SERVER['REDIRECT_URL']=="/signup"):
         require_once "$path/public/signup.php";
     
-    // elseif($_SERVER['REDIRECT_URL']=="/profile"):
-    //     require_once "$path/public/profile.php";
+    elseif($_SERVER['REDIRECT_URL']=="/productFromTheCart"):
+        require_once "$path/public/productFromTheCart.php";
     
     elseif($_SERVER['REDIRECT_URL']=="/debt"):
         require_once "$path/public/debt.php";

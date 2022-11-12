@@ -208,6 +208,17 @@ function favoritesAndCart(filePhp, patch, text) {
 										}											
 									// //________________________________________________________________________________________________________________									
 								} 
+								imgDiv.onclick = () => {
+									let productId = imgDiv.parentNode.id;				
+										fetch("/system/sessionFavorAndCart.php", {
+											method: 'post',
+											headers: {
+												"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+											},
+											body: `productIdCartAndFavor=${productId}`,
+										})
+										window.location.href = "/fullProduct";							
+								}
 							})
 						}
 					})
@@ -288,17 +299,15 @@ function loadCategory(cat, productCat){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // // #######################################      функция для вывода страницы продуктов     ###############################################
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function displayProductPage(pagePhp, searchProduct=undefined) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товара на экран %%%%%%%%%%%%%%%%%%%%%%%%%%//
-	fetch(`/system/${pagePhp}.php`,{
-		method: 'post',
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-		},
-		body: `searchProduct=${searchProduct}`
-		})                                       
+function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товара на экран %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	fetch(`/system/${pagePhp}.php`)                                       
 	.then(response => response.json())                                  
 	.then(data => {						
-		console.log(data);
+		// console.log(data);
+		if(data==false){
+			crockeryContent.innerText = "По вашему запросу ничего не найдено...";
+			crockeryContent.classList = "crockeryProductDataFalse";
+		}
 		data.forEach(element => {
 			let productDiv = document.createElement("div");								//parent
 
@@ -410,6 +419,6 @@ function addProductsToTheDatabase() {
 		}
 		}
 	}
-})    
-})  
+})   
+})
 }
