@@ -13,9 +13,8 @@
 			<?
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
-			<div class="error404">								<!-- CONTENT -->
-                <h1>ERROR 404</h1>
-                <img src="../img/1586847019_3.jpg" alt="">
+			<div class="nameContent">								<!-- CONTENT -->
+				название
 			</div>		
 		</article>
 		<?

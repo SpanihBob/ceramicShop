@@ -797,3 +797,13 @@ footer > :nth-child(2){
 .cartProductImgDiv > img:hover {
     box-shadow: var(--boxShadowHover);
 }
+
+/*     ######################################      404.php    ##########################################     */
+.error404{
+    display: grid;
+    margin: auto;
+}
+.error404 > h1{
+    font-size: 300%;
+    text-align: center;
+}
