@@ -736,6 +736,9 @@ footer > :nth-child(2){
     grid-template-columns: 20px 1fr 20px;
     width: 70px;
 }
+.favorAmountDiv {
+    display: grid;
+}
 .popupMenuParent {
     position: fixed;
     width: 100vw;

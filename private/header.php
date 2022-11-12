@@ -2,8 +2,10 @@
 <?
 // echo $_SESSION['login'];
 if(isset($_POST['modalContextMenuExit'])) {
-    $_SESSION['auth']=NULL;
-    $_SESSION['login']=NULL;
+    // $_SESSION['auth']=NULL;
+    // $_SESSION['login']=NULL;
+    // $_SESSION['id']=NULL;
+    session_destroy();
     header("Location: ../index.php"); 
 }
 ?>

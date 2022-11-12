@@ -1,6 +1,7 @@
 <?
 	include_once "$path/private/head.php";
-    // print_r($_SESSION['login']) ;
+    // echo "<pre>";
+	// print_r($_SESSION['login']) ;
     // print_r($_SESSION) ;
 	
 
@@ -119,10 +120,6 @@
 			
 			<div id="personalAccountForm">
 				<form action="" method="post" class="personalAccountContent">
-					<!-- <div>
-						<div>Логин:</div>
-						<input type="text" name="loginInput" id="loginInput">
-					</div> -->
 					<div>
 						<div>Почта:</div>
 						<input type="text" name="emailInput" id="emailInput">
@@ -204,7 +201,6 @@
 							postcodeDiv.textContent=`${data[0].postcode}`;
 							timeDiv.textContent=`${data[0].time_signup * 1000}`;
 
-							// loginInput.setAttribute("value", `${data[0].login}`);
 							emailInput.setAttribute("value", `${data[0].email}`);
 							nameInput.setAttribute("value", `${data[0].name}`);
 							lastnameInput.setAttribute("value", `${data[0].lastname}`);
@@ -217,7 +213,6 @@
 
 
 							avatarImg.src=`../download/${data[0].avatar}`;
-							// loginDiv.classList.add("loginDivPersonalAccount");
 							emailDiv.classList.add("emailDivPersonalAccount");
 							nameDiv.classList.add("nameDivPersonalAccount");
 							lastnameDiv.classList.add("lastnameDivPersonalAccount");
@@ -249,13 +244,12 @@
 								avaForm.style.display = 'none';
 							}
 							personalAccountForm.onsubmit = () => {						//изменение данных пользователя в БД
-								event.preventDefault();
 								fetch("/system/changeAccountInformation.php", {
 									method: 'post',
 									headers: {
 										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 									},
-									body: `changeLogin=${loginInput.value}&changeEmail=${emailInput.value}&changeName=${nameInput.value}&changeLastname=${lastnameInput.value}&changeCountry=${countryInput.value}&changeCity=${cityInput.value}&changeStreet=${streetInput.value}&changeHouse=${houseInput.value}&changeApartment=${apartmentInput.value}&changePostcode=${postcodeInput.value}&personalAccountFormSubmit=${personalAccountFormSubmit.value}`,
+									body: `changeEmail=${emailInput.value}&changeName=${nameInput.value}&changeLastname=${lastnameInput.value}&changeCountry=${countryInput.value}&changeCity=${cityInput.value}&changeStreet=${streetInput.value}&changeHouse=${houseInput.value}&changeApartment=${apartmentInput.value}&changePostcode=${postcodeInput.value}&personalAccountFormSubmit=${personalAccountFormSubmit.value}`,
 									})
 								.then(response =>response.text())
 								.then(window.location.href = '/account')

@@ -55,7 +55,13 @@ function favoritesAndCart(filePhp, patch, text) {
 								imgDiv.classList.add('cartProductImgDiv');
 								infoDiv.classList.add('cartInfoDiv');
 								delCrockeryDiv.classList.add('cartDelProduct');
-								amountDiv.classList.add('cartAmountDiv');
+								if(filePhp=="cart"){
+									amountDiv.classList.add('cartAmountDiv');
+								}
+								else if(filePhp=="favor"){
+									amountDiv.classList.add('favorAmountDiv');
+								}
+								
 
 								delDiv.classList.add('delProduct');
 								numDiv.classList.add('productQuantity');

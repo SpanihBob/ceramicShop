@@ -2,22 +2,22 @@
     $path = $_SERVER['DOCUMENT_ROOT'];
     require_once "$path/system/db.php";
     session_start();
-    echo "<pre>";
-    echo "SESSION <br>";
-    print_r($_SESSION);
-    echo "get: <br>";
-    print_r($_GET);
+    // echo "<pre>";
+    // echo "SESSION <br>";
+    // print_r($_SESSION);
+    // echo "get: <br>";
+    // print_r($_GET);
 
-    echo "_POST: <br>";
-    print_r($_POST);
-    echo "_FILES: <br>";
-    print_r($_FILES);
-    echo "</pre>";
+    // echo "_POST: <br>";
+    // print_r($_POST);
+    // echo "_FILES: <br>";
+    // print_r($_FILES);
+    // echo "</pre>";
    
     
     if(isset($_POST['personalAccountFormSubmit'])) {                //код изменяет данные пользователя в БД
-        $_POST['changeLogin'] = trim($_POST['changeLogin']);                              
-        $_POST['changeLogin'] = htmlspecialchars($_POST['changeLogin']);                  
+        // $_POST['changeLogin'] = trim($_POST['changeLogin']);                              
+        // $_POST['changeLogin'] = htmlspecialchars($_POST['changeLogin']);                  
     
         $_POST['changeEmail'] = trim($_POST['changeEmail']);                              
         $_POST['changeEmail'] = htmlspecialchars($_POST['changeEmail']);  
