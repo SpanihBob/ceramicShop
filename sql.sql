@@ -27,17 +27,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~7 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~11 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
-	(85, 2, 5, 7, 1668081583),
-	(86, 22, 5, 1, 1668081610),
-	(87, 24, 5, 1, 1668081618),
-	(88, 23, 5, 1, 1668081638),
-	(89, 9, 5, 1, 1668081724),
-	(90, 10, 5, 1, 1668081738);
+	(100, 22, 5, 1, 1668239143),
+	(101, 23, 5, 1, 1668239169),
+	(102, 14, 5, 1, 1668239180);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -92,12 +89,19 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~6 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~7 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(35, 10, 5);
+	(35, 10, 5),
+	(36, 4, 5),
+	(37, 2, 5),
+	(38, 25, 5),
+	(39, 24, 5),
+	(40, 16, 5),
+	(41, 11, 5),
+	(42, 21, 5);
 
 -- Дамп структуры для таблица diploma.interior
 CREATE TABLE IF NOT EXISTS `interior` (

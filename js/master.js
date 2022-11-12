@@ -61,7 +61,7 @@ function favoritesAndCart(filePhp, patch, text) {
 								numDiv.classList.add('productQuantity');
 								addDiv.classList.add('addProduct');
 
-								img.setAttribute("src",`../img1/${element.poster}`);
+								img.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
 								nameDiv.innerText = `${element.name}`;
 								
 								if(filePhp=='cart'){

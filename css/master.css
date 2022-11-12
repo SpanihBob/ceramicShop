@@ -425,6 +425,7 @@ footer > :nth-child(2){
     justify-self: center;
     align-self: center;
     font-size: 3rem;
+    background: none;
 }
 #rightArrow, #leftArrow {
     line-height: 22px;

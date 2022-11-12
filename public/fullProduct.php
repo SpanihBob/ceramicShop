@@ -81,10 +81,10 @@
 								let imgFullDiv = document.createElement("div");								//div для мини-картинок
 								imgFullDiv.classList.add("miniImgFullProductDiv");
                                     
-                                    let leftArrow = document.createElement("div");							//кнопка влево для листания мини-картинок
+                                    let leftArrow = document.createElement("button");							//кнопка влево для листания мини-картинок
                                         leftArrow.innerText = "<";
                                         leftArrow.id = "leftArrow";
-                                    let rightArrow = document.createElement("div");							//кнопка вправо для листания мини-картинок
+                                    let rightArrow = document.createElement("button");							//кнопка вправо для листания мини-картинок
                                         rightArrow.innerText = ">";
                                         rightArrow.id = "rightArrow";
 
@@ -247,15 +247,9 @@
 						window.location.href = '/product';
 					}
 
-					//####################################################			 добывление товара в корзину 	 		###################################################
+					
 
-					addButton.onclick = () => {
-						addProductsToTheDatabase();															
-						itemInCart.style.display = "block";
-						addButton.style.display = "none";													
-													}	
-
-					//####################################################			 добывление товара в избранное 	 		###################################################
+					//####################################################			 добавление товара в избранное 	 		###################################################
 
 					addFavor.onclick = () => {
 						fetch("/system/addToCartAndFavor.php", {
@@ -288,12 +282,12 @@
 							let contextMenuParentDiv = document.createElement("div");
 								contextMenuParentDiv.classList.add("contextMenuParentDiv");
 
-							let contextMenuChildDiv1 = document.createElement("div");
+							let contextMenuChildDiv1 = document.createElement("button");
 								contextMenuChildDiv1.id = "seeStart";
 								contextMenuChildDiv1.innerText = "<";
 								contextMenuChildDiv1.classList.add("seeStartAndEnd");
 
-							let contextMenuChildDiv2 = document.createElement("div");
+							let contextMenuChildDiv2 = document.createElement("button");
 								contextMenuChildDiv2.id = "seeEnd";
 								contextMenuChildDiv2.innerText = ">";
 								contextMenuChildDiv2.classList.add("seeStartAndEnd");
@@ -315,28 +309,28 @@
 								contextMenuParentDiv.remove();			//удаляем элемент
 							}
 				//#######################################################			 листаем картинку 	 		######################################################
-
+				let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
 							seeStart.onclick = () => {
-								let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
 								imageDataId = imageDataId - 1;																
-								if(imageDataId >= 0) {																	
+								if(imageDataId > 0) {																	
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}
-								if(imageDataId < 0) {
+								if(imageDataId <= 0) {
 									imageDataId = allImageContextMenu.length-1;
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}																
 							}	
 
 							seeEnd.onclick = () => {
-								let allImageContextMenu = document.querySelectorAll(".ImgFullProduct");
 								imageDataId = imageDataId + 1;
 
-								if(imageDataId <= allImageContextMenu.length - 1) {																	
+								if(imageDataId < allImageContextMenu.length) {
+									console.log(imageDataId);																	
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}
-								if(imageDataId > allImageContextMenu.length - 1) {
-									imageDataId = 0;
+								if(imageDataId >= allImageContextMenu.length) {
+									imageDataId = 1;
+									console.log(imageDataId);
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}}													
 							}}
