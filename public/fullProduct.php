@@ -39,7 +39,7 @@
 					let productDiv = document.createElement("div");								//parent
 						let imgAndPrice = document.createElement("div");						//картинка			
 						let descDiv = document.createElement("div");							//описание								
-
+						descDiv.classList.add("descDiv");
 							let imgDiv = document.createElement("div");	
 								let img = document.createElement('img');						//создали картинку
 								let mainImage = element.image.split(", ")[0];
@@ -57,6 +57,7 @@
 			                        let priceText = document.createTextNode(`Цена: ${element.price} р.`);
 
 			                    let descriptionDiv = document.createElement("div");								//description
+								descriptionDiv.classList.add("descriptionDiv")
 			                        let descriptionText = document.createTextNode(`${element.description}`);
 
 								let amountDiv = document.createElement("div");									//amount

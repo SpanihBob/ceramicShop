@@ -301,14 +301,15 @@ footer > :nth-child(2){
 }
 .productDivCrockery {
     display: grid;
-    justify-content: center;
+    width: 200px;
+    /* justify-content: center; */
 }
 .dataProductDivCrockery {
     display: grid;
 }
 .imgProductCrockery {
     display: grid;
-    align-content: center;
+    /* align-content: center; */
 }
 .imgProductCrockery > img {
     height: 200px;
@@ -465,8 +466,17 @@ footer > :nth-child(2){
     text-align: right;
     font-size: 90%;
 }
-
-
+.descriptionDiv {
+    padding: 15px;
+    margin-bottom: 20px;
+    background: var(--secondColor);
+    border-radius: 15px;
+    box-shadow: var(--boxShadow);
+}
+.descDiv {
+    display: grid;
+    grid-template-columns: 1fr 20px;
+}
 
 /*     ######################################      main.php    ##########################################     */
 #mainContent {
@@ -716,6 +726,7 @@ footer > :nth-child(2){
     display: grid;
     grid-template-columns: 200px 1fr;
     margin: 3px;
+    gap: 5px;
 }
 .cartProductImgDiv img {
     width: 200px;
@@ -725,16 +736,31 @@ footer > :nth-child(2){
     height: 20px;
     background: url(../img/cart.png);
     background-size: 100%;
+    justify-self: right;
 }
 .cartInfoDiv {
     display: grid;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 3fr 1fr;
     padding: 10px;
 }
 .cartAmountDiv {
     display: grid;
-    grid-template-columns: 20px 1fr 20px;
+    align-content: center;
+}
+.sumDelDiv{
+    display: grid;
+    grid-template-columns: 25px 1fr 25px;
     width: 70px;
+    gap: 3px;
+}
+.finalPriceDiv {
+    justify-self: right;
+    align-self: center;
+}
+.productQuantity{
+    min-width: 25px;
+    text-align: center;
+    font-weight: 600;
 }
 .favorAmountDiv {
     display: grid;
@@ -800,7 +826,24 @@ footer > :nth-child(2){
 .cartProductImgDiv > img:hover {
     box-shadow: var(--boxShadowHover);
 }
-
+.delProduct, .addProduct{
+    justify-content: center;
+    border-radius: 7px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
+    background: var(--bgButtonface);
+    width: 25px;
+    height: 25px;
+    font-size: 120%;
+    text-align: center;}
+.delProduct:hover, .addProduct:hover{
+    box-shadow: var(--boxShadowHover);
+}
+.cartContent{
+    display: grid;
+    gap: 5px;
+}
 /*     ######################################      404.php    ##########################################     */
 .error404{
     display: grid;

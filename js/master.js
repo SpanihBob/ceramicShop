@@ -33,6 +33,7 @@ function favoritesAndCart(filePhp, patch, text) {
 					if(data[0]==undefined){
 						const favorIsEmpty = document.createElement('div');
 						favorIsEmpty.innerText=text;
+						favorIsEmpty.style="justify-self: center;"
 						cartContent[0].appendChild(favorIsEmpty);
 					}
 					else{
@@ -46,9 +47,9 @@ function favoritesAndCart(filePhp, patch, text) {
 									const delCrockeryDiv = document.createElement('div');//удаление товара
 									const summDiv = document.createElement('div');//цена итоговая
 									const amountDiv = document.createElement('div');//кол-во
-									const delDiv = document.createElement('div');//del
+									const delDiv = document.createElement('button');//del
 									const numDiv = document.createElement('div');//number
-									const addDiv = document.createElement('div');//add
+									const addDiv = document.createElement('button');//add
 
 								cartParentDiv.id = element.id;
 								cartParentDiv.classList.add('cartProduct');
@@ -63,6 +64,7 @@ function favoritesAndCart(filePhp, patch, text) {
 								}
 								
 
+								summDiv.classList.add('finalPriceDiv');
 								delDiv.classList.add('delProduct');
 								numDiv.classList.add('productQuantity');
 								addDiv.classList.add('addProduct');
@@ -74,11 +76,13 @@ function favoritesAndCart(filePhp, patch, text) {
 									delDiv.innerText = `-`;
 									numDiv.innerText = `${element.count}`;
 									addDiv.innerText = `+`;
-									summDiv.innerText = `${element.price * numDiv.innerText}`;
-
-									amountDiv.appendChild(delDiv);
-									amountDiv.appendChild(numDiv);
-									amountDiv.appendChild(addDiv);
+									summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;
+									let sumDelDiv = document.createElement("div");
+									sumDelDiv.classList.add("sumDelDiv")
+									sumDelDiv.appendChild(delDiv);
+									sumDelDiv.appendChild(numDiv);
+									sumDelDiv.appendChild(addDiv);
+									amountDiv.appendChild(sumDelDiv);
 								}
 								else if(filePhp=='favor'){
 									summDiv.innerText = `${element.price}`;
@@ -139,7 +143,7 @@ function favoritesAndCart(filePhp, patch, text) {
 										// numDiv.innerText = c.reset();
 										removeItemFromFavorAndCart()
 									}
-									summDiv.innerText = `${element.price * numDiv.innerText}`;	// выводим колличество_товара*цена_товара
+									summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;	// выводим колличество_товара*цена_товара
 
 									fetch("/system/updateToCart.php", {
 													method: 'post',
@@ -176,7 +180,7 @@ function favoritesAndCart(filePhp, patch, text) {
 											popupMenuQuestionName.innerText = `${element.name}`;
 											popupMenuButtonNo.innerText = "Нет";
 											popupMenuButtonYes.innerText = "Да";
-											popupMenuQuestionImage.setAttribute("src",`../img1/${element.poster}`);
+											popupMenuQuestionImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
 
 											popupMenuParent.classList.add('popupMenuParent');
 											popupMenu.classList.add('popupMenu');
