@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~7 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~9 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
 	(91, 23, 5, 1, 1668185706),
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `collections` (
 DELETE FROM `collections`;
 INSERT INTO `collections` (`id`, `name`, `image`) VALUES
 	(1, 'Фантазия', 'keramicheskaya-posuda-2.jpg'),
-	(2, 'Времена года', 'keramicheskaya-posuda-2.jpg');
+	(2, 'Времена года', '5d745e3f2661205065a5029954qi--posuda-mertsayuschij-serviz-avtorskij-nabor-posudy-ruchnoj-ra.jpg');
 
 -- Дамп структуры для таблица diploma.crockery
 CREATE TABLE IF NOT EXISTS `crockery` (
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `favor` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~5 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~4 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
 	(36, 22, 5),
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~2 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~0 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`, `admin`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 2, 12, 426000, '11116602.jpg', 1662533535, 1),
