@@ -426,9 +426,141 @@ function addProductsToTheDatabase() {
 						.then(
 							window.location.href = '/fullProduct'
 						)        
-		}
-		}
-	}
-})   
-})
+					}
+				}
+			}
+		})   
+	})
+}
+
+// ###########################################
+// ###########################################
+// ###########################################
+// ###########################################
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// // #######################################      функция для страницы администратора     ###############################################
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пользователей %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	fetch(`/system/removeUserToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
+	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+	.then(data => {
+		// console.log(data);
+		let user_id_array = [];
+		data.forEach(element =>{
+			if(!user_id_array.includes(element.user_id)) {
+				user_id_array.push(element.user_id);
+
+				let userCont = document.createElement("div");
+				userCont.setAttribute("data-id",`${element.user_id}`);
+				userCont.classList.add("admin_user");
+
+				let userShopping = document.createElement("div");
+				userShopping.classList.add("userShopping");
+
+				let loginUser = document.createElement("div");							//login
+					let loginUserText = document.createTextNode(`${element.login}`); 
+				let nameUser = document.createElement("div");							//name
+					let nameUserText = document.createTextNode(`${element.user_name}`); 
+				let lastNameUser = document.createElement("div");						//last name
+					let lastNameUserText = document.createTextNode(`${element.lastname}`); 
+				let userButton = document.createElement("button");
+					let userButtonText = document.createTextNode("Подробнее");				
+
+				loginUser.appendChild(loginUserText);
+				nameUser.appendChild(nameUserText);
+				lastNameUser.appendChild(lastNameUserText);
+				userButton.appendChild(userButtonText);		
+
+				userCont.appendChild(loginUser);
+				userCont.appendChild(nameUser);
+				userCont.appendChild(lastNameUser);
+				userCont.appendChild(userButton);
+				
+				usersContainer.appendChild(userCont);
+				adminContent.appendChild(usersContainer);
+
+				userButton.onclick = () => {
+					let user_id = userButton.parentNode.getAttribute("data-id");
+					if(element.user_id == user_id) {
+						fetch(`/system/removeUserAndProductToAdmin.php`, {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							},
+							body: `userId=${element.user_id}`,
+						})            
+						.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+						.then(data => {
+							console.log(data);
+							adminUserShopping.innerText="";
+							data.forEach(element =>{
+								let userProductContainer = document.createElement("div");
+									userProductContainer.classList.add("userShoppingProduct")
+								let productImageContainer = document.createElement("div");
+								let productInfoContainer = document.createElement("div");
+								let productImage = document.createElement("img");
+									productImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+								let productName = document.createElement("div");
+									let productNameText = document.createTextNode(`Название:${element.name}`);
+									productName.appendChild(productNameText);
+								let productId = document.createElement("div");
+									let productIdText = document.createTextNode(`id:${element.product_id}`);
+									productId.appendChild(productIdText);
+								let productAmount = document.createElement("div");
+									let productAmountText = document.createTextNode(`Остаток:${element.amount}шт.`);
+									productAmount.appendChild(productAmountText);
+								let productCount = document.createElement("div");
+									let productCountText = document.createTextNode(`Заказ:${element.count}шт.`);
+									productCount.appendChild(productCountText);
+
+								productImageContainer.appendChild(productImage);
+								productInfoContainer.appendChild(productName);	
+								productInfoContainer.appendChild(productId);	
+								productInfoContainer.appendChild(productAmount);	
+								productInfoContainer.appendChild(productCount);	
+								
+								userProductContainer.appendChild(productImageContainer);	
+								userProductContainer.appendChild(productInfoContainer);	
+								
+								adminUserShopping.appendChild(userProductContainer);	
+								adminContent.appendChild(adminUserShopping);	
+								usersContainer.style.display = "none";
+								adminUserShopping.style.display = "grid";
+							})
+						})
+					}					
+				}
+			
+		
+		
+			}	
+		});
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод категорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	fetch(`/system/removeCategoryToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
+	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+	.then(data => {
+		console.log(data);
+	})
+}
+function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	fetch(`/system/removeProductToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
+	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+	.then(data => {
+		console.log(data);
+	})
 }

@@ -408,7 +408,7 @@ footer > :nth-child(2){
     box-shadow: 0px 0px 0px #ffffff;
 }
 .contextMenuImage {
-    width: 50vw;                  /*доделать ширину через адаптацию или js*/
+    width: 500px;                  /*доделать ширину через адаптацию или js*/
     border-radius: 5px;
     box-shadow: var(--boxShadow);
 }
@@ -852,4 +852,30 @@ footer > :nth-child(2){
 .error404 > h1{
     font-size: 300%;
     text-align: center;
+}
+/*     ######################################      admin.php    ##########################################     */
+.admin_user{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin:5px;
+}
+.adminContent{
+    display: grid;
+    justify-content: start;
+    align-content: start;
+}
+.userShopping{
+    display: none;
+}
+.userShoppingProduct{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 5px;
+    padding: 5px;
+}
+.userShoppingProduct > div{
+    margin: 5px;
+}
+.userShoppingProduct > div > img{
+    width: 150px;
 }

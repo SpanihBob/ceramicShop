@@ -191,7 +191,7 @@
 
 							loginDiv.textContent=`${data[0].login}`;
 							emailDiv.textContent=`${data[0].email}`;
-							nameDiv.textContent=`${data[0].name}`;
+							nameDiv.textContent=`${data[0].user_name}`;
 							lastnameDiv.textContent=`${data[0].lastname}`;
 							countryDiv.textContent=`${data[0].country}`;
 							cityDiv.textContent=`${data[0].city}`;
@@ -202,7 +202,7 @@
 							timeDiv.textContent=`${data[0].time_signup * 1000}`;
 
 							emailInput.setAttribute("value", `${data[0].email}`);
-							nameInput.setAttribute("value", `${data[0].name}`);
+							nameInput.setAttribute("value", `${data[0].user_name}`);
 							lastnameInput.setAttribute("value", `${data[0].lastname}`);
 							countryInput.setAttribute("value", `${data[0].country}`);
 							cityInput.setAttribute("value", `${data[0].city}`);
