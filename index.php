@@ -36,6 +36,9 @@
     elseif($_SERVER['REDIRECT_URL']=="/account"):
         require_once "$path/public/personalAccount.php";
 
+    elseif($_SERVER['REDIRECT_URL']=="/ordering"):
+        require_once "$path/public/ordering.php";
+
     elseif($_SERVER['REDIRECT_URL']=="/fullProduct"):
         require_once "$path/public/fullProduct.php";
 

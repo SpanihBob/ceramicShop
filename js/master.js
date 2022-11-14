@@ -33,7 +33,7 @@ function favoritesAndCart(filePhp, patch, text) {
 					if(data[0]==undefined){
 						const favorIsEmpty = document.createElement('div');
 						favorIsEmpty.innerText=text;
-						favorIsEmpty.style="justify-self: center;"
+						// favorIsEmpty.style="justify-self: center;"
 						cartContent[0].appendChild(favorIsEmpty);
 					}
 					else{

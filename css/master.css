@@ -843,6 +843,7 @@ footer > :nth-child(2){
 .cartContent{
     display: grid;
     gap: 5px;
+    align-content: start;
 }
 /*     ######################################      404.php    ##########################################     */
 .error404{

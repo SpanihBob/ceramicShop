@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.8.4-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.6.7-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win64
--- HeidiSQL Версия:              12.1.0.6537
+-- HeidiSQL Версия:              12.0.0.6468
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~7 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~13 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
 	(91, 23, 5, 1, 1668185706),
@@ -38,7 +38,13 @@ INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
 	(94, 4, 5, 1, 1668270394),
 	(95, 5, 5, 1, 1668270943),
 	(96, 3, 5, 1, 1668273862),
-	(97, 2, 5, 1, 1668281774);
+	(97, 2, 5, 1, 1668281774),
+	(116, 8, 9, 1, 1668444729),
+	(117, 9, 9, 1, 1668444739),
+	(118, 15, 9, 1, 1668445096),
+	(119, 24, 9, 1, 1668445106),
+	(120, 1, 9, 1, 1668445250),
+	(121, 21, 9, 1, 1668445408);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -93,16 +99,20 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~5 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~9 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
 	(36, 22, 5),
 	(37, 24, 5),
 	(38, 1, 5),
 	(39, 23, 5),
-	(40, 3, 5);
+	(40, 3, 5),
+	(41, 22, 9),
+	(42, 21, 9),
+	(43, 9, 9),
+	(44, 1, 9);
 
 -- Дамп структуры для таблица diploma.interior
 CREATE TABLE IF NOT EXISTS `interior` (
@@ -166,7 +176,7 @@ INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `pri
 	(12, 'СОУСНИК "КРАФТ" С РУЧКОЙ', 'cg-2020-393', 1, 3, 380, 'Соусник минималистичный с ручкой ручной работы. Белый, посыпанный крошкой. Соусник стилизованный под алюминиевую посуду. Керамика, полуфарфор', 7, 'e01d1b32d0a519b5307ef8e70b31.jpeg, 338f38d0384a1984626115d216fc.jpeg', 'product'),
 	(13, 'СОУСНИК "БЕЛЫЙ ЖЕМЧУГ"', 'cg-2020-373', 1, 3, 288, 'Соусник ручной работы для стильной сервировки с рельефной текстурой. Мягкий фарфор. Белый, глянцевый', 7, '4da89ee357da27a75cc3c4fdbda9.jpeg, 72bfbe4222f51144a886e3e00767.jpeg', 'product'),
 	(14, 'СОУСНИК "ДЗЕНАРТ МОРЕ"', 'cg-2020-3754', 1, 3, 250, 'Соусник с рельефным кантом, Диаметр 7,5 см, Высота 4см, мягкий фарфор, синего цвета, ручная работа', 7, '417b3138c787aa51b924e6b535c8.jpeg, 98ac9d0326d845fea8943e270207.jpeg', 'product'),
-	(15, 'КРУЖКА "КРАФТ"', 'kruzhka-kraft102308', 1, 4, 1380, 'Кружка 330мл с выдавленным текстом, ручной работы, высота 10см', 8, 'cb3447b4c5a80e65d77ef2e79405.jpeg', 'product'),
+	(15, 'КРУЖКА "КРАФТ"', 'kruzhka-kraft102308', 1, 4, 1380, 'Кружка 330мл с выдавленным текстом, ручной работы, высота 10см', 8, '71a4343b3ce6f43efa65688c077c.jpeg', 'product'),
 	(16, 'КРУЖКА "КРАФТ"', 'kruzhka-kraft102309', 1, 4, 804, 'Кружка 330мл, ручной работы, высота 10см, посыпанная крошкой, керамика, полуфарфор', 8, 'e864cd575a8877bcdc60002c4988.jpeg', 'product'),
 	(17, 'КРУЖКА МИНИМАЛИЗМ "РАССВЕТ"', 'cg-2020-503', 1, 4, 690, 'Керамическая кружка для молока “Пчёлки” изготовлена вручную на гончарном круге. Кружка покрыта безопасными для здоровья пищевыми глазурями. Ручная роспись – надглазурная краска.', 8, 'cb3447b4c5a80e65d77ef2e79405.jpeg', 'product'),
 	(18, 'КРУЖКА "СПИРАЛЬ БЕЛАЯ"', 'cg-2020-592', 1, 4, 1103, 'Кружка большая ручной работы, 500мл, белая, керамика', 8, '4c8e371dcb65e3a22dc160ddb587.jpeg', 'product'),
@@ -174,7 +184,7 @@ INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `pri
 	(21, 'КОЛЛЕКЦИЯ "ОСЕННЯЯ"', 'jsenniy-281305', 2, 2, 3223, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 3, '1020x0_zktohkkeioyanctl_jpg_6b12.jpg', 'product_collections'),
 	(22, 'КОЛЛЕКЦИЯ "ПРЯНИЧНАЯ"', 'prianichnyi-281305', 2, 1, 4432, 'Чайный сервиз ручной работы на 4 персоны, пряничный, с потеками глазури. Чайник 650мл (14см высота), 2 кружки приянично-рифленые 350мл, 2 кружки с потеками глазури 350мл, 2 блюдца лучи 16см, 2 блюдца с мазками глазури 16см', 6, '27359a81156b528c5645e217b745.jpeg, 6c5fa41f8e0d6a436983e432a2a8.jpeg, 598c329dccd4e131d664146c48af.jpeg', 'product_collections'),
 	(23, 'Ваза из керамики', 'cg-2020-531', 3, 1, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
-	(24, 'Ваза Керамика 21 см', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg, ', 'product_interior'),
+	(24, 'Ваза Керамика 21 см', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
 	(25, 'Скульптура "Ворона"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior');
 
 -- Дамп структуры для таблица diploma.shopping
