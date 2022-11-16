@@ -18,8 +18,11 @@
     elseif($_SERVER['REDIRECT_URL']=="/productFromTheCart"):
         require_once "$path/public/productFromTheCart.php";
 
-    elseif($_SERVER['REDIRECT_URL']=="/admin"):
-        require_once "$path/public/admin.php";
+    elseif($_SERVER['REDIRECT_URL']=="/admin"):{
+        if(isset($_SESSION['admin'])):require_once "$path/public/admin.php";
+        else:require_once "$path/public/404.php";
+        endif;
+    };        
     
     elseif($_SERVER['REDIRECT_URL']=="/debt"):
         require_once "$path/public/debt.php";

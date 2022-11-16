@@ -33,6 +33,9 @@ if(isset($_POST['modalContextMenuExit'])) {
         <?}?>
         <? if(isset($_SESSION['login'])) { ?>
             <div id="modalContextMenuProfile">Профиль</div>
+            <?if(isset($_SESSION['admin'])){ ?>
+                <div id="goToAdminPage">Админ</div>
+            <?}?>
             <form action="" method="post" id="modalContextMenuExitForm">
                 <input type="submit" value="Выход" name="modalContextMenuExit">
             </form>
@@ -53,6 +56,9 @@ if(isset($_POST['modalContextMenuExit'])) {
         else if((event.target.id == 'modalContextMenu') || (event.target.parentNode.id == 'modalContextMenu')){
             if(event.target.id == 'modalContextMenuProfile'){
                 window.location.href = "/account";
+            }
+            if(event.target.id == 'goToAdminPage'){
+                window.location.href = "/admin";
             }
             if(event.target.id == 'modalContextMenuSignUp'){
                 window.location.href = "/signup";

@@ -27,18 +27,25 @@
 			
 			<div class="adminContent">								<!-- CONTENT -->
 				<h1>Панель администратора</h1>
+				<div class="adminContentBox"></div>
 			</div>
 			<script>
-				const adminContent = document.querySelector(".adminContent");
-				let usersContainer = document.createElement("div");				//для пользователей
-				let adminUserShopping = document.createElement("div");			//для пользователей
+				const adminContent = document.querySelector(".adminContentBox");
+				let usersContainer = document.createElement("div");					//для пользователей
+					let adminUserShopping = document.createElement("div");			//для пользователей
+					let adminTableHeader = document.createElement("div");		
+
+				let categoryContainer = document.createElement("div");				//для категорий
+				let productContainer = document.createElement("div");				//для товаров
 				
-				let categoryContainer = document.createElement("div");			//для категорий
-				let productContainer = document.createElement("div");			//для товаров		
+				usersContainer.classList.add("adminContainer");
+				categoryContainer.classList.add("adminContainer");
+				adminTableHeader.classList.add("adminContainer");
 				window.onload = () => {
 					getUsersToAdmin()
 				}
 				users_admin.onclick = () => {
+					usersContainer.innerText = "";
 					getUsersToAdmin()
 				}
 				category_admin.onclick = () => {

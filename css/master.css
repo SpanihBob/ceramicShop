@@ -855,28 +855,45 @@ footer > :nth-child(2){
     text-align: center;
 }
 /*     ######################################      admin.php    ##########################################     */
-.admin_user{
+.admin_user, .admin_user_header{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin:5px;
+    align-content: center;
+    justify-content: center;
 }
 .adminContent{
     display: grid;
-    justify-content: start;
     align-content: start;
+    padding: 25px;
 }
 .userShopping{
     display: none;
 }
-.userShoppingProduct{
+.userShoppingProduct, .adminTableHeader{
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 50px 1fr 40px 100px 50px;
     gap: 5px;
     padding: 5px;
+    align-content: center;
+    justify-content: center;
 }
 .userShoppingProduct > div{
     margin: 5px;
 }
-.userShoppingProduct > div > img{
-    width: 150px;
+.userShoppingProduct > img{
+    width: 50px;
+}
+.categoryHeader, .catCont {
+    display: grid;
+    grid-template-columns: 50px 100px 100px 1fr 1fr 1fr;
+    gap: 5px;
+    align-content: center;
+    justify-content: center;
+}
+.catCont > div > img {
+    width: 50px;
+}
+.categoryHeader, .adminTableHeader, .admin_user_header {
+    background: var(--secondColor);
 }

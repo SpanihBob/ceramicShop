@@ -440,7 +440,20 @@ function addProductsToTheDatabase() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // // #######################################      функция для страницы администратора     ###############################################
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пользователей %%%%%%%%%%%%%%%%%%%%%%%%%%//
+function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пользователей %%%%%%%%%%%%%%%%%%%%%%%%%%//	
+	usersContainer.style.display = "grid";	
+	categoryContainer.style.display = "none";	
+	productContainer.style.display = "none";	
+	adminContent.innerText = "";
+	usersContainer.innerText = "";
+	let admin_user_header = document.createElement("div");
+	admin_user_header.innerHTML = `	<div>Login</div>
+									<div>Имя</div>
+									<div>Фамилия</div>
+									<div>Подробнее</div>`;
+	admin_user_header.classList.add("admin_user_header");								
+	usersContainer.appendChild(admin_user_header);
+
 	fetch(`/system/removeUserToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
@@ -464,7 +477,8 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 				let lastNameUser = document.createElement("div");						//last name
 					let lastNameUserText = document.createTextNode(`${element.lastname}`); 
 				let userButton = document.createElement("button");
-					let userButtonText = document.createTextNode("Подробнее");				
+					let userButtonText = document.createTextNode("Подробнее");
+					userButton.classList.add("input");
 
 				loginUser.appendChild(loginUserText);
 				nameUser.appendChild(nameUserText);
@@ -493,71 +507,150 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 						.then(data => {
 							console.log(data);
 							adminUserShopping.innerText="";
+							adminTableHeader.innerHTML = `	<div>img</div>
+													<div>Название</div>
+													<div>id</div>
+													<div>Остаток</div>
+													<div>Заказ</div>`;
+							adminTableHeader.classList.add("adminTableHeader");								
+							adminUserShopping.appendChild(adminTableHeader);	
 							data.forEach(element =>{
-								let userProductContainer = document.createElement("div");
-									userProductContainer.classList.add("userShoppingProduct")
-								let productImageContainer = document.createElement("div");
+								
 								let productInfoContainer = document.createElement("div");
+									productInfoContainer.classList.add("userShoppingProduct");
 								let productImage = document.createElement("img");
 									productImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
 								let productName = document.createElement("div");
-									let productNameText = document.createTextNode(`Название:${element.name}`);
+									let productNameText = document.createTextNode(`${element.name}`);
 									productName.appendChild(productNameText);
 								let productId = document.createElement("div");
-									let productIdText = document.createTextNode(`id:${element.product_id}`);
+									let productIdText = document.createTextNode(`${element.product_id}`);
 									productId.appendChild(productIdText);
 								let productAmount = document.createElement("div");
-									let productAmountText = document.createTextNode(`Остаток:${element.amount}шт.`);
+									let productAmountText = document.createTextNode(`${element.amount}шт.`);
 									productAmount.appendChild(productAmountText);
 								let productCount = document.createElement("div");
-									let productCountText = document.createTextNode(`Заказ:${element.count}шт.`);
+									let productCountText = document.createTextNode(`${element.count}шт.`);
 									productCount.appendChild(productCountText);
 
-								productImageContainer.appendChild(productImage);
+								productInfoContainer.appendChild(productImage);
 								productInfoContainer.appendChild(productName);	
 								productInfoContainer.appendChild(productId);	
 								productInfoContainer.appendChild(productAmount);	
 								productInfoContainer.appendChild(productCount);	
-								
-								userProductContainer.appendChild(productImageContainer);	
-								userProductContainer.appendChild(productInfoContainer);	
-								
-								adminUserShopping.appendChild(userProductContainer);	
+																	
+								adminUserShopping.appendChild(productInfoContainer);	
 								adminContent.appendChild(adminUserShopping);	
 								usersContainer.style.display = "none";
 								adminUserShopping.style.display = "grid";
 							})
+							let backButton = document.createElement("button");
+							backButton.innerText = "Назад к списку пользователей"
+							backButton.classList.add("input");
+							backButton.id = "backButton";
+							adminUserShopping.appendChild(backButton);
+
+							backButton.onclick = () => {
+								usersContainer.style.display = "grid";
+								adminUserShopping.style.display = "none";
+							}
 						})
 					}					
 				}
-			
-		
-		
 			}	
 		});
 	})
 }
-
-
-
-
-
-
-
-
-
-
-
-
+// ###########################################
+// ###########################################
+// ###########################################
+// ###########################################
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// // #######################################      функция для страницы администратора     ###############################################
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод категорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	usersContainer.style.display = "none";
+	categoryContainer.style.display = "grid";	
+	productContainer.style.display = "none";
+	adminContent.innerText = "";
+	categoryContainer.innerText = "";
+	let categoryHeader = document.createElement("div");
+	categoryHeader.classList.add("categoryHeader");
+		categoryHeader.innerHTML = `<div>id</div>
+									<div>Картинка</div>
+									<div>Название</div>
+									<div>Таблица SQL</div>
+									<div>Изменить</div>
+									<div>Удалить</div>
+									`;
+		categoryContainer.appendChild(categoryHeader);
 	fetch(`/system/removeCategoryToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
-		console.log(data);
+		data.forEach(element =>{
+			// console.log(element);
+			let catCont = document.createElement("div");
+			catCont.classList.add("catCont");
+			catCont.id = element.id;
+			let idCont = document.createElement("div");
+				idCont.innerText = `${element.id}`;
+			let categoryNameCont = document.createElement("div");
+				categoryNameCont.innerText = `${element.categoryName}`;
+			let categoryMicroImageCont = document.createElement("div");
+				let categoryMicroImg = document.createElement("img");
+				categoryMicroImg.setAttribute("src", `../img/${element.categoryMicroImage}`)
+			let categoryTableNameCont = document.createElement("div");
+				categoryTableNameCont.innerText = `${element.categoryTableName}`;
+			let changeCategory = document.createElement("button");
+				changeCategory.innerText = "Изменить";
+				changeCategory.classList.add("input");
+			let delCategory = document.createElement("button");
+				delCategory.innerText = "Удалить";
+				delCategory.classList.add("input");
+			
+			categoryMicroImageCont.appendChild(categoryMicroImg);
+			catCont.appendChild(idCont);
+			catCont.appendChild(categoryMicroImageCont);
+			catCont.appendChild(categoryNameCont);
+			catCont.appendChild(categoryTableNameCont);
+			catCont.appendChild(changeCategory);
+			catCont.appendChild(delCategory);
+
+			categoryContainer.appendChild(catCont);
+			catCont.onclick = (e) => {
+				if(e.target == changeCategory){
+					console.log(catCont.id);
+				}
+				if(e.target == delCategory){
+					console.log(catCont.id);
+				}
+			}
+		})
+		let addCategory = document.createElement("button");
+			addCategory.classList.add("input");
+			addCategory.innerText = "Добавить категорию";
+			categoryContainer.appendChild(addCategory);
+			adminContent.appendChild(categoryContainer);
+
+			addCategory.onclick = () => {
+				console.log("add");
+			}
 	})
 }
+
+
+
+
+
+
+
+
 function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	usersContainer.style.display = "none";	
+	categoryContainer.style.display = "none";	
+	productContainer.style.display = "grid";
+	productContainer.innerText = "";
 	fetch(`/system/removeProductToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {

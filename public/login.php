@@ -16,8 +16,13 @@ if( isset( $_POST['loginSend'] )) {
              $_SESSION['login'] = $_POST['login'];
              $_SESSION['id'] = $seLogin['id'];
              $_SESSION['avatar'] = "download/$seLogin[avatar]";
-
-             header("Location: /main");//производим переход на страницу
+             if($seLogin['admin'] == 1){
+                $_SESSION['admin'] = $seLogin['admin'];
+                header("Location: /admin");
+             }
+             else {
+                header("Location: /main");//производим переход на страницу
+            }
          }
          else {
              $_SESSION['loginError']='error';
