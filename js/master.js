@@ -691,7 +691,6 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 				}
 				if(e.target == delCategory){
-					// console.log(catCont.id);
 					delOrNot("Удалить категорию?", categoryContainer, "category", catCont.id, "/admin");
 				}
 			}
@@ -771,10 +770,6 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 
 
-
-
-
-
 function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	usersContainer.style.display = "none";	
 	categoryContainer.style.display = "none";	
@@ -783,7 +778,51 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 	fetch(`/system/removeProductToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
-		console.log(data);
+		// console.log(data);
+		let productArray = [];
+		let displayInformationAboutAllProducts = document.createElement("div");
+		data.forEach(element =>{
+			productArray[element.id] = element;
+			let displayProductInformation = document.createElement("div");
+				displayProductInformation.classList.add("adminDisplayProductInformation");
+			let product_id = document.createElement("div");
+				product_id.innerText = `${element.id}`;
+			let product_name = document.createElement("div");
+				product_name.innerText = `${element.name}`;
+			let product_name_url = document.createElement("div");
+				product_name_url.innerText = `${element.name_url}`;
+			let product_category = document.createElement("div");
+				product_category.innerText = `${element.category}`;
+			let product_subcategory = document.createElement("div");
+				product_subcategory.innerText = `${element.subcategory}`;
+			let product_price = document.createElement("div");
+				product_price.innerText = `${element.price}`;
+			let product_description = document.createElement("div");
+				product_description.innerText = `${element.description}`;
+			let product_amount = document.createElement("div");
+				product_amount.innerText = `${element.amount}`;
+			let product_image = document.createElement("img");
+
+				// product_image.setAttribute("src", `${element.image}`);
+			let product_table_name = document.createElement("div");
+				product_table_name.innerText = `${element.table_name}`;
+			
+			displayProductInformation.appendChild(product_id);
+			// displayProductInformation.appendChild(product_image);
+			displayProductInformation.appendChild(product_name);
+			displayProductInformation.appendChild(product_name_url);
+			displayProductInformation.appendChild(product_category);
+			displayProductInformation.appendChild(product_subcategory);
+			displayProductInformation.appendChild(product_price);
+			displayProductInformation.appendChild(product_description);
+			displayProductInformation.appendChild(product_amount);
+			displayProductInformation.appendChild(product_table_name);
+			displayInformationAboutAllProducts.appendChild(displayProductInformation);
+			productContainer.appendChild(displayInformationAboutAllProducts);
+			adminContent.appendChild(productContainer);
+						
+		})
+		
 	})
 }
 

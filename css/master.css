@@ -897,3 +897,7 @@ footer > :nth-child(2){
 .categoryHeader, .adminTableHeader, .admin_user_header {
     background: var(--secondColor);
 }
+.adminDisplayProductInformation {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+}
