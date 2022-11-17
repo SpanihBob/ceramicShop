@@ -505,7 +505,7 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 						})            
 						.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 						.then(data => {
-							console.log(data);
+							// console.log(data);
 							adminUserShopping.innerText="";
 							adminTableHeader.innerHTML = `	<div>img</div>
 													<div>Название</div>
@@ -568,8 +568,8 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // // #######################################      функция для страницы администратора     ###############################################
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод категорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	let dataArray = [];
 	usersContainer.style.display = "none";
 	categoryContainer.style.display = "grid";	
 	productContainer.style.display = "none";
@@ -589,7 +589,7 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
 		data.forEach(element =>{
-			// console.log(element);
+			dataArray[element.id] = element;
 			let catCont = document.createElement("div");
 			catCont.classList.add("catCont");
 			catCont.id = element.id;
@@ -620,10 +620,79 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 			categoryContainer.appendChild(catCont);
 			catCont.onclick = (e) => {
 				if(e.target == changeCategory){
-					console.log(catCont.id);
+					categoryContainer.style.display = "none";
+					let changeCategory = document.createElement("form");
+						changeCategory.classList.add("personalAccountContent");
+
+					let changeCategoryIdInputParentDiv = document.createElement("div");
+					let changeCategoryIdInputDiv = document.createElement("div");
+					changeCategoryIdInputDiv.innerText = "id категории";
+					let changeCategoryIdInput = document.createElement("input");
+						changeCategoryIdInput.setAttribute("type","text");
+						changeCategoryIdInput.setAttribute("value",`${catCont.id}`);
+						changeCategoryIdInput.setAttribute("name",`cat_id`);
+					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInputDiv);
+					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInput);
+
+					let changeCategoryImgInputParentDiv = document.createElement("div");
+					let changeCategoryImgInputDiv = document.createElement("div");
+					changeCategoryImgInputDiv.innerText = "Выберете картинку";
+					let changeCategoryImgInput = document.createElement("input");
+						changeCategoryImgInput.setAttribute("type","file");
+						changeCategoryImgInput.setAttribute("accept","accept=image/*");
+						changeCategoryImgInput.setAttribute("value",`${catCont.categoryMicroImage}`);
+						changeCategoryImgInput.setAttribute("name",`picture`);
+					changeCategoryImgInputParentDiv.appendChild(changeCategoryImgInputDiv);
+					changeCategoryImgInputParentDiv.appendChild(changeCategoryImgInput);
+					
+					let changeCategoryNameInputParentDiv = document.createElement("div");
+					let changeCategoryNameInputDiv = document.createElement("div");
+					changeCategoryNameInputDiv.innerText = "Имя категории";
+					let changeCategoryNameInput = document.createElement("input");
+					changeCategoryNameInput.setAttribute("type","text");
+					changeCategoryNameInput.setAttribute("value",`${dataArray[catCont.id].categoryName}`);
+					changeCategoryNameInput.setAttribute("name",`cat_name`);
+					changeCategoryNameInputParentDiv.appendChild(changeCategoryNameInputDiv);
+					changeCategoryNameInputParentDiv.appendChild(changeCategoryNameInput);
+
+					let changeCategoryTableInputParentDiv = document.createElement("div");
+					let changeCategoryTableInputDiv = document.createElement("div");
+					changeCategoryTableInputDiv.innerText = "Имя таблицы";
+					let changeCategoryTableInput = document.createElement("input");
+						changeCategoryTableInput.setAttribute("type","text");
+						changeCategoryTableInput.setAttribute("value",`${dataArray[catCont.id].categoryTableName}`);
+						changeCategoryTableInput.setAttribute("name",`cat_table`);
+					changeCategoryTableInputParentDiv.appendChild(changeCategoryTableInputDiv);
+					changeCategoryTableInputParentDiv.appendChild(changeCategoryTableInput);
+
+
+					let changeCategorySubmit = document.createElement("input");
+						changeCategorySubmit.setAttribute("type","submit");
+						changeCategorySubmit.setAttribute("value",`Отправить`);
+						changeCategorySubmit.setAttribute("name",`cat_send`);
+
+						changeCategory.appendChild(changeCategoryIdInputParentDiv);
+						changeCategory.appendChild(changeCategoryImgInputParentDiv);
+						changeCategory.appendChild(changeCategoryNameInputParentDiv);
+						changeCategory.appendChild(changeCategoryTableInputParentDiv);
+						changeCategory.appendChild(changeCategorySubmit);
+						
+						adminContent.appendChild(changeCategory);
+
+					changeCategory.onsubmit = async(e) => {
+						e.preventDefault();
+						let response = await fetch(`/system/changeCategory.php`, {
+							method: 'post',
+							body: new FormData(changeCategory)
+						});
+						// let result = await response.text();
+						window.location.href = "/admin";
+					}
+
 				}
 				if(e.target == delCategory){
-					console.log(catCont.id);
+					// console.log(catCont.id);
+					delOrNot("Удалить категорию?", categoryContainer, "category", catCont.id, "/admin");
 				}
 			}
 		})
@@ -634,10 +703,70 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 			adminContent.appendChild(categoryContainer);
 
 			addCategory.onclick = () => {
-				console.log("add");
+				categoryContainer.style.display = "none";					
+				let addCategoryForm = document.createElement("form");
+					addCategoryForm.classList.add("personalAccountContent");
+
+				let addCategoryIdInputParentDiv = document.createElement("div");
+				let addCategoryIdInputDiv = document.createElement("div");
+				addCategoryIdInputDiv.innerText = "id категории";
+				let addCategoryIdInput = document.createElement("input");
+					addCategoryIdInput.setAttribute("type","text");
+					addCategoryIdInput.setAttribute("name",`cat_id`);
+				addCategoryIdInputParentDiv.appendChild(addCategoryIdInputDiv);
+				addCategoryIdInputParentDiv.appendChild(addCategoryIdInput);
+
+				let addCategoryImgInputParentDiv = document.createElement("div");
+				let addCategoryImgInputDiv = document.createElement("div");
+				addCategoryImgInputDiv.innerText = "Выберете картинку";
+				let addCategoryImgInput = document.createElement("input");
+					addCategoryImgInput.setAttribute("type","file");
+					addCategoryImgInput.setAttribute("accept","accept=image/*");
+					addCategoryImgInput.setAttribute("name",`picture`);
+				addCategoryImgInputParentDiv.appendChild(addCategoryImgInputDiv);
+				addCategoryImgInputParentDiv.appendChild(addCategoryImgInput);
+				
+				let addCategoryNameInputParentDiv = document.createElement("div");
+				let addCategoryNameInputDiv = document.createElement("div");
+				addCategoryNameInputDiv.innerText = "Имя категории";
+				let addCategoryNameInput = document.createElement("input");
+				addCategoryNameInput.setAttribute("type","text");
+				addCategoryNameInput.setAttribute("name",`cat_name`);
+				addCategoryNameInputParentDiv.appendChild(addCategoryNameInputDiv);
+				addCategoryNameInputParentDiv.appendChild(addCategoryNameInput);
+
+				let addCategoryTableInputParentDiv = document.createElement("div");
+				let addCategoryTableInputDiv = document.createElement("div");
+				addCategoryTableInputDiv.innerText = "Имя таблицы";
+				let addCategoryTableInput = document.createElement("input");
+					addCategoryTableInput.setAttribute("type","text");
+					addCategoryTableInput.setAttribute("name",`cat_table`);
+				addCategoryTableInputParentDiv.appendChild(addCategoryTableInputDiv);
+				addCategoryTableInputParentDiv.appendChild(addCategoryTableInput);
+
+				let addCategorySubmit = document.createElement("input");
+					addCategorySubmit.setAttribute("type","submit");
+					addCategorySubmit.setAttribute("value",`Отправить`);
+					addCategorySubmit.setAttribute("name",`cat_send`);
+
+					addCategoryForm.appendChild(addCategoryImgInputParentDiv);
+					addCategoryForm.appendChild(addCategoryNameInputParentDiv);
+					addCategoryForm.appendChild(addCategoryTableInputParentDiv);
+					addCategoryForm.appendChild(addCategorySubmit);
+					
+					adminContent.appendChild(addCategoryForm);
+
+					addCategoryForm.onsubmit = async(e) => {
+					e.preventDefault();
+					let response = await fetch(`/system/addCategory.php`, {
+						method: 'post',
+						body: new FormData(addCategoryForm)
+					});
+					window.location.href = "/admin";
+				}
 			}
-	})
-}
+		})
+	}			
 
 
 
@@ -657,3 +786,52 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 		console.log(data);
 	})
 }
+
+
+
+
+
+//#################################################################### функция подтверждения удаления категории/товара ############################################
+function delOrNot(question, parentDiv, tableSql, elementId, patch) {
+	const popupMenu = document.createElement('div');				//сама менюшка
+		const popupMenuParent = document.createElement('div');			//родитель
+
+		const popupMenuQuestion = document.createElement('div');				//вопрос
+		const ButtonDiv = document.createElement('div');				
+			const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+			const popupMenuButtonYes = document.createElement('button');			//кнопка 'да'
+
+		popupMenuQuestion.innerText = question;
+		popupMenuButtonNo.innerText = "Нет";
+		popupMenuButtonYes.innerText = "Да";
+
+		popupMenuParent.classList.add('popupMenuParent');
+		popupMenu.classList.add('popupMenu');
+		ButtonDiv.classList.add('ButtonDiv');
+
+		popupMenu.appendChild(popupMenuQuestion);
+		ButtonDiv.appendChild(popupMenuButtonNo);
+		ButtonDiv.appendChild(popupMenuButtonYes);
+		popupMenu.appendChild(ButtonDiv);
+
+		popupMenuParent.appendChild(popupMenu);
+		parentDiv.appendChild(popupMenuParent);
+
+		popupMenuButtonNo.onclick = () => {			//если нажали нет
+			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+		}
+		popupMenuButtonYes.onclick = () => {			//если нажали да
+			let conf = confirm("Подтвердите действие");
+			if(conf){
+				fetch(`/system/adminDelCategory.php`, {
+						method: 'post',
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+						},
+						body: `id=${elementId}&tableName=${tableSql}`,
+				})
+				popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+				window.location.href = patch;
+			}			
+		}
+	}	

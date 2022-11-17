@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.6.7-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.8.4-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win64
--- HeidiSQL Версия:              12.0.0.6468
+-- HeidiSQL Версия:              12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,24 +27,13 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~13 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~2 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
-	(91, 23, 5, 1, 1668185706),
-	(92, 24, 5, 1, 1668185710),
-	(93, 1, 5, 1, 1668270132),
-	(94, 4, 5, 1, 1668270394),
-	(95, 5, 5, 1, 1668270943),
-	(96, 3, 5, 1, 1668273862),
-	(97, 2, 5, 1, 1668281774),
-	(116, 8, 9, 1, 1668444729),
-	(117, 9, 9, 1, 1668444739),
-	(118, 15, 9, 1, 1668445096),
-	(119, 24, 9, 1, 1668445106),
-	(120, 1, 9, 1, 1668445250),
-	(121, 21, 9, 1, 1668445408);
+	(123, 20, 5, 1, 1668689616),
+	(124, 23, 5, 1, 1668689639);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -53,15 +42,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
 
--- Дамп данных таблицы diploma.category: ~4 rows (приблизительно)
+-- Дамп данных таблицы diploma.category: ~5 rows (приблизительно)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`) VALUES
 	(1, 'Посуда', 'тарелка.png', 'crockery'),
 	(2, 'Коллекции', 'коллекция.png', 'collection'),
 	(3, 'Интерьер', 'ваза.png', 'interior'),
-	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder');
+	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder'),
+	(14, 'w', '1.jpg', 'wsws');
 
 -- Дамп структуры для таблица diploma.collections
 CREATE TABLE IF NOT EXISTS `collections` (
@@ -99,20 +89,14 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~9 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~3 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(36, 22, 5),
-	(37, 24, 5),
-	(38, 1, 5),
-	(39, 23, 5),
-	(40, 3, 5),
-	(41, 22, 9),
-	(42, 21, 9),
-	(43, 9, 9),
-	(44, 1, 9);
+	(45, 21, 5),
+	(46, 18, 5),
+	(47, 23, 5);
 
 -- Дамп структуры для таблица diploma.interior
 CREATE TABLE IF NOT EXISTS `interior` (
