@@ -520,6 +520,7 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 									productInfoContainer.classList.add("userShoppingProduct");
 								let productImage = document.createElement("img");
 									productImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+									productImage.classList.add("userShoppingProductImage");
 								let productName = document.createElement("div");
 									let productNameText = document.createTextNode(`${element.name}`);
 									productName.appendChild(productNameText);
@@ -780,46 +781,179 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 	.then(data => {
 		// console.log(data);
 		let productArray = [];
+		let productAddButton = document.createElement("button");
+			productAddButton.innerText = "Добавить новый товар";
+			productAddButton.classList.add("input");
+			productAddButton.style.width = "100%";
+		let productHeader = document.createElement("div");
+		productHeader.innerHTML = 	`<div>id</div>
+									<div>img</div>
+									<div>product</div>
+									<div>amount</div>
+									<div>btn</div>
+									<div>del</div>
+									`;
+		productHeader.classList.add("productHeader")
 		let displayInformationAboutAllProducts = document.createElement("div");
+		displayInformationAboutAllProducts.appendChild(productAddButton);
+		displayInformationAboutAllProducts.appendChild(productHeader);
+		let displayInformationAboutFullProducts = document.createElement("div");
+		displayInformationAboutFullProducts.classList.add("displayInformationAboutFullProducts");
+		
+
 		data.forEach(element =>{
 			productArray[element.id] = element;
 			let displayProductInformation = document.createElement("div");
 				displayProductInformation.classList.add("adminDisplayProductInformation");
+				// displayProductInformation.setAttribute("data-id", `${element.id}`)
 			let product_id = document.createElement("div");
 				product_id.innerText = `${element.id}`;
 			let product_name = document.createElement("div");
 				product_name.innerText = `${element.name}`;
-			let product_name_url = document.createElement("div");
-				product_name_url.innerText = `${element.name_url}`;
-			let product_category = document.createElement("div");
-				product_category.innerText = `${element.category}`;
-			let product_subcategory = document.createElement("div");
-				product_subcategory.innerText = `${element.subcategory}`;
-			let product_price = document.createElement("div");
-				product_price.innerText = `${element.price}`;
-			let product_description = document.createElement("div");
-				product_description.innerText = `${element.description}`;
+			let product_btn = document.createElement("button");
+				product_btn.innerText = "see";
+				product_btn.classList.add("input");
+			let product_btn_del = document.createElement("button");
+				product_btn_del.innerText = "del";
+				product_btn_del.classList.add("input");
 			let product_amount = document.createElement("div");
 				product_amount.innerText = `${element.amount}`;
 			let product_image = document.createElement("img");
-
-				// product_image.setAttribute("src", `${element.image}`);
+				let imgArr = element.image.split(", ");
+				// console.log(imgArr);
+				product_image.setAttribute("src", `../img1/${imgArr[0]}`);
+				product_image.classList.add("userShoppingProductImage");
 			let product_table_name = document.createElement("div");
 				product_table_name.innerText = `${element.table_name}`;
 			
 			displayProductInformation.appendChild(product_id);
-			// displayProductInformation.appendChild(product_image);
+			displayProductInformation.appendChild(product_image);
 			displayProductInformation.appendChild(product_name);
-			displayProductInformation.appendChild(product_name_url);
-			displayProductInformation.appendChild(product_category);
-			displayProductInformation.appendChild(product_subcategory);
-			displayProductInformation.appendChild(product_price);
-			displayProductInformation.appendChild(product_description);
+			
 			displayProductInformation.appendChild(product_amount);
-			displayProductInformation.appendChild(product_table_name);
+			displayProductInformation.appendChild(product_btn);
+			displayProductInformation.appendChild(product_btn_del);
 			displayInformationAboutAllProducts.appendChild(displayProductInformation);
 			productContainer.appendChild(displayInformationAboutAllProducts);
 			adminContent.appendChild(productContainer);
+
+			product_btn_del.onclick = () => {
+				console.log(element.id);
+				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin");
+			}
+
+			product_btn.onclick = () => {
+				displayInformationAboutAllProducts.style.display = "none";
+				let full_product_img_parent = document.createElement("div");
+					full_product_img_parent.classList.add("full_product_img_parent");
+				let full_product_data_parent = document.createElement("div");
+				let full_product_descripption_parent = document.createElement("div");
+				
+				let full_product_id = document.createElement("div");
+				full_product_id.innerText = `id:  ${productArray[element.id].id}`;
+				let full_product_name = document.createElement("div");
+				full_product_name.innerText = `название:  ${productArray[element.id].name}`;
+				let full_product_name_url = document.createElement("div");
+				full_product_name_url.innerText = `url:  ${productArray[element.id].name_url}`;
+				let full_product_category = document.createElement("div");
+					full_product_category.innerText = `категория:  ${productArray[element.id].category}`;
+				let full_product_subcategory = document.createElement("div");
+					full_product_subcategory.innerText = `подкатегория:  ${productArray[element.id].subcategory}`;
+				let full_product_price = document.createElement("div");
+					full_product_price.innerText = `цена:  ${productArray[element.id].price}`;
+				let full_product_amount = document.createElement("div");
+					full_product_amount.innerText = `колличество:  ${productArray[element.id].amount}`;
+				let full_product_description = document.createElement("div");
+					full_product_description.innerText = `описание:  ${productArray[element.id].description}`;
+
+				let imgArrFull = productArray[element.id].image.split(", ");		//массив содержит все картинки
+				imgArrFull.forEach(el =>{
+					let full_product_image = document.createElement("img");
+					full_product_image.setAttribute("src", `../img1/${el}`);
+					full_product_image.classList.add("full_product_image");
+					full_product_img_parent.appendChild(full_product_image);
+				})
+
+				let full_product_table_name = document.createElement("div");
+					full_product_table_name.innerText = productArray[element.id].table_name;
+				let full_product_back_button = document.createElement("button");
+					full_product_back_button.innerText = "Назад";
+					full_product_back_button.classList.add("input");					
+					full_product_back_button.style.width = "100%";					
+				let full_product_redact_button = document.createElement("button");
+					full_product_redact_button.innerText = "Редактировать";
+					full_product_redact_button.classList.add("input");					
+					full_product_redact_button.style.width = "100%";					
+				
+				full_product_data_parent.appendChild(full_product_id);
+				full_product_data_parent.appendChild(full_product_name);
+				full_product_data_parent.appendChild(full_product_name_url);
+				full_product_data_parent.appendChild(full_product_category);
+				full_product_data_parent.appendChild(full_product_subcategory);
+				full_product_data_parent.appendChild(full_product_price);
+				full_product_data_parent.appendChild(full_product_amount);
+				full_product_data_parent.appendChild(full_product_description);
+				
+				full_product_descripption_parent.appendChild(full_product_img_parent);
+				full_product_descripption_parent.appendChild(full_product_data_parent);
+				full_product_descripption_parent.appendChild(full_product_back_button);
+				full_product_descripption_parent.appendChild(full_product_redact_button);
+				
+				productContainer.appendChild(full_product_descripption_parent);
+				
+				full_product_back_button.onclick = () => {
+					displayInformationAboutAllProducts.style.display = "block";
+					full_product_descripption_parent.style.display = "none";
+				}
+				full_product_redact_button.onclick = () => {
+					full_product_descripption_parent.style.display = "none";
+					let full_product_descripption_parent_redact = document.createElement("div");
+					let full_product_redact_img_1 = document.createElement("input");
+						full_product_redact_img_1.setAttribute("type", "file");
+						full_product_redact_img_1.id = "i1";
+						let full_product_redact_img_2 = document.createElement("input");
+						full_product_redact_img_2.setAttribute("type", "file");
+						full_product_redact_img_2.id = "i2";
+					let image_prob = document.createElement("img");
+					// image_prob.setAttribute("src",`../img1/${full_product_redact_img_1.value}`)
+						full_product_redact_img_1.onmouseout = () => {
+							console.log(full_product_redact_img_1.value);
+							// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+							// image_prob.setAttribute("src", `../img1/${full_product_redact_img_1.value.replace('[/C:\fakepath\/]', '')}`)
+						}
+						full_product_redact_img_2.onmouseout = () => {
+							console.log(full_product_redact_img_2.value);
+						}
+
+
+					full_product_descripption_parent_redact.appendChild(image_prob);
+					full_product_descripption_parent_redact.appendChild(full_product_redact_img_1);
+					full_product_descripption_parent_redact.appendChild(full_product_redact_img_2);
+					productContainer.appendChild(full_product_descripption_parent_redact);
+
+
+
+
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+				}
+				
+			}
 						
 		})
 		
