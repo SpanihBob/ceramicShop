@@ -673,10 +673,13 @@ footer > :nth-child(2){
 .personalAccountContent > div{
     display: grid;
     grid-template-columns: 150px auto;
-    border: 1px solid gray;
-    border-radius: 5px;
     padding: 5px;
     margin: 5px auto 3px auto;
+    padding-left: 15px; 
+    border-radius: 15px;
+    border: 1px solid gray;
+    box-shadow: var(--boxShadow);
+    cursor: pointer;
 }
 #personalAccountFormSubmit, #backButton, #redactButton, #avaBackButton, #sendModifiedImage, #sendFile{
     width: 100%;
@@ -707,14 +710,8 @@ footer > :nth-child(2){
 #avaForm {
     margin-right: 20px
 }
-#personalAccountForm > form > div , #personalAccountContent > div {
-    padding-left: 15px; 
-    border-radius: 15px;
-    border: 1px solid gray;
-    box-shadow: var(--boxShadow);
-    cursor: pointer;
-}
-#personalAccountForm > form > div > input {
+
+.personalAccountContent > div > input {
     border: none;
     background: none;
 }
@@ -900,7 +897,7 @@ footer > :nth-child(2){
 }
 .adminDisplayProductInformation, .productHeader {
     display: grid;
-    grid-template-columns: 20px 50px 1fr 20px 60px 60px;
+    grid-template-columns: 20px 50px 1fr 60px 60px 60px;
     gap: 5px;
     margin-top: 5px;
     text-align: center;
@@ -921,4 +918,14 @@ footer > :nth-child(2){
 }
 .full_product_image:hover {
     box-shadow: var(--boxShadowHover);
+}
+.full_product_descripption_parent_redact {
+    display: grid;
+
+}
+.full_product_descripption_parent_redact_img_arr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 10px;
+    gap: 5px;
 }

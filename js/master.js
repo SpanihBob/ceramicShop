@@ -671,6 +671,8 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 						changeCategorySubmit.setAttribute("type","submit");
 						changeCategorySubmit.setAttribute("value",`Отправить`);
 						changeCategorySubmit.setAttribute("name",`cat_send`);
+						changeCategorySubmit.classList.add("input");
+						changeCategorySubmit.style.width = "100%";
 
 						changeCategory.appendChild(changeCategoryIdInputParentDiv);
 						changeCategory.appendChild(changeCategoryImgInputParentDiv);
@@ -748,6 +750,8 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					addCategorySubmit.setAttribute("type","submit");
 					addCategorySubmit.setAttribute("value",`Отправить`);
 					addCategorySubmit.setAttribute("name",`cat_send`);
+					addCategorySubmit.classList.add("input");
+					addCategorySubmit.style.width = "100%";
 
 					addCategoryForm.appendChild(addCategoryImgInputParentDiv);
 					addCategoryForm.appendChild(addCategoryNameInputParentDiv);
@@ -772,10 +776,12 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 
 function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
+	adminContent.innerText = "";
 	usersContainer.style.display = "none";	
 	categoryContainer.style.display = "none";	
 	productContainer.style.display = "grid";
 	productContainer.innerText = "";
+
 	fetch(`/system/removeProductToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
@@ -907,50 +913,145 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				}
 				full_product_redact_button.onclick = () => {
 					full_product_descripption_parent.style.display = "none";
+
 					let full_product_descripption_parent_redact = document.createElement("div");
-					let full_product_redact_img_1 = document.createElement("input");
-						full_product_redact_img_1.setAttribute("type", "file");
-						full_product_redact_img_1.id = "i1";
-						let full_product_redact_img_2 = document.createElement("input");
-						full_product_redact_img_2.setAttribute("type", "file");
-						full_product_redact_img_2.id = "i2";
-					let image_prob = document.createElement("img");
-					// image_prob.setAttribute("src",`../img1/${full_product_redact_img_1.value}`)
-						full_product_redact_img_1.onmouseout = () => {
-							console.log(full_product_redact_img_1.value);
-							// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-							// image_prob.setAttribute("src", `../img1/${full_product_redact_img_1.value.replace('[/C:\fakepath\/]', '')}`)
-						}
-						full_product_redact_img_2.onmouseout = () => {
-							console.log(full_product_redact_img_2.value);
-						}
+					let full_product_descripption_parent_redact_form = document.createElement("form");
+					full_product_descripption_parent_redact_form.classList.add("personalAccountContent");
+					full_product_descripption_parent_redact_form.setAttribute("method", "post");
+					full_product_descripption_parent_redact_form.setAttribute("action", "");
+					let full_product_descripption_parent_redact_img_arr = document.createElement("div");
+					// let full_product_descripption_parent_redact_img = document.createElement("div");
+					full_product_descripption_parent_redact_img_arr.classList.add("full_product_descripption_parent_redact_img_arr");
+					
+					imgArrFull.forEach(el =>{
+						let full_product_descripption_parent_redact_image = document.createElement("img");
+						full_product_descripption_parent_redact_image.setAttribute("src", `../img1/${el}`);
+						full_product_descripption_parent_redact_image.classList.add("full_product_image");
+						full_product_descripption_parent_redact_img_arr.appendChild(full_product_descripption_parent_redact_image);
+					})
+					full_product_descripption_parent_redact.appendChild(full_product_descripption_parent_redact_img_arr);
 
+					for(let i=0;i<6;i++){
+						let full_product_redact_img_parent_div = document.createElement("div");
+						let full_product_redact_img_div = document.createElement("div");
+						full_product_redact_img_div.innerText = "Выберете картинку: ";
+						let full_product_redact_img = document.createElement("input");
+						full_product_redact_img.setAttribute("type", "file");
+						full_product_redact_img.setAttribute("name", `i${i}`);
+						full_product_redact_img.classList.add("admin_redact_product_page_img");
+						full_product_redact_img.id = `i${i}`;
+						full_product_redact_img_parent_div.appendChild(full_product_redact_img_div)
+						full_product_redact_img_parent_div.appendChild(full_product_redact_img)
+						full_product_descripption_parent_redact_form.appendChild(full_product_redact_img_parent_div);
+					}
+					let input_array = [
+						[`${productArray[element.id].name}`,"name","text"],
+						[`${productArray[element.id].name_url}`,"name_url","text"],
+						[`${productArray[element.id].category}`,"category","number"],
+						[`${productArray[element.id].subcategory}`,"subcategory","number"],
+						[`${productArray[element.id].price}`,"price","number"],
+						[`${productArray[element.id].amount}`,"amount","number"]
+					];
+					input_array.forEach(el =>{
 
-					full_product_descripption_parent_redact.appendChild(image_prob);
-					full_product_descripption_parent_redact.appendChild(full_product_redact_img_1);
-					full_product_descripption_parent_redact.appendChild(full_product_redact_img_2);
+						let full_product_redact_input_parent_div = document.createElement("div");
+						let full_product_redact_input_div = document.createElement("div");
+						full_product_redact_input_div.innerText = `${el[1]}: `;
+						let full_product_redact_name = document.createElement("input");
+						full_product_redact_name.setAttribute("value", `${el[0]}`);
+						full_product_redact_name.setAttribute("name", `${el[1]}`);
+						full_product_redact_name.setAttribute("type", `${el[2]}`);
+						full_product_redact_input_parent_div.appendChild(full_product_redact_input_div);
+						full_product_redact_input_parent_div.appendChild(full_product_redact_name);
+						full_product_descripption_parent_redact_form.appendChild(full_product_redact_input_parent_div);
+					});
+
+					
+					let full_product_redact_input_description_parent_div = document.createElement("div");
+						let full_product_redact_input_description_div = document.createElement("div");
+						full_product_redact_input_description_div.innerText = "description: ";
+					let full_product_redact_description = document.createElement("textarea");
+						full_product_redact_description.setAttribute("name", "description");
+						full_product_redact_description.innerText = `${productArray[element.id].description}`;
+
+						let full_product_send_button = document.createElement("button");
+						full_product_send_button.innerText = "Отправить";
+						full_product_send_button.classList.add("input");
+						full_product_send_button.style.width = "100%";
+
+						full_product_redact_input_description_parent_div.appendChild(full_product_redact_input_description_div);
+						full_product_redact_input_description_parent_div.appendChild(full_product_redact_description);
+						full_product_descripption_parent_redact_form.appendChild(full_product_redact_input_description_parent_div);
+						full_product_descripption_parent_redact_form.appendChild(full_product_send_button);
+						full_product_descripption_parent_redact.appendChild(full_product_descripption_parent_redact_form);
+					
 					productContainer.appendChild(full_product_descripption_parent_redact);
 
+					full_product_descripption_parent_redact_form.onsubmit  = async(e) => {
+						e.preventDefault();
+						let input_img_arr = document.querySelectorAll(".admin_redact_product_page_img");
+						input_img_arr.forEach(el => {
+							console.log(el.value.replace("C:\\fakepath\\", ""));
+							// console.log(el.value);
+						});
+						// let response = await fetch(`/system/changeCategory.php`, {
+						// 	method: 'post',
+						// 	body: new FormData(changeCategory)
+						// });
+						// let result = await response.text();
+						// window.location.href = "/admin";
+					}
+					
+					full_product_descripption_parent_redact_img_arr.onclick = (eventImg) => {
+						let del_img = eventImg.target.src.replace("http://ceramicshop/img1/", "");//картинка которую удаляем
+						const popupMenu = document.createElement('div');				//сама менюшка
+						const popupMenuParent = document.createElement('div');			//родитель
+						const popupMenuQuestion = document.createElement('div');				//вопрос
+						const ButtonDiv = document.createElement('div');				
+							const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+							const popupMenuButtonYes = document.createElement('button');			//кнопка 'да'
 
+						popupMenuQuestion.innerText = "Удалить картинку?";
+						popupMenuButtonNo.innerText = "Нет";
+						popupMenuButtonYes.innerText = "Да";
 
+						popupMenuParent.classList.add('popupMenuParent');
+						popupMenu.classList.add('popupMenu');
+						ButtonDiv.classList.add('ButtonDiv');
 
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-					// &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+						popupMenu.appendChild(popupMenuQuestion);
+						ButtonDiv.appendChild(popupMenuButtonNo);
+						ButtonDiv.appendChild(popupMenuButtonYes);
+						popupMenu.appendChild(ButtonDiv);
+
+						popupMenuParent.appendChild(popupMenu);
+						productContainer.appendChild(popupMenuParent);
+
+						popupMenuButtonNo.onclick = () => {			//если нажали нет
+							popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+						}
+						popupMenuButtonYes.onclick = () => {			//если нажали да
+							let conf = confirm("Подтвердите действие");
+							if(conf){
+								// console.log(imgArrFull);
+								let del_img_index = imgArrFull.indexOf(del_img);
+								imgArrFull.splice(del_img_index, 1);
+								// console.log(imgArrFull);
+								full_product_descripption_parent_redact_img_arr.innerText = "";
+								imgArrFull.forEach(el =>{
+									let full_product_descripption_parent_redact_image = document.createElement("img");
+									full_product_descripption_parent_redact_image.setAttribute("src", `../img1/${el}`);
+									full_product_descripption_parent_redact_image.classList.add("full_product_image");
+									full_product_descripption_parent_redact_img_arr.appendChild(full_product_descripption_parent_redact_image);
+								})
+								popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+							}			
+						}
+
+						
+						// console.log(imgArrFull);
+					}
+
 				}
 				
 			}
