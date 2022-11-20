@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.8.4-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.6.7-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win64
--- HeidiSQL Версия:              12.1.0.6537
+-- HeidiSQL Версия:              12.0.0.6468
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,13 +27,26 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~2 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~12 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
-	(123, 20, 5, 1, 1668689616),
-	(124, 23, 5, 1, 1668689639);
+	(91, 23, 5, 3, 1668185706),
+	(92, 24, 5, 1, 1668185710),
+	(93, 1, 5, 1, 1668270132),
+	(94, 4, 5, 1, 1668270394),
+	(95, 5, 5, 1, 1668270943),
+	(96, 3, 5, 1, 1668273862),
+	(97, 2, 5, 8, 1668281774),
+	(116, 8, 9, 1, 1668444729),
+	(117, 9, 9, 1, 1668444739),
+	(118, 15, 9, 1, 1668445096),
+	(119, 24, 9, 1, 1668445106),
+	(120, 1, 9, 1, 1668445250),
+	(121, 21, 9, 1, 1668445408),
+	(122, 23, 9, 1, 1668871995),
+	(123, 25, 9, 1, 1668872009);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -42,16 +55,15 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
 
--- Дамп данных таблицы diploma.category: ~5 rows (приблизительно)
+-- Дамп данных таблицы diploma.category: ~4 rows (приблизительно)
 DELETE FROM `category`;
 INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`) VALUES
 	(1, 'Посуда', 'тарелка.png', 'crockery'),
 	(2, 'Коллекции', 'коллекция.png', 'collection'),
 	(3, 'Интерьер', 'ваза.png', 'interior'),
-	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder'),
-	(14, 'w', '1.jpg', 'wsws');
+	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder');
 
 -- Дамп структуры для таблица diploma.collections
 CREATE TABLE IF NOT EXISTS `collections` (
@@ -89,14 +101,20 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~9 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(45, 21, 5),
-	(46, 18, 5),
-	(47, 23, 5);
+	(36, 22, 5),
+	(37, 24, 5),
+	(38, 1, 5),
+	(39, 23, 5),
+	(40, 3, 5),
+	(41, 22, 9),
+	(42, 21, 9),
+	(43, 9, 9),
+	(44, 1, 9);
 
 -- Дамп структуры для таблица diploma.interior
 CREATE TABLE IF NOT EXISTS `interior` (
@@ -141,14 +159,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `table_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
 
 -- Дамп данных таблицы diploma.product: ~24 rows (приблизительно)
 DELETE FROM `product`;
 INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `price`, `description`, `amount`, `image`, `table_name`) VALUES
 	(1, 'ТАРЕЛКА ГЛУБОКАЯ АССИМЕТРИЧНАЯ "КРАФТ"', 'tarelka-cg-2020-677', 1, 1, 3499, 'Тарелка асиметричной формы глубокая ручной работы, диаметр 20см, оливковая. Керамика, полуфарфор', 4, '4f37789e77ccc9264dce6a8cee67.jpeg, 49b816286647442af5bf3171d884.jpeg', 'product'),
 	(2, 'БЛЮДО "РАКУШКА МОРЕ"', 'blyudo-cg-2020-547', 1, 1, 1610, 'Блюдо керамическое большое изготовлено мастером  вручную из глины. Подойдет для нарезки. Покрыто безопасными для здоровья пищевыми глазурями (цвет ультрамарин).', 5, '09eb7bd5dc2d4cae24df1c30e811.jpeg', 'product'),
-	(3, 'ТАРЕЛКА БОЛЬШАЯ АССИМЕТРИЧНАЯ "КРАФТ"', 'tarelka-cg-2020-548', 1, 1, 1610, 'Тарелка асиметричной формы ручной работы, диаметр 25см, белая, посыпанная коричневой крошкой. Керамика, полуфарфор', 6, '9fb6a22f03d7f8d34ff36431da5c.jpeg, 1f16b7c166e4ec0400ac5aae84ae.jpeg', 'product'),
+	(3, 'ТАРЕЛКА БОЛЬШАЯ АССИМЕТРИЧНАЯ "КРАФТ"', 'tarelka-cg-2020-548', 1, 1, 1610, 'Тарелка ассиметричной формы ручной работы, диаметр 25см, белая, посыпанная коричневой крошкой. Керамика, полуфарфор', 6, '9fb6a22f03d7f8d34ff36431da5c.jpeg, 1f16b7c166e4ec0400ac5aae84ae.jpeg', 'product'),
 	(4, 'ТАРЕЛКА ОБЕДЕННАЯ ДЗЕНАРТ СЛОНОВАЯ КОСТЬ', 'tarelka-yablochki-cg-2020-685', 1, 1, 1500, 'Тарелка обеденная с текстурным узором в стиле Дзенарт, Диаметр 25 см, мягкий фарфор, цвет слоновая кость, ручная работа', 4, '9558b222ec95cc1a9717c58132ea.jpeg, 14d2fe15058cdbcb6800ef6af243.jpeg, 6baaeffedd763fd246dfff8efbd8.jpeg', 'product'),
 	(5, 'БЛЮДО "ЖЕМЧУГ ВИНТАЖ"', 'blyudo-cg-2019-052', 1, 1, 2500, 'Блюдо в виде ракушки, 27 на 29см, белое глянцевое, полуфарфор', 5, 'e83ac7d11d03753df95148553ba1.jpeg, d7c43e5fb44fa267e8ac65431b8f.jpeg, e5a7e7069a696193fc021ce8292c.jpeg, b206d8f7b6ba6954c21013b8ca80.jpeg, 70bbb5874d3c6b47837f8818a465.jpeg', 'product'),
 	(6, 'БЛЮДО "ЖЕМЧУЖНАЯ РАКУШКА"', 'blyudo-cg-2020-496', 1, 1, 2300, 'Блюдо в виде ракушки, 27 на 29см, белое глянцевое, полуфарфор', 6, '1c52293606f01a8378fbc83f9e22.jpeg, da3f90c91e10b971c89a16992593.jpeg, f98e92f35be5cec7318800fef8fb.jpeg, 9ea61ff013639dc653be483252cc.jpeg, ba08c2101efe2a0539cddabbdfde.jpeg', 'product'),
@@ -167,9 +185,10 @@ INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `pri
 	(20, 'КОЛЛЕКЦИЯ "ВЕСЕННЯЯ"', 'vesenniy-281305', 2, 2, 4332, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 2, 'images (10).jpg', 'product_collections'),
 	(21, 'КОЛЛЕКЦИЯ "ОСЕННЯЯ"', 'jsenniy-281305', 2, 2, 3223, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 3, '1020x0_zktohkkeioyanctl_jpg_6b12.jpg', 'product_collections'),
 	(22, 'КОЛЛЕКЦИЯ "ПРЯНИЧНАЯ"', 'prianichnyi-281305', 2, 1, 4432, 'Чайный сервиз ручной работы на 4 персоны, пряничный, с потеками глазури. Чайник 650мл (14см высота), 2 кружки приянично-рифленые 350мл, 2 кружки с потеками глазури 350мл, 2 блюдца лучи 16см, 2 блюдца с мазками глазури 16см', 6, '27359a81156b528c5645e217b745.jpeg, 6c5fa41f8e0d6a436983e432a2a8.jpeg, 598c329dccd4e131d664146c48af.jpeg', 'product_collections'),
-	(23, 'Ваза из керамики', 'cg-2020-531', 3, 1, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
-	(24, 'Ваза Керамика 21 см', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
-	(25, 'Скульптура "Ворона"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior');
+	(23, 'ВАЗА ИЗ КЕРАМИКИ', 'cg-2020-531', 3, 1, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
+	(24, 'ВАЗА КЕРАМИКА 21 СМ', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
+	(25, 'СКУЛЬПТУРА "ВОРОНА"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior'),
+	(27, 'какая то ерунда', 'nameurl', 1, 1, 1, 'огого я тут какой-то не тот товар закинул', 6, 'skulptura-vorona-vn-03.jpg, 0b4b90524d77512cae8fae904b9f.jpeg, 3b17495ca9935ee5914be8786e01.jpeg, 4c8e371dcb65e3a22dc160ddb587.jpeg', 'product_interior');
 
 -- Дамп структуры для таблица diploma.shopping
 CREATE TABLE IF NOT EXISTS `shopping` (

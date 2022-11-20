@@ -809,6 +809,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 
 		data.forEach(element =>{
 			productArray[element.id] = element;
+			// console.log(productArray);
 			let displayProductInformation = document.createElement("div");
 				displayProductInformation.classList.add("adminDisplayProductInformation");
 				// displayProductInformation.setAttribute("data-id", `${element.id}`)
@@ -871,6 +872,8 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					full_product_amount.innerText = `колличество:  ${productArray[element.id].amount}`;
 				let full_product_description = document.createElement("div");
 					full_product_description.innerText = `описание:  ${productArray[element.id].description}`;
+				let full_product_tableName = document.createElement("div");
+					full_product_tableName.innerText = `таблица:  ${productArray[element.id].table_name}`;
 
 				let imgArrFull = productArray[element.id].image.split(", ");		//массив содержит все картинки
 				imgArrFull.forEach(el =>{
@@ -899,6 +902,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				full_product_data_parent.appendChild(full_product_price);
 				full_product_data_parent.appendChild(full_product_amount);
 				full_product_data_parent.appendChild(full_product_description);
+				full_product_data_parent.appendChild(full_product_tableName);
 				
 				full_product_descripption_parent.appendChild(full_product_img_parent);
 				full_product_descripption_parent.appendChild(full_product_data_parent);
@@ -945,12 +949,13 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						full_product_descripption_parent_redact_form.appendChild(full_product_redact_img_parent_div);
 					}
 					let input_array = [
-						[`${productArray[element.id].name}`,"name","text"],
-						[`${productArray[element.id].name_url}`,"name_url","text"],
-						[`${productArray[element.id].category}`,"category","number"],
-						[`${productArray[element.id].subcategory}`,"subcategory","number"],
-						[`${productArray[element.id].price}`,"price","number"],
-						[`${productArray[element.id].amount}`,"amount","number"]
+						[`${productArray[element.id].name}`,"name","text","product__name"],
+						[`${productArray[element.id].name_url}`,"name_url","text","name_url"],
+						[`${productArray[element.id].category}`,"category","number","category"],
+						[`${productArray[element.id].subcategory}`,"subcategory","number","subcategory"],
+						[`${productArray[element.id].price}`,"price","number","price"],
+						[`${productArray[element.id].amount}`,"amount","number","amount"],
+						[`${productArray[element.id].table_name}`,"table_name","text","table_name"]
 					];
 					input_array.forEach(el =>{
 						let full_product_redact_input_parent_div = document.createElement("div");
@@ -959,6 +964,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						let full_product_redact_name = document.createElement("input");
 						full_product_redact_name.setAttribute("value", `${el[0]}`);
 						full_product_redact_name.setAttribute("name", `${el[1]}`);
+						full_product_redact_name.id = `${el[3]}`;
 						full_product_redact_name.setAttribute("type", `${el[2]}`);
 						full_product_redact_input_parent_div.appendChild(full_product_redact_input_div);
 						full_product_redact_input_parent_div.appendChild(full_product_redact_name);
@@ -971,6 +977,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						full_product_redact_input_description_div.innerText = "description: ";
 					let full_product_redact_description = document.createElement("textarea");
 						full_product_redact_description.setAttribute("name", "description");
+						full_product_redact_description.id = "description";
 						full_product_redact_description.innerText = `${productArray[element.id].description}`;
 
 						let full_product_send_button = document.createElement("button");
@@ -999,6 +1006,19 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						console.log(imgArrFull);
 						let imgArrFullToString = imgArrFull.join(', ');
 						console.log(imgArrFullToString);
+						fetch(`/system/adminUpdateProduct.php`, {
+							method: 'post',
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+							},
+							body:  `id=${productArray[element.id].id}&name=${product__name.value}&name_url=${name_url.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
+						})            
+						.then(window.location.href = "/admin") 
+
+
+
+
+
 						// let response = await fetch(`/system/changeCategory.php`, {
 						// 	method: 'post',
 						// 	body: new FormData(changeCategory)
