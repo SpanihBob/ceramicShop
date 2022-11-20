@@ -997,6 +997,8 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 							// console.log(el.value);
 						});
 						console.log(imgArrFull);
+						let imgArrFullToString = imgArrFull.join(', ');
+						console.log(imgArrFullToString);
 						// let response = await fetch(`/system/changeCategory.php`, {
 						// 	method: 'post',
 						// 	body: new FormData(changeCategory)
