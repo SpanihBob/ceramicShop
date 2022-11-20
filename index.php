@@ -63,8 +63,8 @@
     elseif($_SERVER['REDIRECT_URL']=="/crockery"):
         require_once "$path/public/crockery.php";
             
-    elseif($_SERVER['REDIRECT_URL']=="/favorites"):
-        require_once "$path/public/favorites.php";
+    // elseif($_SERVER['REDIRECT_URL']=="/favorites"):
+    //     require_once "$path/public/favorites.php";
             
     else:
         require_once "$path/public/404.php";

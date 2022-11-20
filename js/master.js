@@ -953,7 +953,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						[`${productArray[element.id].amount}`,"amount","number"]
 					];
 					input_array.forEach(el =>{
-
 						let full_product_redact_input_parent_div = document.createElement("div");
 						let full_product_redact_input_div = document.createElement("div");
 						full_product_redact_input_div.innerText = `${el[1]}: `;
@@ -991,9 +990,13 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						e.preventDefault();
 						let input_img_arr = document.querySelectorAll(".admin_redact_product_page_img");
 						input_img_arr.forEach(el => {
-							console.log(el.value.replace("C:\\fakepath\\", ""));
+							let arrayImage = el.value.replace("C:\\fakepath\\", "");
+							if(imgArrFull.indexOf(arrayImage) == -1 && arrayImage != ""){
+								imgArrFull.push(arrayImage);	
+							}							
 							// console.log(el.value);
 						});
+						console.log(imgArrFull);
 						// let response = await fetch(`/system/changeCategory.php`, {
 						// 	method: 'post',
 						// 	body: new FormData(changeCategory)
