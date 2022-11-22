@@ -1,270 +1,251 @@
  window.onload=function(){
   //тут пишем код, который будет ожидать загрузки DOM    
  }
- //здесь в обычном режиме
- 
-// ###########################################       функция добавления новой кнопки       ###################################################
-function addInputTypeButton(name, value) {
-    let Button = document.createElement("input");
-    Button.setAttribute("type","button");
-    Button.setAttribute("name",name);
-    Button.setAttribute("value",value);
-    Button.classList.add("input");
-    return Button;
-}
-// ###########################################      функция добавления новой кнопки(end)    ###################################################
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################       функция для избранного и корзины       ###################################################
+ //здесь в обычном режиме 
+
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+// ###########################################					cart.php,					###################################################
+// ###########################################					favor.php					###################################################
+// ###########################################       "функция для избранного и корзины"     ###################################################
+// ###########################################       		favoritesAndCart()		        ###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
 function favoritesAndCart(filePhp, patch, text) {
     const cartContent = document.getElementsByClassName('cartContent');
 		window.onload = () => {
-				fetch(`/system/removeFromFavorAndCart.php`, {
-								method: 'post',
-								headers: {
-									"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-								},
-								body: `filePhp=${filePhp}`,
-								})                                        
-				.then(response => response.json())                                  
-				.then(data => {	
-					if(data[0]==undefined){
-						const favorIsEmpty = document.createElement('div');
-						favorIsEmpty.innerText=text;
-						// favorIsEmpty.style="justify-self: center;"
-						cartContent[0].appendChild(favorIsEmpty);
-					}
-					else{
-						data.forEach(element => {
+			fetch(`/system/removeFromFavorAndCart.php`, {
+				method: 'post',
+				headers: {
+					"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+				},
+				body: `filePhp=${filePhp}`,
+				})                                        
+			.then(response => response.json())                                  
+			.then(data => {	
+				if(data[0]==undefined){
+					const favorIsEmpty = document.createElement('div');
+					favorIsEmpty.innerText=text;
+					cartContent[0].appendChild(favorIsEmpty);
+				}
+				else{
+					data.forEach(element => {
 						const cartParentDiv = document.createElement('div');
 							const imgDiv = document.createElement('div');
 								const img = document.createElement('img');  //картинка
+						
+						const infoDiv = document.createElement('div');  //
+							const nameDiv = document.createElement('div');//имя
+								const delCrockeryDiv = document.createElement('div');//удаление товара
+								const summDiv = document.createElement('div');//цена итоговая
+								const amountDiv = document.createElement('div');//кол-во
+								const delDiv = document.createElement('button');//del
+								const numDiv = document.createElement('div');//number
+								const addDiv = document.createElement('button');//add
+
+						cartParentDiv.id = element.id;
+						cartParentDiv.classList.add('cartProduct');
+						imgDiv.classList.add('cartProductImgDiv');
+						infoDiv.classList.add('cartInfoDiv');
+						delCrockeryDiv.classList.add('cartDelProduct');
+						if(filePhp=="cart"){
+							amountDiv.classList.add('cartAmountDiv');
+						}
+						else if(filePhp=="favor"){
+							amountDiv.classList.add('favorAmountDiv');
+						}							
+
+						summDiv.classList.add('finalPriceDiv');
+						delDiv.classList.add('delProduct');
+						numDiv.classList.add('productQuantity');
+						addDiv.classList.add('addProduct');
+
+						img.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+						nameDiv.innerText = `${element.name}`;
+						
+						if(filePhp=='cart'){
+							delDiv.innerText = `-`;
+							numDiv.innerText = `${element.count}`;
+							addDiv.innerText = `+`;
+							summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;
+							let sumDelDiv = document.createElement("div");
+							sumDelDiv.classList.add("sumDelDiv")
+							sumDelDiv.appendChild(delDiv);
+							sumDelDiv.appendChild(numDiv);
+							sumDelDiv.appendChild(addDiv);
+							amountDiv.appendChild(sumDelDiv);
+						}
+						else if(filePhp=='favor'){
+							summDiv.innerText = `${element.price}`;
+							amountDiv.innerText = `${element.description}`;
+						}								
+
+						imgDiv.appendChild(img);
+
+						infoDiv.appendChild(nameDiv);
+						infoDiv.appendChild(delCrockeryDiv);
+						infoDiv.appendChild(amountDiv);
+						infoDiv.appendChild(summDiv);
+
+						cartParentDiv.appendChild(imgDiv);
+						cartParentDiv.appendChild(infoDiv);
+						
+						cartContent[0].appendChild(cartParentDiv);
+
+		// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
 							
-							const infoDiv = document.createElement('div');  //
-								const nameDiv = document.createElement('div');//имя
-									const delCrockeryDiv = document.createElement('div');//удаление товара
-									const summDiv = document.createElement('div');//цена итоговая
-									const amountDiv = document.createElement('div');//кол-во
-									const delDiv = document.createElement('button');//del
-									const numDiv = document.createElement('div');//number
-									const addDiv = document.createElement('button');//add
-
-								cartParentDiv.id = element.id;
-								cartParentDiv.classList.add('cartProduct');
-								imgDiv.classList.add('cartProductImgDiv');
-								infoDiv.classList.add('cartInfoDiv');
-								delCrockeryDiv.classList.add('cartDelProduct');
-								if(filePhp=="cart"){
-									amountDiv.classList.add('cartAmountDiv');
-								}
-								else if(filePhp=="favor"){
-									amountDiv.classList.add('favorAmountDiv');
-								}
-								
-
-								summDiv.classList.add('finalPriceDiv');
-								delDiv.classList.add('delProduct');
-								numDiv.classList.add('productQuantity');
-								addDiv.classList.add('addProduct');
-
-								img.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
-								nameDiv.innerText = `${element.name}`;
-								
-								if(filePhp=='cart'){
-									delDiv.innerText = `-`;
-									numDiv.innerText = `${element.count}`;
-									addDiv.innerText = `+`;
-									summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;
-									let sumDelDiv = document.createElement("div");
-									sumDelDiv.classList.add("sumDelDiv")
-									sumDelDiv.appendChild(delDiv);
-									sumDelDiv.appendChild(numDiv);
-									sumDelDiv.appendChild(addDiv);
-									amountDiv.appendChild(sumDelDiv);
-								}
-								else if(filePhp=='favor'){
-									summDiv.innerText = `${element.price}`;
-									amountDiv.innerText = `${element.description}`;
-								}								
-
-								imgDiv.appendChild(img);
-
-								infoDiv.appendChild(nameDiv);
-								infoDiv.appendChild(delCrockeryDiv);
-								infoDiv.appendChild(amountDiv);
-								infoDiv.appendChild(summDiv);
-
-								cartParentDiv.appendChild(imgDiv);
-								cartParentDiv.appendChild(infoDiv);
-								
-								cartContent[0].appendChild(cartParentDiv);
-
-								// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
-								
-								function counter() {
-									if(element.count){
-										let count = element.count;
-										return {
-											add: function() {
-													count++
-													return count;
-												},
-											del: function() {
-													count--;
-													return count;
-												},
-											reset: function() {
-													return count=0;
-												}
-										};
-									}
-									else {console.log('корзина пуста');}						
-								}			
-						// //________________________________________________________________________________________________________________
-
-						let c = counter();
-							cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
-								if(filePhp == 'cart'){
-										// console.log(event.target.className);	
-									if(event.target.className == "addProduct") {
-										numDiv.innerText = c.add();
-									} 
-									else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
-										if(numDiv.innerText==1){
-											removeItemFromFavorAndCart();
-											return;
+						function counter() {
+							if(element.count){
+								let count = element.count;
+								return {
+									add: function() {
+											count++
+											return count;
+										},
+									del: function() {
+											count--;
+											return count;
+										},
+									reset: function() {
+											return count=0;
 										}
-										numDiv.innerText = c.del();
-										
-									}
-									else if(event.target.className == "cartDelProduct") {
-										// numDiv.innerText = c.reset();
-										removeItemFromFavorAndCart()
-									}
-									summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;	// выводим колличество_товара*цена_товара
+								};
+							}
+							else {console.log('корзина пуста');}						
+						}			
+		// //________________________________________________________________________________________________________________
 
-									fetch("/system/updateToCart.php", {
+					let c = counter();
+						cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
+							if(filePhp == 'cart'){
+									// console.log(event.target.className);	
+								if(event.target.className == "addProduct") {
+									numDiv.innerText = c.add();
+								} 
+								else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
+									if(numDiv.innerText==1){
+										removeItemFromFavorAndCart();
+										return;
+									}
+									numDiv.innerText = c.del();
+									
+								}
+								else if(event.target.className == "cartDelProduct") {
+									removeItemFromFavorAndCart()
+								}
+								summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;	// выводим колличество_товара*цена_товара
+
+								fetch("/system/updateToCart.php", {
+												method: 'post',
+												headers: {
+													"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+												},
+												body: `productId=${element.product_id}&productCount=${numDiv.innerText}`,
+								})
+							}
+							if(filePhp == 'favor'){
+								if(event.target.className == "cartDelProduct") {
+									removeItemFromFavorAndCart()
+								}
+								summDiv.innerText = `${element.price}`;	// выводим цена_товара
+							}
+							
+
+		// //____________________функция подтверждения удаления товара из корзины____________________________________________
+								function removeItemFromFavorAndCart() {
+									const popupMenu = document.createElement('div');				//сама менюшка
+									const popupMenuParent = document.createElement('div');			//родитель
+
+									const popupMenuQuestion = document.createElement('div');				//вопрос
+									
+									const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
+										const popupMenuQuestionImage = document.createElement('img');				//картинка
+										const popupMenuQuestionName = document.createElement('div');				
+
+									const ButtonDiv = document.createElement('div');				
+										const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+										const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
+
+									popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
+									popupMenuQuestionName.innerText = `${element.name}`;
+									popupMenuButtonNo.innerText = "Нет";
+									popupMenuButtonYes.innerText = "Да";
+									popupMenuQuestionImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+
+									popupMenuParent.classList.add('popupMenuParent');
+									popupMenu.classList.add('popupMenu');
+									popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
+									popupMenuQuestionImageParent.classList.add('popupMenuQuestionImageParent');
+									ButtonDiv.classList.add('ButtonDiv');
+
+									popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
+
+									popupMenu.appendChild(popupMenuQuestion);
+									popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
+									popupMenuQuestionImageParent.appendChild(popupMenuQuestionName);
+									popupMenu.appendChild(popupMenuQuestionImageParent);
+									ButtonDiv.appendChild(popupMenuButtonNo);
+									ButtonDiv.appendChild(popupMenuButtonYes);
+									popupMenu.appendChild(ButtonDiv);
+
+									popupMenuParent.appendChild(popupMenu);
+									cartContent[0].appendChild(popupMenuParent);
+
+									popupMenuButtonNo.onclick = () => {			//если нажали нет
+										popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+									}
+									popupMenuButtonYes.onclick = () => {			//если нажали да
+										fetch("/system/delToFavorAndCart.php", {
 													method: 'post',
 													headers: {
 														"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 													},
-													body: `productId=${element.product_id}&productCount=${numDiv.innerText}`,
+													body: `productId=${element.product_id}&filePhp=${filePhp}`,
 										})
-								}
-								if(filePhp == 'favor'){
-									if(event.target.className == "cartDelProduct") {
-										removeItemFromFavorAndCart()
+										popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+										window.location.href = patch;
 									}
-									summDiv.innerText = `${element.price}`;	// выводим цена_товара
-								}
-								
-
-									// //____________________функция подтверждения удаления товара из корзины____________________________________________
-										function removeItemFromFavorAndCart() {
-											const popupMenu = document.createElement('div');				//сама менюшка
-											const popupMenuParent = document.createElement('div');			//родитель
-
-											const popupMenuQuestion = document.createElement('div');				//вопрос
-											
-											const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
-												const popupMenuQuestionImage = document.createElement('img');				//картинка
-												const popupMenuQuestionName = document.createElement('div');				
-
-											const ButtonDiv = document.createElement('div');				
-												const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
-												const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
-
-											popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
-											popupMenuQuestionName.innerText = `${element.name}`;
-											popupMenuButtonNo.innerText = "Нет";
-											popupMenuButtonYes.innerText = "Да";
-											popupMenuQuestionImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
-
-											popupMenuParent.classList.add('popupMenuParent');
-											popupMenu.classList.add('popupMenu');
-											popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
-											popupMenuQuestionImageParent.classList.add('popupMenuQuestionImageParent');
-											ButtonDiv.classList.add('ButtonDiv');
-
-											popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
-
-											popupMenu.appendChild(popupMenuQuestion);
-											popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
-											popupMenuQuestionImageParent.appendChild(popupMenuQuestionName);
-											popupMenu.appendChild(popupMenuQuestionImageParent);
-											ButtonDiv.appendChild(popupMenuButtonNo);
-											ButtonDiv.appendChild(popupMenuButtonYes);
-											popupMenu.appendChild(ButtonDiv);
-
-											popupMenuParent.appendChild(popupMenu);
-											cartContent[0].appendChild(popupMenuParent);
-
-											popupMenuButtonNo.onclick = () => {			//если нажали нет
-												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-											}
-											popupMenuButtonYes.onclick = () => {			//если нажали да
-												fetch("/system/delToFavorAndCart.php", {
-															method: 'post',
-															headers: {
-																"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-															},
-															body: `productId=${element.product_id}&filePhp=${filePhp}`,
-												})
-												popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-												window.location.href = patch;
-											}
-										}											
-									// //________________________________________________________________________________________________________________									
-								} 
-								imgDiv.onclick = () => {
-									let productId = imgDiv.parentNode.id;				
-										fetch("/system/sessionFavorAndCart.php", {
-											method: 'post',
-											headers: {
-												"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-											},
-											body: `productIdCartAndFavor=${productId}`,
-										})
-										window.location.href = "/fullProduct";							
-								}
-							})
-						}
-					})
-				}
+								}											
+				// //________________________________________________________________________________________________________________									
+							} 
+							imgDiv.onclick = () => {
+								let productId = imgDiv.parentNode.id;				
+								fetch("/system/sessionFavorAndCart.php", {
+									method: 'post',
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+									},
+									body: `productIdCartAndFavor=${productId}`,
+								})
+								window.location.href = "/fullProduct";							
+							}
+						})
+					}
+				})
+			}
 }
-// // ###########################################      функция для избранного и корзины(end)    ###################################################
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-// //_________________________________________________Функция для отправки товара в корзину (базу данных)________________________________________________
 
-function addProductsToTheDatabase(elementId) {
-	fetch("/system/addToCartAndFavor.php", {
+
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+// ###########################################				crockery.php,					###################################################
+// ###########################################				interior.php,					###################################################
+// ###########################################				collection.php					###################################################
+// ###########################################       "функция для загрузки категории"       ###################################################
+// ###########################################       		loadCategory()		        	###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
+
+function loadCategory(cat, productCat){
+	fetch(`/system/changeToCategoryPage.php`, {
 		method: 'post',
 		headers: {
 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 		},
-		body: `productId=${elementId}&cartOrFavor=cart`,
-	})
-}
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// // ###########################################      функция для загрузки категории    ###################################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function loadCategory(cat, productCat){
-	fetch(`/system/changeToCategoryPage.php`, {
-			method: 'post',
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-			},
-			body: `tableName=${cat}`
-			})                                        
+		body: `tableName=${cat}`
+		})                                        
 	.then(response => response.json())                                  
 	.then(data => {
 		const content = document.getElementById("content");
@@ -302,13 +283,19 @@ function loadCategory(cat, productCat){
 		})
 	})
 }
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// // #######################################      функция для вывода страницы продуктов     ###############################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+// ###########################################				product.php						###################################################
+// ###########################################   "функция для вывода страницы продуктов"    ###################################################
+// ###########################################       		displayProductPage()		    ###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
+
 function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товара на экран %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	fetch(`/system/${pagePhp}.php`)                                       
 	.then(response => response.json())                                  
@@ -319,7 +306,7 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 			crockeryContent.classList = "crockeryProductDataFalse";
 		}
 		data.forEach(element => {
-			let productDiv = document.createElement("div");								//parent
+			let productDiv = document.createElement("div");								//родитель
 
 			let imgDiv = document.createElement("div");	
 				let img = document.createElement('img');							//создали картинку
@@ -390,28 +377,17 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 		}
 		dysplayNoneOrBlock(dataDivAddToCartText, dataDivAddToCartBtn);
 	})
-// //_________________________________________________Функция для отправки товара в корзину (базу данных)________________________________________________
-
-function addProductsToTheDatabase() {
-		fetch("/system/addToCartAndFavor.php", {
-			method: 'post',
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-			},
-			body: `productId=${element.id}&cartOrFavor=cart`,
-		})
-	}
 
 	//########################			 нажимаем кнопку добавить в корзину  		###########################	
 	let switchState = false;		
 	productDiv.onclick = event => {									
 		if(event.target == dataDivAddToCartBtn) {
-			addProductsToTheDatabase();
+			addProductsToTheDatabase(element.id);
 			switchState = true;
 			dataDivAddToCartText.style.display = "block";
 			dataDivAddToCartBtn.style.display = "none";
 		}
-		//########################			 Выводим выбранный продукт  		###########################	
+	//########################			 	Выводим выбранный продукт	  			###########################	
 		if(event.target==img){
 			let productDivAttribute = productDiv.getAttribute("data-id");
 			
@@ -425,21 +401,26 @@ function addProductsToTheDatabase() {
 						})
 						.then(
 							window.location.href = '/fullProduct'
-						)        
+							)        
+						}
 					}
 				}
-			}
-		})   
-	})
-}
+			})   
+		})
+	}
+	
+	
+	
+	// ############################################################################################################################################
+	// ###########################################                                              ###################################################
+	// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+	// ###########################################				   admin.php					###################################################
+	// ###########################################     "функция для страницы администратора"    ###################################################
+	// ###########################################     			"для пользователей"			    ###################################################
+// ###############################################       		getUsersToAdmin()		        ###################################################
+// ###############################################                                              ###################################################
+// ################################################################################################################################################
 
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// // #######################################      функция для страницы администратора     ###############################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пользователей %%%%%%%%%%%%%%%%%%%%%%%%%%//	
 	usersContainer.style.display = "grid";	
 	categoryContainer.style.display = "none";	
@@ -513,9 +494,9 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 													<div>Остаток</div>
 													<div>Заказ</div>`;
 							adminTableHeader.classList.add("adminTableHeader");								
-							adminUserShopping.appendChild(adminTableHeader);	
-							data.forEach(element =>{
-								
+							adminUserShopping.appendChild(adminTableHeader);
+
+							data.forEach(element =>{								
 								let productInfoContainer = document.createElement("div");
 									productInfoContainer.classList.add("userShoppingProduct");
 								let productImage = document.createElement("img");
@@ -562,13 +543,17 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 		});
 	})
 }
-// ###########################################
-// ###########################################
-// ###########################################
-// ###########################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// // #######################################      функция для страницы администратора     ###############################################
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+// ###########################################				   admin.php					###################################################
+// ###########################################     "функция для страницы администратора"    ###################################################
+// ###########################################     			"для категорий"			    	###################################################
+// ###########################################       		getCategoryToAdmin()		    ###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
 function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод категорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	let dataArray = [];
 	usersContainer.style.display = "none";
@@ -691,7 +676,6 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 						// let result = await response.text();
 						window.location.href = "/admin";
 					}
-
 				}
 				if(e.target == delCategory){
 					delOrNot("Удалить категорию?", categoryContainer, "category", catCont.id, "/admin");
@@ -774,7 +758,15 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 
 
-
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
+// ###########################################				   admin.php					###################################################
+// ###########################################     "функция для страницы администратора"    ###################################################
+// ###########################################     			"для товаров"			    	###################################################
+// ###########################################       		getProductToAdmin()		    	###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
 function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	adminContent.innerText = "";
 	usersContainer.style.display = "none";	
@@ -782,8 +774,8 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 	productContainer.style.display = "grid";
 	productContainer.innerText = "";
 
-	fetch(`/system/removeProductToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
-	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+	fetch(`/system/removeProductToAdmin.php`)                                         
+	.then(response => response.json())                           
 	.then(data => {
 		// console.log(data);
 		let productArray = [];
@@ -806,6 +798,9 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 		let displayInformationAboutFullProducts = document.createElement("div");
 		displayInformationAboutFullProducts.classList.add("displayInformationAboutFullProducts");
 		
+		productAddButton.onclick = () => {
+			console.log(8768768768);
+		}
 
 		data.forEach(element =>{
 			productArray[element.id] = element;
@@ -1013,22 +1008,12 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 							},
 							body:  `id=${productArray[element.id].id}&name=${product__name.value}&name_url=${name_url.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
 						})            
-						.then(window.location.href = "/admin") 
-
-
-
-
-
-						// let response = await fetch(`/system/changeCategory.php`, {
-						// 	method: 'post',
-						// 	body: new FormData(changeCategory)
-						// });
-						// let result = await response.text();
-						// window.location.href = "/admin";
+						.then(window.location.href = "/admin")
 					}
 					
 					full_product_descripption_parent_redact_img_arr.onclick = (eventImg) => {
 						let del_img = eventImg.target.src.replace("http://ceramicshop/img1/", "");//картинка которую удаляем
+						// delOrNot("Удалить картинку?", productContainer, tableSql, elementId, patch);
 						const popupMenu = document.createElement('div');				//сама менюшка
 						const popupMenuParent = document.createElement('div');			//родитель
 						const popupMenuQuestion = document.createElement('div');				//вопрос
@@ -1072,17 +1057,10 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 								popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 							}			
 						}
-
-						
-						// console.log(imgArrFull);
 					}
-
 				}
-				
-			}
-						
+			}		
 		})
-		
 	})
 }
 
@@ -1090,47 +1068,4 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 
 
 
-//#################################################################### функция подтверждения удаления категории/товара ############################################
-function delOrNot(question, parentDiv, tableSql, elementId, patch) {
-	const popupMenu = document.createElement('div');				//сама менюшка
-		const popupMenuParent = document.createElement('div');			//родитель
 
-		const popupMenuQuestion = document.createElement('div');				//вопрос
-		const ButtonDiv = document.createElement('div');				
-			const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
-			const popupMenuButtonYes = document.createElement('button');			//кнопка 'да'
-
-		popupMenuQuestion.innerText = question;
-		popupMenuButtonNo.innerText = "Нет";
-		popupMenuButtonYes.innerText = "Да";
-
-		popupMenuParent.classList.add('popupMenuParent');
-		popupMenu.classList.add('popupMenu');
-		ButtonDiv.classList.add('ButtonDiv');
-
-		popupMenu.appendChild(popupMenuQuestion);
-		ButtonDiv.appendChild(popupMenuButtonNo);
-		ButtonDiv.appendChild(popupMenuButtonYes);
-		popupMenu.appendChild(ButtonDiv);
-
-		popupMenuParent.appendChild(popupMenu);
-		parentDiv.appendChild(popupMenuParent);
-
-		popupMenuButtonNo.onclick = () => {			//если нажали нет
-			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-		}
-		popupMenuButtonYes.onclick = () => {			//если нажали да
-			let conf = confirm("Подтвердите действие");
-			if(conf){
-				fetch(`/system/adminDelCategory.php`, {
-						method: 'post',
-						headers: {
-							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-						},
-						body: `id=${elementId}&tableName=${tableSql}`,
-				})
-				popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-				window.location.href = patch;
-			}			
-		}
-	}	
