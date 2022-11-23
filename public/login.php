@@ -18,6 +18,16 @@ if( isset( $_POST['loginSend'] )) {
              $_SESSION['avatar'] = "download/$seLogin[avatar]";
              if($seLogin['admin'] == 1){
                 $_SESSION['admin'] = $seLogin['admin'];
+                
+                // создаем куки:____________________________________________
+                $arr_cookie_options = array (
+                    'expires' => time()+3600*24*30,
+                    'path' => '/'
+                    );
+                setcookie('user',  $_POST['login'], $arr_cookie_options);
+                setcookie('us_id',  $seLogin['id'], $arr_cookie_options);
+                //__________________________________________________________
+
                 header("Location: /admin");
              }
              else {

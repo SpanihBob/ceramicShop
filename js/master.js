@@ -251,6 +251,7 @@ function loadCategory(cat, productCat){
 		const content = document.getElementById("content");
 		data.forEach(element => {
 			console.log(element);
+			
 			let subcategoryDiv = document.createElement("div");
 			let subcategoryImg = document.createElement("img");
 			let subcategoryText = document.createElement("div");
@@ -299,8 +300,7 @@ function loadCategory(cat, productCat){
 function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товара на экран %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	fetch(`/system/${pagePhp}.php`)                                       
 	.then(response => response.json())                                  
-	.then(data => {						
-		// console.log(data);
+	.then(data => {		
 		if(data==false){
 			crockeryContent.innerText = "По вашему запросу ничего не найдено...";
 			crockeryContent.classList = "crockeryProductDataFalse";
@@ -417,9 +417,9 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 	// ###########################################				   admin.php					###################################################
 	// ###########################################     "функция для страницы администратора"    ###################################################
 	// ###########################################     			"для пользователей"			    ###################################################
-// ###############################################       		getUsersToAdmin()		        ###################################################
-// ###############################################                                              ###################################################
-// ################################################################################################################################################
+	// ###########################################       		getUsersToAdmin()		        ###################################################
+	// ###########################################                                              ###################################################
+	// ############################################################################################################################################
 
 function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пользователей %%%%%%%%%%%%%%%%%%%%%%%%%%//	
 	usersContainer.style.display = "grid";	
@@ -1013,7 +1013,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					
 					full_product_descripption_parent_redact_img_arr.onclick = (eventImg) => {
 						let del_img = eventImg.target.src.replace("http://ceramicshop/img1/", "");//картинка которую удаляем
-						// delOrNot("Удалить картинку?", productContainer, tableSql, elementId, patch);
 						const popupMenu = document.createElement('div');				//сама менюшка
 						const popupMenuParent = document.createElement('div');			//родитель
 						const popupMenuQuestion = document.createElement('div');				//вопрос
@@ -1043,10 +1042,8 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						popupMenuButtonYes.onclick = () => {			//если нажали да
 							let conf = confirm("Подтвердите действие");
 							if(conf){
-								// console.log(imgArrFull);
 								let del_img_index = imgArrFull.indexOf(del_img);
 								imgArrFull.splice(del_img_index, 1);
-								// console.log(imgArrFull);
 								full_product_descripption_parent_redact_img_arr.innerText = "";
 								imgArrFull.forEach(el =>{
 									let full_product_descripption_parent_redact_image = document.createElement("img");
@@ -1063,9 +1060,3 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 		})
 	})
 }
-
-
-
-
-
-
