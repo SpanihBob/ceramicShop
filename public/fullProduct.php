@@ -122,50 +122,50 @@
 							productDiv.appendChild(dataDiv);
 
 							//_______________________Функция для вывода товара которые лежат в корзине(start)______________________________________________
-							let userCartArr = [];					
-							let userCart = (async function() {
-								const response = await fetch(`/system/whatIsInTheCart.php`);
-								const post = await response.json();
-								return post;
-							})					
-							userCart().then(res=>{
-								// console.log(res );
-								res.forEach(element =>userCartArr.push(element.product_id));
-								
-								function dysplayNoneOrBlock(a, b){
-									if(userCartArr.includes(element.id)){
-													a.style.display = "block";
-													b.style.display = "none";
-									}
-									else {									
-										a.style.display = "none";
-										b.style.display = "block";
-									}
-								}
-								dysplayNoneOrBlock(itemInCart, addButton);
+							if(getCookies('user')){
+								let userCartArr = [];					
+								let userCart = (async function() {
+									const response = await fetch(`/system/whatIsInTheCart.php`);
+									const post = await response.json();
+									return post;
+								})					
+								userCart().then(res=>{
+									res.forEach(element =>userCartArr.push(element.product_id));
 
+									dysplayNoneOrBlock(userCartArr, element.id, itemInCart, addButton);
+							})}
+							else {
+								itemInCart.style.display = "none";
+							}
+						
 							//_______________________Функция для вывода товара из избранного______________________________________________
-							let userFavorArr = [];					
-							let userFavor = (async function() {
-								const response = await fetch(`/system/whatIsInTheFavor.php`);
-								const post = await response.json();
-								return post;
-							})					
-							userFavor().then(userFavorRes=>{
-								userFavorRes.forEach(el =>userFavorArr.push(el.product_id));
-								
-								function favorDysplayNoneOrBlock(a, b){
-									if(userFavorArr.includes(element.id)){
-													a.style.display = "block";
-													b.style.display = "none";
+							if(getCookies('user')){
+								let userFavorArr = [];					
+								let userFavor = (async function() {
+									const response = await fetch(`/system/whatIsInTheFavor.php`);
+									const post = await response.json();
+									return post;
+								})					
+								userFavor().then(userFavorRes=>{
+									userFavorRes.forEach(el =>userFavorArr.push(el.product_id));
+									
+									function favorDysplayNoneOrBlock(a, b){
+										if(userFavorArr.includes(element.id)){
+														a.style.display = "block";
+														b.style.display = "none";
+										}
+										else {									
+											a.style.display = "none";
+											b.style.display = "block";
+										}
 									}
-									else {									
-										a.style.display = "none";
-										b.style.display = "block";
-									}
-								}
-								favorDysplayNoneOrBlock(itemInFavor, addFavor);
-
+									favorDysplayNoneOrBlock(itemInFavor, addFavor);
+								})
+							}
+							else {
+								itemInFavor.style.display = "none";
+								addFavor.style.display = "none";
+							}
 							//_____________________Функция для отправки товара в корзину (базу данных)____________________________________________
 
 								function addProductsToTheDatabase() {
@@ -199,11 +199,17 @@
 								crockeryContent.appendChild(productDiv);
 								crockeryContent.appendChild(descDiv);
 							//########################			 нажимаем кнопку добавить в корзину  		###########################	
+							if(getCookies('user')){
 								addButton.onclick = () => {	
 									addProductsToTheDatabase();
 									itemInCart.style.display = "block";
 									addButton.style.display = "none";
-								}
+								}}
+								else {
+									addButton.onclick = () => {										
+										loginOrSignup(crockeryContent)
+									}
+								}	
 								
 					//################################################			 кнопки смотреть мини картинки  		###############################################
 
@@ -240,12 +246,17 @@
 														}
 													}
 
-
-					
 					//#######################################################			 кнопка "купить"  		######################################################
-					buyButton.onclick = () => {
+					if(getCookies('user')){
+						buyButton.onclick = () => {
 						window.location.href = '/ordering';
-					}
+					}}
+					else {
+						buyButton.onclick = () => {
+							loginOrSignup(crockeryContent)
+						}
+					}	
+					
 					//#######################################################			 кнопка "назад"  		######################################################
 
 					backButton.onclick = () => {
@@ -254,8 +265,7 @@
 
 					
 
-					//####################################################			 добавление товара в избранное 	 		###################################################
-
+					//####################################################			 добавление товара в избранное 	 		##########################################
 					addFavor.onclick = () => {
 						fetch("/system/addToCartAndFavor.php", {
 							method: 'post',
@@ -266,9 +276,10 @@
 						})															
 						itemInFavor.style.display = "block";
 						addFavor.style.display = "none";											
-					}		
+					}
+						
 
-					//#########################################			 выводим картинку при нажатии - на главную  		##############################################
+					//#########################################			 выводим картинку при нажатии - на главную  		##########################################
 
 					productDiv.onclick = event => {
 						if(event.target.tagName == "IMG") {
@@ -276,7 +287,7 @@
 						}}
 
 						
-					//##########################################			 увеличиваем картинку при двойном клике 		#################################################
+					//##########################################			 увеличиваем картинку при двойном клике 		###########################################
 
 					productDiv.ondblclick = selectedImg => {
 						if(selectedImg.target.tagName == "IMG") {
@@ -341,9 +352,7 @@
 							}}
 						})
 					})
-				})
-            })
-		}
+				}
     </script>
 </body>
 </html>

@@ -35,7 +35,7 @@ function addProductsToTheDatabase(elementId) {
 
 // ############################################################################################################################################
 // #####################################                                                            ###########################################
-// #####################################       функция подтверждения удаления категории/товара      ###########################################
+// #####################################   функция подтверждения удаления категории/товара(админ)   ###########################################
 // #####################################                                                            ###########################################
 // ############################################################################################################################################
 
@@ -96,15 +96,131 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch) {
 			let el = cokel.split("=");
 			cokieArr.push(el)
 		})
-		console.log(cokieArr);
+		// console.log(cokieArr);
 		let cook;
 		cokieArr.forEach(el=>{
 			if(el[0].includes(cookies)){
-				cook = el[1]
+				const regex = new RegExp('\\b' + cookies + '\\b', 'gm');
+				if(el[0].match(regex)) {cook = el[1]};
 			}
 			return cook;
 		});
 		return cook;
 	}
 	console.log(getCookies('user'));
+
+// ############################################################################################################################################
+// #####################################                                                            ###########################################
+// #####################################     функция для скрытия кнопки 'в корзину'/'в избранное' 	###########################################
+// #####################################                                                            ###########################################
+// ############################################################################################################################################
+
+	function dysplayNoneOrBlock(arr, el, a, b){
+		if(arr.includes(el)){
+						a.style.display = "block";
+						b.style.display = "none";
+		}
+		else {									
+			a.style.display = "none";
+			b.style.display = "block";
+		}
+	}
+
+// ############################################################################################################################################
+// #####################################                                                            ###########################################
+// #####################################        функция для незарегистрированого пользователя       ###########################################
+// #####################################                                                            ###########################################
+// ############################################################################################################################################
+
+function loginOrSignup(parent) {
+		// alert("Зарегистрируйтесь или войдите в учетную запись чтобы купить товар");
+		const popupMenu = document.createElement('div');				//сама менюшка
+		const popupMenuParent = document.createElement('div');			//родитель
+
+		const popupMenuQuestion = document.createElement('div');				//вопрос
+
+		const ButtonDiv = document.createElement('div');	
+			const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
+
+		popupMenuQuestion.innerText = "Зарегистрируйтесь или войдите в учетную запись чтобы купить товар";
+		popupMenuButtonYes.innerText = "Ок";
+
+		popupMenuParent.classList.add('popupMenuParent');
+		popupMenu.classList.add('popupMenu');
+		ButtonDiv.classList.add('ButtonDivUnregisteredUser');
+
+		popupMenu.appendChild(popupMenuQuestion);
+		ButtonDiv.appendChild(popupMenuButtonYes);
+		popupMenu.appendChild(ButtonDiv);
+
+		popupMenuParent.appendChild(popupMenu);
+		parent.appendChild(popupMenuParent);
+
+		popupMenuButtonYes.onclick = () => {			//если нажали да
+			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+		}
+	}
+
+// ############################################################################################################################################
+// #####################################                                                            ###########################################
+// ##################################### 			функция подтверждения удаления товара			###########################################
+// ##################################### 					из корзины/избранного					###########################################
+// #####################################                                                            ###########################################
+// ############################################################################################################################################
+
+	function removeItemFromFavorAndCart(parent, name, image, product_id, filePhp, patch) {
+		const popupMenu = document.createElement('div');				//сама менюшка
+		const popupMenuParent = document.createElement('div');			//родитель
+
+		const popupMenuQuestion = document.createElement('div');				//вопрос
+		
+		const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
+			const popupMenuQuestionImage = document.createElement('img');				//картинка
+			const popupMenuQuestionName = document.createElement('div');				
+
+		const ButtonDiv = document.createElement('div');				
+			const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+			const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
+
+		popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
+		popupMenuQuestionName.innerText = `${name}`;
+		popupMenuButtonNo.innerText = "Нет";
+		popupMenuButtonYes.innerText = "Да";
+		popupMenuQuestionImage.setAttribute("src",`../img1/${image.split(", ")[0]}`);
+
+		popupMenuParent.classList.add('popupMenuParent');
+		popupMenu.classList.add('popupMenu');
+		popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
+		popupMenuQuestionImageParent.classList.add('popupMenuQuestionImageParent');
+		ButtonDiv.classList.add('ButtonDiv');
+
+		popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
+
+		popupMenu.appendChild(popupMenuQuestion);
+		popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
+		popupMenuQuestionImageParent.appendChild(popupMenuQuestionName);
+		popupMenu.appendChild(popupMenuQuestionImageParent);
+		ButtonDiv.appendChild(popupMenuButtonNo);
+		ButtonDiv.appendChild(popupMenuButtonYes);
+		popupMenu.appendChild(ButtonDiv);
+
+		popupMenuParent.appendChild(popupMenu);
+		parent.appendChild(popupMenuParent);
+
+		popupMenuButtonNo.onclick = () => {			//если нажали нет
+			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+		}
+		popupMenuButtonYes.onclick = () => {			//если нажали да
+			fetch("/system/delToFavorAndCart.php", {
+						method: 'post',
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+						},
+						body: `productId=${product_id}&filePhp=${filePhp}`,
+			})
+			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+			window.location.href = patch;
+		}
+	}
+	
 	

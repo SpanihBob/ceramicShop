@@ -787,13 +787,18 @@ footer > :nth-child(2){
     padding: 30px;
     box-shadow: var(--boxShadow);
     border-radius: 5px;
+    width: 500px;
 }
 .ButtonDiv {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 10px;
 }
-.ButtonDiv > button {
+.ButtonDivUnregisteredUser {
+    display: grid;
+    padding: 10px;
+}
+.ButtonDivUnregisteredUser > button, .ButtonDiv > button {
     justify-self: center;
     align-self: center;
     width: 50px;

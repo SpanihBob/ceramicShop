@@ -2,10 +2,9 @@
 <?
 // echo $_SESSION['login'];
 if(isset($_POST['modalContextMenuExit'])) {
-    // $_SESSION['auth']=NULL;
-    // $_SESSION['login']=NULL;
-    // $_SESSION['id']=NULL;
-    session_destroy();
+    session_destroy();                              //удаляем сессию
+    setcookie('user', "", time() - 3600);           //удаляем куки
+    setcookie('us_id', "", time() - 3600);          //удаляем куки
     header("Location: ../index.php"); 
 }
 ?>
@@ -43,8 +42,6 @@ if(isset($_POST['modalContextMenuExit'])) {
     </div>
 </div>
 <script>
-    // const modalContextMenu = document.getElementById('modalContextMenu')
-    // const modalWindow = document.getElementById('modalWindow')
     logo.onclick = () => {
         window.location.href = "/";
     }

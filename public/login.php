@@ -16,18 +16,17 @@ if( isset( $_POST['loginSend'] )) {
              $_SESSION['login'] = $_POST['login'];
              $_SESSION['id'] = $seLogin['id'];
              $_SESSION['avatar'] = "download/$seLogin[avatar]";
+             
+             // создаем куки:____________________________________________
+             $arr_cookie_options = array (
+                'expires' => time()+3600*24*30,
+                'path' => '/'
+                );
+            setcookie('user',  $_POST['login'], $arr_cookie_options);
+            setcookie('us_id',  $seLogin['id'], $arr_cookie_options);
+            //__________________________________________________________
              if($seLogin['admin'] == 1){
-                $_SESSION['admin'] = $seLogin['admin'];
-                
-                // создаем куки:____________________________________________
-                $arr_cookie_options = array (
-                    'expires' => time()+3600*24*30,
-                    'path' => '/'
-                    );
-                setcookie('user',  $_POST['login'], $arr_cookie_options);
-                setcookie('us_id',  $seLogin['id'], $arr_cookie_options);
-                //__________________________________________________________
-
+                $_SESSION['admin'] = $seLogin['admin'];                
                 header("Location: /admin");
              }
              else {

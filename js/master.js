@@ -125,14 +125,14 @@ function favoritesAndCart(filePhp, patch, text) {
 								} 
 								else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
 									if(numDiv.innerText==1){
-										removeItemFromFavorAndCart();
+										removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch);
 										return;
 									}
 									numDiv.innerText = c.del();
 									
 								}
 								else if(event.target.className == "cartDelProduct") {
-									removeItemFromFavorAndCart()
+									removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch)
 								}
 								summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;	// выводим колличество_товара*цена_товара
 
@@ -146,69 +146,11 @@ function favoritesAndCart(filePhp, patch, text) {
 							}
 							if(filePhp == 'favor'){
 								if(event.target.className == "cartDelProduct") {
-									removeItemFromFavorAndCart()
+									removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch)
 								}
 								summDiv.innerText = `${element.price}`;	// выводим цена_товара
 							}
-							
-
-		// //____________________функция подтверждения удаления товара из корзины____________________________________________
-								function removeItemFromFavorAndCart() {
-									const popupMenu = document.createElement('div');				//сама менюшка
-									const popupMenuParent = document.createElement('div');			//родитель
-
-									const popupMenuQuestion = document.createElement('div');				//вопрос
-									
-									const popupMenuQuestionImageParent = document.createElement('div');				//картинка родитель
-										const popupMenuQuestionImage = document.createElement('img');				//картинка
-										const popupMenuQuestionName = document.createElement('div');				
-
-									const ButtonDiv = document.createElement('div');				
-										const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
-										const popupMenuButtonYes = document.createElement('button');				//кнопка 'да'
-
-									popupMenuQuestion.innerText = "Вы уверены, что хотите удалить данный товар?";
-									popupMenuQuestionName.innerText = `${element.name}`;
-									popupMenuButtonNo.innerText = "Нет";
-									popupMenuButtonYes.innerText = "Да";
-									popupMenuQuestionImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
-
-									popupMenuParent.classList.add('popupMenuParent');
-									popupMenu.classList.add('popupMenu');
-									popupMenuQuestionImage.classList.add('popupMenuQuestionImage');
-									popupMenuQuestionImageParent.classList.add('popupMenuQuestionImageParent');
-									ButtonDiv.classList.add('ButtonDiv');
-
-									popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
-
-									popupMenu.appendChild(popupMenuQuestion);
-									popupMenuQuestionImageParent.appendChild(popupMenuQuestionImage);
-									popupMenuQuestionImageParent.appendChild(popupMenuQuestionName);
-									popupMenu.appendChild(popupMenuQuestionImageParent);
-									ButtonDiv.appendChild(popupMenuButtonNo);
-									ButtonDiv.appendChild(popupMenuButtonYes);
-									popupMenu.appendChild(ButtonDiv);
-
-									popupMenuParent.appendChild(popupMenu);
-									cartContent[0].appendChild(popupMenuParent);
-
-									popupMenuButtonNo.onclick = () => {			//если нажали нет
-										popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-									}
-									popupMenuButtonYes.onclick = () => {			//если нажали да
-										fetch("/system/delToFavorAndCart.php", {
-													method: 'post',
-													headers: {
-														"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-													},
-													body: `productId=${element.product_id}&filePhp=${filePhp}`,
-										})
-										popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-										window.location.href = patch;
-									}
-								}											
-				// //________________________________________________________________________________________________________________									
-							} 
+						} 
 							imgDiv.onclick = () => {
 								let productId = imgDiv.parentNode.id;				
 								fetch("/system/sessionFavorAndCart.php", {
@@ -356,6 +298,7 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 		crockeryContent.appendChild(productDiv);
 
 //_______________________Функция пишет что товар в корзине(start)______________________________________________
+if(getCookies('user')){
 	let userCartArr = [];					
 	let userCart = (async function() {
 		const response = await fetch(`/system/whatIsInTheCart.php`);
@@ -365,18 +308,14 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 	userCart().then(res=>{
 		res.forEach(element =>userCartArr.push(element.product_id));
 		
-		function dysplayNoneOrBlock(a, b){
-			if(userCartArr.includes(element.id)){
-							a.style.display = "block";
-							b.style.display = "none";
-			}
-			else {									
-				a.style.display = "none";
-				b.style.display = "block";
-			}
-		}
-		dysplayNoneOrBlock(dataDivAddToCartText, dataDivAddToCartBtn);
+		dysplayNoneOrBlock(userCartArr, element.id, dataDivAddToCartText, dataDivAddToCartBtn);
 	})
+}
+else{
+	dataDivAddToCartText.style.display = "none";
+	dataDivAddToCartBtn.style.display = "none";
+}
+
 
 	//########################			 нажимаем кнопку добавить в корзину  		###########################	
 	let switchState = false;		
