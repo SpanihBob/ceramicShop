@@ -13,7 +13,7 @@
 // ###########################################                                              ###################################################
 // ############################################################################################################################################
 function favoritesAndCart(filePhp, patch, text) {
-    const cartContent = document.getElementsByClassName('cartContent');
+    const cartContent = document.querySelector('.cartContent');
 		window.onload = () => {
 			fetch(`/system/removeFromFavorAndCart.php`, {
 				method: 'post',
@@ -27,22 +27,31 @@ function favoritesAndCart(filePhp, patch, text) {
 				if(data[0]==undefined){
 					const favorIsEmpty = document.createElement('div');
 					favorIsEmpty.innerText=text;
-					cartContent[0].appendChild(favorIsEmpty);
+					cartContent.appendChild(favorIsEmpty);
 				}
 				else{
 					data.forEach(element => {
 						const cartParentDiv = document.createElement('div');
-							const imgDiv = document.createElement('div');
+							const checkboxLabel =  document.createElement('label');
+								checkboxLabel.style.display = "grid";
+								const checkbox =  document.createElement('input');
+								checkbox.setAttribute("type","checkbox");
+								checkbox.setAttribute("name",`check${element.id}`);
+								checkbox.setAttribute("data-id",`${element.id}`);
+								checkbox.classList.add("cartAndFavorCheckbox");
+								let checkboxDiv =  document.createElement('div');
+									checkboxDiv.classList.add("cartAndFavorCheckboxDiv");
+								const imgDiv = document.createElement('div');
 								const img = document.createElement('img');  //картинка
 						
-						const infoDiv = document.createElement('div');  //
-							const nameDiv = document.createElement('div');//имя
-								const delCrockeryDiv = document.createElement('div');//удаление товара
-								const summDiv = document.createElement('div');//цена итоговая
-								const amountDiv = document.createElement('div');//кол-во
-								const delDiv = document.createElement('button');//del
-								const numDiv = document.createElement('div');//number
-								const addDiv = document.createElement('button');//add
+							const infoDiv = document.createElement('div');  //
+								const nameDiv = document.createElement('div');//имя
+									const delCrockeryDiv = document.createElement('div');//удаление товара
+									const summDiv = document.createElement('div');//цена итоговая
+									const amountDiv = document.createElement('div');//кол-во
+									const delDiv = document.createElement('button');//del
+									const numDiv = document.createElement('div');//number
+									const addDiv = document.createElement('button');//add
 
 						cartParentDiv.id = element.id;
 						cartParentDiv.classList.add('cartProduct');
@@ -80,6 +89,8 @@ function favoritesAndCart(filePhp, patch, text) {
 							summDiv.innerText = `${element.price}`;
 							amountDiv.innerText = `${element.description}`;
 						}								
+						checkboxLabel.appendChild(checkbox);
+						checkboxLabel.appendChild(checkboxDiv);
 
 						imgDiv.appendChild(img);
 
@@ -88,10 +99,12 @@ function favoritesAndCart(filePhp, patch, text) {
 						infoDiv.appendChild(amountDiv);
 						infoDiv.appendChild(summDiv);
 
+						cartParentDiv.appendChild(checkboxLabel);
 						cartParentDiv.appendChild(imgDiv);
 						cartParentDiv.appendChild(infoDiv);
 						
-						cartContent[0].appendChild(cartParentDiv);
+						cartContent.appendChild(cartParentDiv);
+						
 
 		// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
 							
@@ -111,8 +124,7 @@ function favoritesAndCart(filePhp, patch, text) {
 											return count=0;
 										}
 								};
-							}
-							else {console.log('корзина пуста');}						
+							}						
 						}			
 		// //________________________________________________________________________________________________________________
 
@@ -125,14 +137,14 @@ function favoritesAndCart(filePhp, patch, text) {
 								} 
 								else if((event.target.className == "delProduct") && (numDiv.innerText>0)) {
 									if(numDiv.innerText==1){
-										removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch);
+										removeItemFromFavorAndCart(cartContent,element.name, element.image, element.product_id, filePhp, patch);
 										return;
 									}
 									numDiv.innerText = c.del();
 									
 								}
 								else if(event.target.className == "cartDelProduct") {
-									removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch)
+									removeItemFromFavorAndCart(cartContent,element.name, element.image, element.product_id, filePhp, patch)
 								}
 								summDiv.innerText = `Стоимость:${element.price * numDiv.innerText}₽`;	// выводим колличество_товара*цена_товара
 
@@ -146,7 +158,7 @@ function favoritesAndCart(filePhp, patch, text) {
 							}
 							if(filePhp == 'favor'){
 								if(event.target.className == "cartDelProduct") {
-									removeItemFromFavorAndCart(cartContent[0],element.name, element.image, element.product_id, filePhp, patch)
+									removeItemFromFavorAndCart(cartContent,element.name, element.image, element.product_id, filePhp, patch)
 								}
 								summDiv.innerText = `${element.price}`;	// выводим цена_товара
 							}
@@ -163,6 +175,23 @@ function favoritesAndCart(filePhp, patch, text) {
 								window.location.href = "/fullProduct";							
 							}
 						})
+						const buttonToBuyFromCartEndFavor = document.createElement("button");
+						buttonToBuyFromCartEndFavor.innerText = "Купить";
+						buttonToBuyFromCartEndFavor.classList.add("input");
+						cartContent.appendChild(buttonToBuyFromCartEndFavor);
+
+						buttonToBuyFromCartEndFavor.onclick = () => {
+							let checkboxArray = [];
+							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
+							products_found.forEach(prod => {
+								if(prod.checked){
+									checkboxArray.push(prod.getAttribute("data-id"))
+									// console.log(prod.getAttribute("data-id"));
+									
+								}
+							})
+							console.log(checkboxArray);
+						}
 					}
 				})
 			}
