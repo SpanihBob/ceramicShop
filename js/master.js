@@ -176,11 +176,21 @@ function favoritesAndCart(filePhp, patch, text) {
 							}
 						})
 						const buttonToBuyFromCartEndFavor = document.createElement("button");
-						buttonToBuyFromCartEndFavor.innerText = "Купить";
+						buttonToBuyFromCartEndFavor.innerText = "Оформить заказ";
 						buttonToBuyFromCartEndFavor.classList.add("input");
 						cartContent.appendChild(buttonToBuyFromCartEndFavor);
 
-						buttonToBuyFromCartEndFavor.onclick = () => {
+						const selectAllButton = document.createElement("button");
+						selectAllButton.innerText = "Выбрать все";
+						selectAllButton.classList.add("input");
+						cartContent.appendChild(selectAllButton);
+
+						const deleteSelectedButton = document.createElement("button");
+						deleteSelectedButton.innerText = "Удалить выбранное";
+						deleteSelectedButton.classList.add("input");
+						cartContent.appendChild(deleteSelectedButton);
+//########################			 	кнопка "Оформить заказ"	  			###########################
+						buttonToBuyFromCartEndFavor.onclick = () => {	
 							let checkboxArray = [];
 							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
 							products_found.forEach(prod => {
@@ -192,6 +202,24 @@ function favoritesAndCart(filePhp, patch, text) {
 							})
 							console.log(checkboxArray);
 						}
+//########################			 	кнопка "Выбрать все"	  			###########################
+						selectAllButton.onclick = () => {
+							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
+							products_found.forEach(prod => {
+								prod.checked = true;									
+							} )
+						}
+//########################			 	кнопка "Удалить выбранное"	  		###########################
+						deleteSelectedButton.onclick = () => {	
+							let checkboxArray = [];
+							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
+							products_found.forEach(prod => {
+								if(prod.checked){
+									checkboxArray.push(prod.getAttribute("data-id"));								
+								}
+							})
+							console.log(checkboxArray);
+						}	
 					}
 				})
 			}
