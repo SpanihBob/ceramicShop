@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.6.7-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.8.4-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win64
--- HeidiSQL Версия:              12.0.0.6468
+-- HeidiSQL Версия:              12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,26 +27,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~12 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~3 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
-	(91, 23, 5, 3, 1668185706),
-	(92, 24, 5, 1, 1668185710),
-	(93, 1, 5, 1, 1668270132),
-	(94, 4, 5, 1, 1668270394),
-	(95, 5, 5, 1, 1668270943),
-	(96, 3, 5, 1, 1668273862),
-	(97, 2, 5, 8, 1668281774),
-	(116, 8, 9, 1, 1668444729),
-	(117, 9, 9, 1, 1668444739),
-	(118, 15, 9, 1, 1668445096),
-	(119, 24, 9, 1, 1668445106),
-	(120, 1, 9, 1, 1668445250),
-	(121, 21, 9, 1, 1668445408),
-	(122, 23, 9, 1, 1668871995),
-	(123, 25, 9, 1, 1668872009);
+	(130, 7, 5, 1, 1669276108),
+	(131, 1, 5, 1, 1669276444),
+	(148, 2, 10, 1, 1669622324);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -55,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
 
 -- Дамп данных таблицы diploma.category: ~4 rows (приблизительно)
 DELETE FROM `category`;
@@ -101,20 +89,12 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~9 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~1 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(36, 22, 5),
-	(37, 24, 5),
-	(38, 1, 5),
-	(39, 23, 5),
-	(40, 3, 5),
-	(41, 22, 9),
-	(42, 21, 9),
-	(43, 9, 9),
-	(44, 1, 9);
+	(46, 1, 5);
 
 -- Дамп структуры для таблица diploma.interior
 CREATE TABLE IF NOT EXISTS `interior` (
@@ -159,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `table_name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='продукты';
 
 -- Дамп данных таблицы diploma.product: ~24 rows (приблизительно)
 DELETE FROM `product`;
@@ -187,8 +167,7 @@ INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `pri
 	(22, 'КОЛЛЕКЦИЯ "ПРЯНИЧНАЯ"', 'prianichnyi-281305', 2, 1, 4432, 'Чайный сервиз ручной работы на 4 персоны, пряничный, с потеками глазури. Чайник 650мл (14см высота), 2 кружки приянично-рифленые 350мл, 2 кружки с потеками глазури 350мл, 2 блюдца лучи 16см, 2 блюдца с мазками глазури 16см', 6, '27359a81156b528c5645e217b745.jpeg, 6c5fa41f8e0d6a436983e432a2a8.jpeg, 598c329dccd4e131d664146c48af.jpeg', 'product_collections'),
 	(23, 'ВАЗА ИЗ КЕРАМИКИ', 'cg-2020-531', 3, 1, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
 	(24, 'ВАЗА КЕРАМИКА 21 СМ', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
-	(25, 'СКУЛЬПТУРА "ВОРОНА"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior'),
-	(27, 'какая то ерунда', 'nameurl', 1, 1, 1, 'огого я тут какой-то не тот товар закинул', 6, 'skulptura-vorona-vn-03.jpg, 0b4b90524d77512cae8fae904b9f.jpeg, 3b17495ca9935ee5914be8786e01.jpeg, 4c8e371dcb65e3a22dc160ddb587.jpeg', 'product_interior');
+	(25, 'СКУЛЬПТУРА "ВОРОНА"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior');
 
 -- Дамп структуры для таблица diploma.shopping
 CREATE TABLE IF NOT EXISTS `shopping` (
@@ -198,14 +177,15 @@ CREATE TABLE IF NOT EXISTS `shopping` (
   `add_time` int(11) DEFAULT NULL,
   `count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.shopping: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.shopping: ~4 rows (приблизительно)
 DELETE FROM `shopping`;
 INSERT INTO `shopping` (`id`, `user_id`, `product_id`, `add_time`, `count`) VALUES
 	(1, 5, 1, 1668281774, 3),
 	(2, 5, 4, 1668281774, 2),
-	(3, 9, 5, 1668281774, 54);
+	(3, 9, 5, 1668281774, 54),
+	(4, 10, 1, 2345623, 1);
 
 -- Дамп структуры для таблица diploma.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -225,13 +205,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `time_signup` int(20) DEFAULT NULL COMMENT 'время создания учетной записи',
   `admin` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~2 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~4 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `user_name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`, `admin`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 2, 12, 426000, '11116602.jpg', 1662533535, 1),
-	(9, '222', '$2y$10$m.n41ZLocEMEMFisvulWy.1v7CXe2WgN4xIYgacmgjMdLgY2ZIjvK', 'xxcbgngd@fcvvx.f', 'Иван', 'Иванов', 'Россия', 'Ижевск', 'Колхозная', 4, 2, 426000, '22246231.jpg', 1668283681, NULL);
+	(9, '222', '$2y$10$m.n41ZLocEMEMFisvulWy.1v7CXe2WgN4xIYgacmgjMdLgY2ZIjvK', 'xxcbgngd@fcvvx.f', 'Иван', 'Иванов', 'Россия', 'Ижевск', 'Колхозная', 4, 2, 426000, '22246231.jpg', 1668283681, NULL),
+	(10, '333', '$2y$10$txOyzjTFW.AZtlT6P6Pvcu4dqQWryuFLA812bOR7umxyVTvzzcD1q', 'spanihbobjjj@gmail.com', 'Вася', 'Пупкин', 'Россия', 'Ижевск', 'Областная', 1, 1, 426010, '33341409.jpg', 1669616263, NULL),
+	(12, '444', '$2y$10$JQvclITOeu3Md8jcjm9Ko.Gg0vIoHYBxtV8OOyTbmSkPlEd4rB48u', 'spa@gmail.com', 'Dj', 'Groove', 'РФ', 'Ижевск', 'Переулок Можарова', 2, 1, 426010, '44466284.png', 1669621508, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

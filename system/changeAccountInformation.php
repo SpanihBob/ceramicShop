@@ -16,8 +16,6 @@
    
     
     if(isset($_POST['personalAccountFormSubmit'])) {                //код изменяет данные пользователя в БД
-        // $_POST['changeLogin'] = trim($_POST['changeLogin']);                              
-        // $_POST['changeLogin'] = htmlspecialchars($_POST['changeLogin']);                  
     
         $_POST['changeEmail'] = trim($_POST['changeEmail']);                              
         $_POST['changeEmail'] = htmlspecialchars($_POST['changeEmail']);  
@@ -47,9 +45,8 @@
         $_POST['changePostcode'] = htmlspecialchars($_POST['changePostcode']);
 
         $dbPDO->query("UPDATE `users` SET 
-                        -- `login`='$_POST[changeLogin]',
                         `email`='$_POST[changeEmail]', 
-                        `name`='$_POST[changeName]', 
+                        `user_name`='$_POST[changeName]', 
                         `lastname`='$_POST[changeLastname]',
                         `country`='$_POST[changeCountry]',
                         `city`='$_POST[changeCity]', 

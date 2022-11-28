@@ -774,7 +774,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 	fetch(`/system/removeProductToAdmin.php`)                                         
 	.then(response => response.json())                           
 	.then(data => {
-		// console.log(data);
 		let productArray = [];
 		let productAddButton = document.createElement("button");
 			productAddButton.innerText = "Добавить новый товар";
@@ -794,17 +793,96 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 		displayInformationAboutAllProducts.appendChild(productHeader);
 		let displayInformationAboutFullProducts = document.createElement("div");
 		displayInformationAboutFullProducts.classList.add("displayInformationAboutFullProducts");
-		
+		// )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))(((((((((((((((((((((((())))))))))))))))))))))))
 		productAddButton.onclick = () => {
-			console.log(8768768768);
+			let imgArrFull = [];
+			adminContent.innerText = "";															//чистим экран
+			let newProductForm = document.createElement("form");									//создаем форму
+			newProductForm.classList.add("personalAccountContent");
+			newProductForm.setAttribute("method", "post");
+			newProductForm.setAttribute("action", "");
+
+			for(let i=0;i<6;i++){																	//создаем input(type="file") = 6 штук
+				let new_img_parent_div = document.createElement("div");
+				let new_img_div = document.createElement("div");
+				new_img_div.innerText = "Выберете картинку: ";
+				let new_img = document.createElement("input");
+				new_img.setAttribute("type", "file");
+				new_img.setAttribute("name", `i${i}`);
+				new_img.classList.add("admin_redact_product_page_img");
+				new_img.id = `i${i}`;
+				new_img_parent_div.appendChild(new_img_div)
+				new_img_parent_div.appendChild(new_img)
+				newProductForm.appendChild(new_img_parent_div);
+			}
+			let input_array = [																		//создаем массив для input
+				["name","text","product__name"],
+				["name_url","text","name_url"],
+				["category","number","category"],
+				["subcategory","number","subcategory"],
+				["price","number","price"],
+				["amount","number","amount"],
+				["table_name","text","table_name"]
+			];
+			input_array.forEach(el =>{																//создаем input
+				let new_input_parent_div = document.createElement("div");
+				let new_input_div = document.createElement("div");
+				new_input_div.innerText = `${el[0]}: `;
+				let new_input = document.createElement("input");
+				new_input.setAttribute("name", `${el[0]}`);
+				new_input.id = `${el[2]}`;
+				new_input.setAttribute("type", `${el[1]}`);
+				new_input_parent_div.appendChild(new_input_div);
+				new_input_parent_div.appendChild(new_input);
+				newProductForm.appendChild(new_input_parent_div);
+			});
+			
+			let new_input_description_parent_div = document.createElement("div");
+				let full_product_redact_input_description_div = document.createElement("div");
+				full_product_redact_input_description_div.innerText = "description: ";
+			let full_product_redact_description = document.createElement("textarea");
+				full_product_redact_description.setAttribute("name", "description");
+				full_product_redact_description.id = "description";
+
+				let new_product_send_button = document.createElement("button");
+				new_product_send_button.innerText = "Отправить";
+				new_product_send_button.classList.add("input");
+				new_product_send_button.style.width = "100%";
+
+				new_input_description_parent_div.appendChild(full_product_redact_input_description_div);
+				new_input_description_parent_div.appendChild(full_product_redact_description);
+				newProductForm.appendChild(new_input_description_parent_div);
+				newProductForm.appendChild(new_product_send_button);
+			
+				adminContent.appendChild(newProductForm);
+
+			newProductForm.onsubmit  = async(e) => {
+				e.preventDefault();
+				let input_img_arr = document.querySelectorAll(".admin_redact_product_page_img");
+				input_img_arr.forEach(el => {
+					let arrayImage = el.value.replace("C:\\fakepath\\", "");
+					if(imgArrFull.indexOf(arrayImage) == -1 && arrayImage != ""){
+						imgArrFull.push(arrayImage);	
+					}
+				});
+				console.log(imgArrFull);
+				let imgArrFullToString = imgArrFull.join(', ');
+				console.log(imgArrFullToString);
+				fetch(`/system/adminCreateProduct.php`, {
+					method: 'post',
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+					},
+					body:  `name=${product__name.value}&name_url=${name_url.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
+				})            
+				.then(window.location.href = "/admin")
+			}					
 		}
 
 		data.forEach(element =>{
 			productArray[element.id] = element;
-			// console.log(productArray);
 			let displayProductInformation = document.createElement("div");
 				displayProductInformation.classList.add("adminDisplayProductInformation");
-				// displayProductInformation.setAttribute("data-id", `${element.id}`)
 			let product_id = document.createElement("div");
 				product_id.innerText = `${element.id}`;
 			let product_name = document.createElement("div");
@@ -819,7 +897,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				product_amount.innerText = `${element.amount}`;
 			let product_image = document.createElement("img");
 				let imgArr = element.image.split(", ");
-				// console.log(imgArr);
 				product_image.setAttribute("src", `../img1/${imgArr[0]}`);
 				product_image.classList.add("userShoppingProductImage");
 			let product_table_name = document.createElement("div");

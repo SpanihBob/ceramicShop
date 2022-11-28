@@ -188,28 +188,73 @@
 								const avatarImg = document.createElement("img");
 							const timeDiv = document.getElementById("timeDiv");
 
+							let email_value;
+							let us_name_value;
+							let lastname_value;
+							let country_value;
+							let city_value;
+							let street_value;
+							let house_value;
+							let apartment_value;
+							let postcode_value;
+
+							if(!data[0].email){
+								email_value="";
+							} else email_value=`${data[0].email}`;
+
+							if(!data[0].user_name){
+								us_name_value="";
+							} else us_name_value=`${data[0].user_name}`;
+
+							if(!data[0].lastname){
+								lastname_value="";
+							} else lastname_value=`${data[0].lastname}`;
+
+							if(!data[0].country){
+								country_value="";
+							} else country_value=`${data[0].country}`;
+
+							if(!data[0].city){
+								city_value="";
+							} else city_value=`${data[0].city}`;
+
+							if(!data[0].street){
+								street_value="";
+							} else street_value=`${data[0].street}`;
+
+							if(!data[0].house){
+								house_value="";
+							} else house_value=`${data[0].house}`;
+
+							if(!data[0].apartment){
+								apartment_value="";
+							} else apartment_value=`${data[0].apartment}`;
+
+							if(!data[0].postcode){
+								postcode_value="";
+							} else postcode_value=`${data[0].postcode}`;
 
 							loginDiv.textContent=`${data[0].login}`;
-							emailDiv.textContent=`${data[0].email}`;
-							nameDiv.textContent=`${data[0].user_name}`;
-							lastnameDiv.textContent=`${data[0].lastname}`;
-							countryDiv.textContent=`${data[0].country}`;
-							cityDiv.textContent=`${data[0].city}`;
-							streetDiv.textContent=`${data[0].street}`;
-							houseDiv.textContent=`${data[0].house}`;
-							apartmentDiv.textContent=`${data[0].apartment}`;
-							postcodeDiv.textContent=`${data[0].postcode}`;
+							emailDiv.textContent=`${email_value}`;
+							nameDiv.textContent=`${us_name_value}`;
+							lastnameDiv.textContent=`${lastname_value}`;
+							countryDiv.textContent=`${country_value}`;
+							cityDiv.textContent=`${city_value}`;
+							streetDiv.textContent=`${street_value}`;
+							houseDiv.textContent=`${house_value}`;
+							apartmentDiv.textContent=`${apartment_value}`;
+							postcodeDiv.textContent=`${postcode_value}`;
 							timeDiv.textContent=`${data[0].time_signup * 1000}`;
 
-							emailInput.setAttribute("value", `${data[0].email}`);
-							nameInput.setAttribute("value", `${data[0].user_name}`);
-							lastnameInput.setAttribute("value", `${data[0].lastname}`);
-							countryInput.setAttribute("value", `${data[0].country}`);
-							cityInput.setAttribute("value", `${data[0].city}`);
-							streetInput.setAttribute("value", `${data[0].street}`);
-							houseInput.setAttribute("value", `${data[0].house}`);
-							apartmentInput.setAttribute("value", `${data[0].apartment}`);
-							postcodeInput.setAttribute("value", `${data[0].postcode}`);
+							emailInput.setAttribute("value", `${email_value}`);
+							nameInput.setAttribute("value", `${us_name_value}`);
+							lastnameInput.setAttribute("value", `${lastname_value}`);
+							countryInput.setAttribute("value", `${country_value}`);
+							cityInput.setAttribute("value", `${city_value}`);
+							streetInput.setAttribute("value", `${street_value}`);
+							houseInput.setAttribute("value", `${house_value}`);
+							apartmentInput.setAttribute("value", `${apartment_value}`);
+							postcodeInput.setAttribute("value", `${postcode_value}`);
 
 
 							avatarImg.src=`../download/${data[0].avatar}`;
@@ -243,7 +288,8 @@
 								personalAccountContent.style.display = 'block';
 								avaForm.style.display = 'none';
 							}
-							personalAccountForm.onsubmit = () => {						//изменение данных пользователя в БД
+							personalAccountForm.onsubmit = (event) => {						//изменение данных пользователя в БД
+								event.preventDefault();
 								fetch("/system/changeAccountInformation.php", {
 									method: 'post',
 									headers: {
@@ -252,7 +298,9 @@
 									body: `changeEmail=${emailInput.value}&changeName=${nameInput.value}&changeLastname=${lastnameInput.value}&changeCountry=${countryInput.value}&changeCity=${cityInput.value}&changeStreet=${streetInput.value}&changeHouse=${houseInput.value}&changeApartment=${apartmentInput.value}&changePostcode=${postcodeInput.value}&personalAccountFormSubmit=${personalAccountFormSubmit.value}`,
 									})
 								.then(response =>response.text())
-								.then(window.location.href = '/account')
+								.then(//data=>{console.log(data)}
+									window.location.href = '/account'
+									)
                     		}
 					})
 				})
