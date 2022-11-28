@@ -218,7 +218,8 @@ function favoritesAndCart(filePhp, patch, text) {
 									checkboxArray.push(prod.getAttribute("data-id"));								
 								}
 							})
-							console.log(checkboxArray);
+							let checkboxString = checkboxArray.join(', ');
+							delOrNot("Вы действительно хотите удалить выбранные товары?", cartContent, filePhp, checkboxString, patch, "/system/delFullToFavorAndCart.php");												
 						}	
 					}
 				})
@@ -674,7 +675,7 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					}
 				}
 				if(e.target == delCategory){
-					delOrNot("Удалить категорию?", categoryContainer, "category", catCont.id, "/admin");
+					delOrNot("Удалить категорию?", categoryContainer, "category", catCont.id, "/admin", "/system/adminDelCategory.php");
 				}
 			}
 		})
@@ -837,7 +838,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 
 			product_btn_del.onclick = () => {
 				console.log(element.id);
-				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin");
+				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin", "/system/adminDelCategory.php");
 			}
 
 			product_btn.onclick = () => {
@@ -915,7 +916,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					full_product_descripption_parent_redact_form.setAttribute("method", "post");
 					full_product_descripption_parent_redact_form.setAttribute("action", "");
 					let full_product_descripption_parent_redact_img_arr = document.createElement("div");
-					// let full_product_descripption_parent_redact_img = document.createElement("div");
 					full_product_descripption_parent_redact_img_arr.classList.add("full_product_descripption_parent_redact_img_arr");
 					
 					imgArrFull.forEach(el =>{
@@ -991,8 +991,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 							let arrayImage = el.value.replace("C:\\fakepath\\", "");
 							if(imgArrFull.indexOf(arrayImage) == -1 && arrayImage != ""){
 								imgArrFull.push(arrayImage);	
-							}							
-							// console.log(el.value);
+							}
 						});
 						console.log(imgArrFull);
 						let imgArrFullToString = imgArrFull.join(', ');

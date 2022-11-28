@@ -39,7 +39,7 @@ function addProductsToTheDatabase(elementId) {
 // #####################################                                                            ###########################################
 // ############################################################################################################################################
 
-function delOrNot(question, parentDiv, tableSql, elementId, patch) {
+function delOrNot(question, parentDiv, tableSql, elementId, patch, systemFilePhp) {
 	const popupMenu = document.createElement('div');				//сама менюшка
 		const popupMenuParent = document.createElement('div');			//родитель
 
@@ -70,7 +70,7 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch) {
 		popupMenuButtonYes.onclick = () => {			//если нажали да
 			let conf = confirm("Подтвердите действие");
 			if(conf){
-				fetch(`/system/adminDelCategory.php`, {
+				fetch(`${systemFilePhp}`, {
 						method: 'post',
 						headers: {
 							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -96,7 +96,6 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch) {
 			let el = cokel.split("=");
 			cokieArr.push(el)
 		})
-		// console.log(cokieArr);
 		let cook;
 		cokieArr.forEach(el=>{
 			if(el[0].includes(cookies)){
@@ -133,7 +132,6 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch) {
 // ############################################################################################################################################
 
 function loginOrSignup(parent) {
-		// alert("Зарегистрируйтесь или войдите в учетную запись чтобы купить товар");
 		const popupMenu = document.createElement('div');				//сама менюшка
 		const popupMenuParent = document.createElement('div');			//родитель
 
