@@ -35,7 +35,7 @@
 			.then(response => response.json())                                  
 			.then(data => {	
 				data.forEach(element => {
-					console.log(element);
+					// console.log(element);
 					let productDiv = document.createElement("div");								//parent
 						let imgAndPrice = document.createElement("div");						//картинка			
 						let descDiv = document.createElement("div");							//описание								
@@ -43,7 +43,7 @@
 							let imgDiv = document.createElement("div");	
 								let img = document.createElement('img');						//создали картинку
 								let mainImage = element.image.split(", ")[0];
-								console.log(mainImage);
+								// console.log(mainImage);
 								img.setAttribute("src",`../img1/${mainImage}`)					//атрибуты img для главной картинки
 								img.classList.add("ImgFullProduct");
 								img.setAttribute("data-id",1);
@@ -341,12 +341,12 @@
 								imageDataId = imageDataId + 1;
 
 								if(imageDataId < allImageContextMenu.length) {
-									console.log(imageDataId);																	
+									// console.log(imageDataId);																	
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}
 								if(imageDataId >= allImageContextMenu.length) {
 									imageDataId = 1;
-									console.log(imageDataId);
+									// console.log(imageDataId);
 									contextMenuImage.setAttribute("src", allImageContextMenu[imageDataId].getAttribute("src"));
 								}}													
 							}}

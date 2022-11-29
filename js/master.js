@@ -31,6 +31,7 @@ function favoritesAndCart(filePhp, patch, text) {
 				}
 				else{
 					data.forEach(element => {
+						// console.log(data);
 						const cartParentDiv = document.createElement('div');
 							const checkboxLabel =  document.createElement('label');
 								checkboxLabel.style.display = "grid";
@@ -68,6 +69,7 @@ function favoritesAndCart(filePhp, patch, text) {
 						summDiv.classList.add('finalPriceDiv');
 						delDiv.classList.add('delProduct');
 						numDiv.classList.add('productQuantity');
+						numDiv.setAttribute("data-id", `sum${element.id}`);
 						addDiv.classList.add('addProduct');
 
 						img.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
@@ -192,15 +194,28 @@ function favoritesAndCart(filePhp, patch, text) {
 //########################			 	кнопка "Оформить заказ"	  			###########################
 						buttonToBuyFromCartEndFavor.onclick = () => {	
 							let checkboxArray = [];
+							let product_array = [];
 							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
 							products_found.forEach(prod => {
 								if(prod.checked){
-									checkboxArray.push(prod.getAttribute("data-id"))
-									// console.log(prod.getAttribute("data-id"));
-									
+									checkboxArray.push(prod.getAttribute("data-id"));
 								}
 							})
-							console.log(checkboxArray);
+							let sum_array = document.querySelectorAll(".productQuantity")
+							sum_array.forEach(cart => {
+								if(checkboxArray.indexOf(cart.getAttribute("data-id").replace("sum",""))!=-1){
+									product_array.push({id: cart.getAttribute("data-id").replace("sum",""), sum: cart.innerText})
+								};
+							})
+							let checkboxArray_to_string = JSON.stringify(product_array);
+							fetch("system/placeAnOrder.php", {
+								method: 'post',
+								headers: {
+									"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+								},
+								body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+							})
+							.then(window.location.href = '/ordering')
 						}
 //########################			 	кнопка "Выбрать все"	  			###########################
 						selectAllButton.onclick = () => {
@@ -1131,4 +1146,30 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 			}		
 		})
 	})
+}
+
+// ############################################################################################################################################
+// ###########################################                                              ###################################################
+// ###########################################					ИСПОЛЬЗУЕТСЯ В	 			###################################################
+// ###########################################				   ordering.php					###################################################
+// ###########################################    	  "функция для оформления заказа"    	###################################################
+// ###########################################       		 placingAnOrder()		    	###################################################
+// ###########################################                                              ###################################################
+// ############################################################################################################################################
+function placingAnOrder(parent_div) {
+	fetch("system/getOrderDetails.php")
+	.then(response => response.text())                                  
+	.then(data => { console.log(JSON.parse(data))
+		const ordering_form = document.createElement("form");
+	
+
+
+		parent_div.appendChild(ordering_form);
+		console.log(parent_div);
+	
+	
+	
+	
+	})
+	
 }

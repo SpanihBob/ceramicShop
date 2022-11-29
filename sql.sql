@@ -29,13 +29,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
--- Дамп данных таблицы diploma.cart: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.cart: ~4 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
 	(130, 7, 5, 1, 1669276108),
 	(131, 1, 5, 1, 1669276444),
 	(148, 2, 10, 1, 1669622324),
-	(149, 21, 5, 1, 1669710231);
+	(149, 21, 5, 9, 1669710231),
+	(150, 2, 5, 8, 1669712783);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -144,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `shopping` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.shopping: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.shopping: ~4 rows (приблизительно)
 DELETE FROM `shopping`;
 INSERT INTO `shopping` (`id`, `user_id`, `product_id`, `add_time`, `count`) VALUES
 	(1, 5, 1, 1668281774, 3),
@@ -172,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~3 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~4 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `user_name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`, `admin`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 2, 12, 426000, '11116602.jpg', 1662533535, 1),

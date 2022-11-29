@@ -1,5 +1,8 @@
 <?
 	include_once "$path/private/head.php";
+	echo "<pre>";
+	print_r($_SESSION);
+	echo "</pre>";
 ?>
 
 
@@ -13,9 +16,15 @@
 			<?
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
-			<div class="nameContent">								<!-- CONTENT -->				
-                страница оформления заказа
-			</div>		
+			<div class="orderingContent">								<!-- CONTENT -->				
+				<h1>Страница оформления заказа</h1>
+			</div>
+			<script>
+				window.onload = () => {
+					let orderingContent = document.querySelector(".orderingContent");
+					placingAnOrder(orderingContent);
+				}				
+			</script>		
 		</article>
 		<?
 			include_once "$path/private/footer.php"		//FOOTER
