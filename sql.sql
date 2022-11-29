@@ -27,14 +27,15 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `count` int(11) DEFAULT NULL COMMENT 'кол-во товара',
   `add_time` int(11) DEFAULT NULL COMMENT 'время добавления в корзину',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='корзина';
 
 -- Дамп данных таблицы diploma.cart: ~3 rows (приблизительно)
 DELETE FROM `cart`;
 INSERT INTO `cart` (`id`, `product_id`, `user_id`, `count`, `add_time`) VALUES
 	(130, 7, 5, 1, 1669276108),
 	(131, 1, 5, 1, 1669276444),
-	(148, 2, 10, 1, 1669622324);
+	(148, 2, 10, 1, 1669622324),
+	(149, 21, 5, 1, 1669710231);
 
 -- Дамп структуры для таблица diploma.category
 CREATE TABLE IF NOT EXISTS `category` (
@@ -42,46 +43,23 @@ CREATE TABLE IF NOT EXISTS `category` (
   `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryMicroImage` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `categoryTableName` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subcategory` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subcategoryImage` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='категории';
 
--- Дамп данных таблицы diploma.category: ~4 rows (приблизительно)
+-- Дамп данных таблицы diploma.category: ~9 rows (приблизительно)
 DELETE FROM `category`;
-INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`) VALUES
-	(1, 'Посуда', 'тарелка.png', 'crockery'),
-	(2, 'Коллекции', 'коллекция.png', 'collection'),
-	(3, 'Интерьер', 'ваза.png', 'interior'),
-	(4, 'Изделия на заказ', 'на заказ.png', 'productsToOrder');
-
--- Дамп структуры для таблица diploma.collections
-CREATE TABLE IF NOT EXISTS `collections` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Дамп данных таблицы diploma.collections: ~2 rows (приблизительно)
-DELETE FROM `collections`;
-INSERT INTO `collections` (`id`, `name`, `image`) VALUES
-	(1, 'Фантазия', 'keramicheskaya-posuda-2.jpg'),
-	(2, 'Времена года', '5d745e3f2661205065a5029954qi--posuda-mertsayuschij-serviz-avtorskij-nabor-posudy-ruchnoj-ra.jpg');
-
--- Дамп структуры для таблица diploma.crockery
-CREATE TABLE IF NOT EXISTS `crockery` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='посуда';
-
--- Дамп данных таблицы diploma.crockery: ~4 rows (приблизительно)
-DELETE FROM `crockery`;
-INSERT INTO `crockery` (`id`, `name`, `image`) VALUES
-	(1, 'Тарелки', 'тарелка.jpg'),
-	(2, 'Сервизы', 'пара.jpg'),
-	(3, 'Соусники', 'соус4.jpg'),
-	(4, 'Кружки', 'кр4.jpg');
+INSERT INTO `category` (`id`, `categoryName`, `categoryMicroImage`, `categoryTableName`, `subcategory`, `subcategoryImage`) VALUES
+	(1, 'Посуда', 'тарелка.png', 'crockery', 'Тарелки', 'тарелка.jpg'),
+	(2, 'Посуда', 'тарелка.png', 'crockery', 'Сервизы', 'пара.jpg'),
+	(3, 'Посуда', 'тарелка.png', 'crockery', 'Соусники', 'соус4.jpg'),
+	(4, 'Посуда', 'тарелка.png', 'crockery', 'Кружки', 'кр4.jpg'),
+	(5, 'Коллекции', 'коллекция.png', 'collections', 'Фантазия', 'keramicheskaya-posuda-2.jpg'),
+	(6, 'Коллекции', 'коллекция.png', 'collections', 'Времена года', '5d745e3f2661205065a5029954qi--posuda-mertsayuschij-serviz-avtorskij-nabor-posudy-ruchnoj-ra.jpg'),
+	(7, 'Интерьер', 'ваза.png', 'interior', 'Вазы', '4846_big.jpg'),
+	(8, 'Интерьер', 'ваза.png', 'interior', 'Скульптура', 'sfdgvkdmfbgkls.jpg'),
+	(9, 'Изделия на заказ', 'на заказ.png', 'productsToOrder', NULL, NULL);
 
 -- Дамп структуры для таблица diploma.favor
 CREATE TABLE IF NOT EXISTS `favor` (
@@ -89,26 +67,13 @@ CREATE TABLE IF NOT EXISTS `favor` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.favor: ~1 rows (приблизительно)
+-- Дамп данных таблицы diploma.favor: ~2 rows (приблизительно)
 DELETE FROM `favor`;
 INSERT INTO `favor` (`id`, `product_id`, `user_id`) VALUES
-	(46, 1, 5);
-
--- Дамп структуры для таблица diploma.interior
-CREATE TABLE IF NOT EXISTS `interior` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Дамп данных таблицы diploma.interior: ~2 rows (приблизительно)
-DELETE FROM `interior`;
-INSERT INTO `interior` (`id`, `name`, `image`) VALUES
-	(1, 'Вазы', '4846_big.jpg'),
-	(2, 'Скульптура', 'sfdgvkdmfbgkls.jpg');
+	(46, 1, 5),
+	(60, 21, 5);
 
 -- Дамп структуры для таблица diploma.main
 CREATE TABLE IF NOT EXISTS `main` (
@@ -162,12 +127,12 @@ INSERT INTO `product` (`id`, `name`, `name_url`, `category`, `subcategory`, `pri
 	(16, 'КРУЖКА "КРАФТ"', 'kruzhka-kraft102309', 1, 4, 804, 'Кружка 330мл, ручной работы, высота 10см, посыпанная крошкой, керамика, полуфарфор', 8, 'e864cd575a8877bcdc60002c4988.jpeg', 'product'),
 	(17, 'КРУЖКА МИНИМАЛИЗМ "РАССВЕТ"', 'cg-2020-503', 1, 4, 690, 'Керамическая кружка для молока “Пчёлки” изготовлена вручную на гончарном круге. Кружка покрыта безопасными для здоровья пищевыми глазурями. Ручная роспись – надглазурная краска.', 8, 'cb3447b4c5a80e65d77ef2e79405.jpeg', 'product'),
 	(18, 'КРУЖКА "СПИРАЛЬ БЕЛАЯ"', 'cg-2020-592', 1, 4, 1103, 'Кружка большая ручной работы, 500мл, белая, керамика', 8, '4c8e371dcb65e3a22dc160ddb587.jpeg', 'product'),
-	(20, 'КОЛЛЕКЦИЯ "ВЕСЕННЯЯ"', 'vesenniy-281305', 2, 2, 4332, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 2, 'images (10).jpg', 'product_collections'),
-	(21, 'КОЛЛЕКЦИЯ "ОСЕННЯЯ"', 'jsenniy-281305', 2, 2, 3223, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 3, '1020x0_zktohkkeioyanctl_jpg_6b12.jpg', 'product_collections'),
-	(22, 'КОЛЛЕКЦИЯ "ПРЯНИЧНАЯ"', 'prianichnyi-281305', 2, 1, 4432, 'Чайный сервиз ручной работы на 4 персоны, пряничный, с потеками глазури. Чайник 650мл (14см высота), 2 кружки приянично-рифленые 350мл, 2 кружки с потеками глазури 350мл, 2 блюдца лучи 16см, 2 блюдца с мазками глазури 16см', 6, '27359a81156b528c5645e217b745.jpeg, 6c5fa41f8e0d6a436983e432a2a8.jpeg, 598c329dccd4e131d664146c48af.jpeg', 'product_collections'),
-	(23, 'ВАЗА ИЗ КЕРАМИКИ', 'cg-2020-531', 3, 1, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
-	(24, 'ВАЗА КЕРАМИКА 21 СМ', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 1, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
-	(25, 'СКУЛЬПТУРА "ВОРОНА"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 2, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior');
+	(20, 'КОЛЛЕКЦИЯ "ВЕСЕННЯЯ"', 'vesenniy-281305', 2, 6, 4332, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 2, 'images (10).jpg', 'product_collections'),
+	(21, 'КОЛЛЕКЦИЯ "ОСЕННЯЯ"', 'jsenniy-281305', 2, 6, 3223, 'Авторский экзсклюзивный сервиз ручной работы на 6 персон: 14 предметов. Всю посуду можно мыть в посудомойке и ставить в СВЧ. Материал - мягкий фарфор.', 3, '1020x0_zktohkkeioyanctl_jpg_6b12.jpg', 'product_collections'),
+	(22, 'КОЛЛЕКЦИЯ "ПРЯНИЧНАЯ"', 'prianichnyi-281305', 2, 5, 4432, 'Чайный сервиз ручной работы на 4 персоны, пряничный, с потеками глазури. Чайник 650мл (14см высота), 2 кружки приянично-рифленые 350мл, 2 кружки с потеками глазури 350мл, 2 блюдца лучи 16см, 2 блюдца с мазками глазури 16см', 6, '27359a81156b528c5645e217b745.jpeg, 6c5fa41f8e0d6a436983e432a2a8.jpeg, 598c329dccd4e131d664146c48af.jpeg', 'product_collections'),
+	(23, 'ВАЗА ИЗ КЕРАМИКИ', 'cg-2020-531', 3, 7, 3550, 'Элегантная керамическая ваза для цветов ручной работы, сине-коричневая матовая глазурованная керамическая посуда, классическая форма.', 5, 'H5d2fa3f752b84df3993c303cb31d8286z.jpg', 'product_interior'),
+	(24, 'ВАЗА КЕРАМИКА 21 СМ', 'bolshaya-napolnaya-vaza-dlya-czvetov', 3, 7, 5600, 'Ваза Керамика ручной работы, 21 см', 3, '6032230596.jpg', 'product_interior'),
+	(25, 'СКУЛЬПТУРА "ВОРОНА"', 'malaya-keramicheskaya-skulptura-vorona-2', 3, 8, 4100, 'Малая керамическая скульптура "Ворона". Для оформления и росписи вороны выбраны приятные, мягкие цвета. Роспись осуществлена в городской тематике.', 3, 'skulptura-vorona-vn-01.jpg, skulptura-vorona-vn-02.jpg, skulptura-vorona-vn-03.jpg, skulptura-vorona-vn-04.jpg, skulptura-vorona-vn-05.jpg', 'product_interior');
 
 -- Дамп структуры для таблица diploma.shopping
 CREATE TABLE IF NOT EXISTS `shopping` (
@@ -179,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `shopping` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Дамп данных таблицы diploma.shopping: ~4 rows (приблизительно)
+-- Дамп данных таблицы diploma.shopping: ~3 rows (приблизительно)
 DELETE FROM `shopping`;
 INSERT INTO `shopping` (`id`, `user_id`, `product_id`, `add_time`, `count`) VALUES
 	(1, 5, 1, 1668281774, 3),
@@ -207,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='пользователи';
 
--- Дамп данных таблицы diploma.users: ~4 rows (приблизительно)
+-- Дамп данных таблицы diploma.users: ~3 rows (приблизительно)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `login`, `password`, `email`, `user_name`, `lastname`, `country`, `city`, `street`, `house`, `apartment`, `postcode`, `avatar`, `time_signup`, `admin`) VALUES
 	(5, '111', '$2y$10$fC/.JXaE3jRgL/knRVoTXOku3BAnZy/.Oxhii7TCug6bG/2jBhSXK', 'SpanihBob@gmail.com', 'Ася', 'Семенова', 'Россия', 'Ижевск', 'Пушкинская', 2, 12, 426000, '11116602.jpg', 1662533535, 1),
