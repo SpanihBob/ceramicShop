@@ -45,7 +45,7 @@
     elseif($_SERVER['REDIRECT_URL']=="/fullProduct"):
         require_once "$path/public/fullProduct.php";
 
-    elseif($_SERVER['REDIRECT_URL']=="/collection"):
+    elseif($_SERVER['REDIRECT_URL']=="/collections"):
         require_once "$path/public/collection.php";
 
     elseif($_SERVER['REDIRECT_URL']=="/interior"):

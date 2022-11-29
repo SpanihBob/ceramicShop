@@ -250,15 +250,15 @@ function loadCategory(cat, productCat){
 	.then(data => {
 		const content = document.getElementById("content");
 		data.forEach(element => {
-			console.log(element);
+			// console.log(element);
 			
 			let subcategoryDiv = document.createElement("div");
 			let subcategoryImg = document.createElement("img");
 			let subcategoryText = document.createElement("div");
 
 			subcategoryDiv.setAttribute("data-id",`${element.id}`);
-			subcategoryImg.setAttribute("src",`../img1/${element.image}`);
-			subcategoryText.innerText=`${element.name}`;
+			subcategoryImg.setAttribute("src",`../img1/${element.subcategoryImage}`);
+			subcategoryText.innerText=`${element.subcategory}`;
 			
 			subcategoryDiv.classList.add("crockeryCard");
 			subcategoryImg.classList.add("crockeryImg");
@@ -865,9 +865,9 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						imgArrFull.push(arrayImage);	
 					}
 				});
-				console.log(imgArrFull);
+				// console.log(imgArrFull);
 				let imgArrFullToString = imgArrFull.join(', ');
-				console.log(imgArrFullToString);
+				// console.log(imgArrFullToString);
 				fetch(`/system/adminCreateProduct.php`, {
 					method: 'post',
 					headers: {
@@ -914,7 +914,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 			adminContent.appendChild(productContainer);
 
 			product_btn_del.onclick = () => {
-				console.log(element.id);
+				// console.log(element.id);
 				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin", "/system/adminDelCategory.php");
 			}
 
@@ -1070,9 +1070,9 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 								imgArrFull.push(arrayImage);	
 							}
 						});
-						console.log(imgArrFull);
+						// console.log(imgArrFull);
 						let imgArrFullToString = imgArrFull.join(', ');
-						console.log(imgArrFullToString);
+						// console.log(imgArrFullToString);
 						fetch(`/system/adminUpdateProduct.php`, {
 							method: 'post',
 							headers: {
