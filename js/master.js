@@ -106,31 +106,9 @@ function favoritesAndCart(filePhp, patch, text) {
 						cartParentDiv.appendChild(infoDiv);
 						
 						cartContent.appendChild(cartParentDiv);
-						
 
-		// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
-							
-						function counter() {
-							if(element.count){
-								let count = element.count;
-								return {
-									add: function() {
-											count++
-											return count;
-										},
-									del: function() {
-											count--;
-											return count;
-										},
-									reset: function() {
-											return count=0;
-										}
-								};
-							}						
-						}			
-		// //________________________________________________________________________________________________________________
-
-					let c = counter();
+						// //_______________функция будет менять колличество товара в корзине (c.237 Д.Флэнаган - JavaScript)________________
+					let c = counter(element.count);
 						cartParentDiv.onclick = (event) => {					//счетчик колличества товара в корзине
 							if(filePhp == 'cart'){
 									// console.log(event.target.className);	
@@ -194,20 +172,14 @@ function favoritesAndCart(filePhp, patch, text) {
 //########################			 	кнопка "Оформить заказ"	  			###########################
 						buttonToBuyFromCartEndFavor.onclick = () => {	
 							let checkboxArray = [];
-							let product_array = [];
 							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
 							products_found.forEach(prod => {
 								if(prod.checked){
 									checkboxArray.push(prod.getAttribute("data-id"));
 								}
 							})
-							let sum_array = document.querySelectorAll(".productQuantity")
-							sum_array.forEach(cart => {
-								if(checkboxArray.indexOf(cart.getAttribute("data-id").replace("sum",""))!=-1){
-									product_array.push({id: cart.getAttribute("data-id").replace("sum",""), sum: cart.innerText})
-								};
-							})
-							let checkboxArray_to_string = JSON.stringify(product_array);
+							
+							let checkboxArray_to_string = checkboxArray.join(", ");
 							fetch("system/placeAnOrder.php", {
 								method: 'post',
 								headers: {
@@ -216,6 +188,8 @@ function favoritesAndCart(filePhp, patch, text) {
 								body: `checkboxArray_to_string=${checkboxArray_to_string}`,
 							})
 							.then(window.location.href = '/ordering')
+							// .then(response => response.text())
+							// .then(data => {console.log(data);})
 						}
 //########################			 	кнопка "Выбрать все"	  			###########################
 						selectAllButton.onclick = () => {
@@ -1158,12 +1132,25 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 // ############################################################################################################################################
 function placingAnOrder(parent_div) {
 	fetch("system/getOrderDetails.php")
-	.then(response => response.text())                                  
-	.then(data => { console.log(JSON.parse(data))
+	.then(response => response.json())                                  
+	.then(data => { //console.log(data);
 		const ordering_form = document.createElement("form");
+		const ordering_div = document.createElement("div");
+		data.forEach(element=>{
+			console.log(element);
+			let product_parent_div = document.createElement("div");
+			let product_div = document.createElement("div");
+			let product_image_div = document.createElement("div");
+			let product_image = document.createElement("img");
+			let product_info = document.createElement("div");
+			
+
+		})
+
 	
 
 
+		ordering_form.appendChild(ordering_div);
 		parent_div.appendChild(ordering_form);
 		console.log(parent_div);
 	
