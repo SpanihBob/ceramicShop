@@ -31,7 +31,6 @@ function favoritesAndCart(filePhp, patch, text) {
 				}
 				else{
 					data.forEach(element => {
-						// console.log(data);
 						const cartParentDiv = document.createElement('div');
 							const checkboxLabel =  document.createElement('label');
 								checkboxLabel.style.display = "grid";
@@ -155,10 +154,66 @@ function favoritesAndCart(filePhp, patch, text) {
 								window.location.href = "/fullProduct";							
 							}
 						})
-						const buttonToBuyFromCartEndFavor = document.createElement("button");
-						buttonToBuyFromCartEndFavor.innerText = "Оформить заказ";
-						buttonToBuyFromCartEndFavor.classList.add("input");
-						cartContent.appendChild(buttonToBuyFromCartEndFavor);
+						if(filePhp=="cart") {
+							const buttonToBuyFromCartEndFavor = document.createElement("button");
+							buttonToBuyFromCartEndFavor.innerText = "Оформить заказ";
+							buttonToBuyFromCartEndFavor.classList.add("input");
+							cartContent.appendChild(buttonToBuyFromCartEndFavor);
+
+							//########################			 	кнопка "Оформить заказ"	  			###########################
+							buttonToBuyFromCartEndFavor.onclick = () => {	
+								let checkboxArray = [];
+								let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
+								products_found.forEach(prod => {
+									if(prod.checked){
+										checkboxArray.push(prod.getAttribute("data-id"));
+									}
+								})
+								
+								let checkboxArray_to_string = checkboxArray.join(", ");
+								fetch("system/placeAnOrder.php", {
+									method: 'post',
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+									},
+									body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+								})
+								.then(window.location.href = '/ordering')
+								// .then(response => response.text())
+								// .then(data => {console.log(data);})
+							}					
+						}
+
+						if(filePhp=="favor") {
+							const buttonFromFavoritesToCart = document.createElement("button");
+							buttonFromFavoritesToCart.innerText = "Добавить в корзину";
+							buttonFromFavoritesToCart.classList.add("input");
+							cartContent.appendChild(buttonFromFavoritesToCart);
+
+							//########################			 	кнопка "Добавить в корзину"	  		###########################
+							buttonFromFavoritesToCart.onclick = () => {	
+								let checkboxArray = [];
+								let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
+								products_found.forEach(prod => {
+									if(prod.checked){
+										checkboxArray.push(prod.getAttribute("data-id"));
+									}
+								})
+								
+								let checkboxArray_to_string = checkboxArray.join(", ");
+								console.log(checkboxArray_to_string);
+								fetch("system/fromFavoritesToCart.php", {
+									method: 'post',
+									headers: {
+										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+									},
+									body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+								})
+								// .then(window.location.href = '/cart')
+								.then(response => response.text())
+								.then(data => {console.log(data);})
+							}
+						}					
 
 						const selectAllButton = document.createElement("button");
 						selectAllButton.innerText = "Выбрать все";
@@ -169,28 +224,8 @@ function favoritesAndCart(filePhp, patch, text) {
 						deleteSelectedButton.innerText = "Удалить выбранное";
 						deleteSelectedButton.classList.add("input");
 						cartContent.appendChild(deleteSelectedButton);
-//########################			 	кнопка "Оформить заказ"	  			###########################
-						buttonToBuyFromCartEndFavor.onclick = () => {	
-							let checkboxArray = [];
-							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
-							products_found.forEach(prod => {
-								if(prod.checked){
-									checkboxArray.push(prod.getAttribute("data-id"));
-								}
-							})
-							
-							let checkboxArray_to_string = checkboxArray.join(", ");
-							fetch("system/placeAnOrder.php", {
-								method: 'post',
-								headers: {
-									"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-								},
-								body: `checkboxArray_to_string=${checkboxArray_to_string}`,
-							})
-							.then(window.location.href = '/ordering')
-							// .then(response => response.text())
-							// .then(data => {console.log(data);})
-						}
+
+
 //########################			 	кнопка "Выбрать все"	  			###########################
 						selectAllButton.onclick = () => {
 							let products_found = document.querySelectorAll(".cartAndFavorCheckbox");
@@ -1136,20 +1171,50 @@ function placingAnOrder(parent_div) {
 	.then(data => { //console.log(data);
 		const ordering_form = document.createElement("form");
 		const ordering_div = document.createElement("div");
+		let product_parent_div = document.createElement("div");
+		let price_array = [];
 		data.forEach(element=>{
-			console.log(element);
-			let product_parent_div = document.createElement("div");
+			console.log(element);			
 			let product_div = document.createElement("div");
+			product_div.classList.add("product_div_ordering");
 			let product_image_div = document.createElement("div");
-			let product_image = document.createElement("img");
+				let product_image = document.createElement("img");
+				product_image.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+				product_image.classList.add("userShoppingProductImage");
+				product_image.style.padding = "5px";
+				
+				product_image_div.appendChild(product_image);
 			let product_info = document.createElement("div");
+				let product_name = document.createElement("div");
+					product_name.innerText = `${element.name}`;
+				let product_count_and_price = document.createElement("div");
+					product_count_and_price.classList.add("product_count_and_price_ordering");
+				let product_count = document.createElement("div");
+					product_count.innerText = `Колличество: ${element.count}шт.`;
+				let product_price = document.createElement("div");
+					product_price.innerText = `Цена: ${element.price*element.count}₽`;
+
+					price_array.push(element.price*element.count);
+
+				product_count_and_price.appendChild(product_count);
+				product_count_and_price.appendChild(product_price);
+				product_info.appendChild(product_name);
+				product_info.appendChild(product_count_and_price);
+				
+				product_div.appendChild(product_image_div);
+				product_div.appendChild(product_info);
+
+				product_parent_div.appendChild(product_div);
+			})
+			let result = price_array.reduce(function(a, b) {		//итоговая сумма
+				return a + b;
+			});
 			
+			let result_div = document.createElement("div");
+			result_div.innerText = `Итого: ${result}₽`;
+			product_parent_div.appendChild(result_div);
 
-		})
-
-	
-
-
+		ordering_div.appendChild(product_parent_div);
 		ordering_form.appendChild(ordering_div);
 		parent_div.appendChild(ordering_form);
 		console.log(parent_div);

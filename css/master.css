@@ -937,11 +937,20 @@ footer > :nth-child(2){
 }
 .full_product_descripption_parent_redact {
     display: grid;
-
+    
 }
 .full_product_descripption_parent_redact_img_arr {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 10px;
     gap: 5px;
+}
+    
+/*     ######################################      ordering.php    ##########################################     */
+.product_div_ordering {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+.product_count_and_price_ordering {
+    display: grid;grid-template-columns: 1fr 1fr;
 }
