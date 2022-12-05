@@ -201,7 +201,7 @@ function favoritesAndCart(filePhp, patch, text) {
 								})
 								
 								let checkboxArray_to_string = checkboxArray.join(", ");
-								console.log(checkboxArray_to_string);
+								// console.log(checkboxArray_to_string);
 								fetch("system/fromFavoritesToCart.php", {
 									method: 'post',
 									headers: {
@@ -1108,6 +1108,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					}
 					
 					full_product_descripption_parent_redact_img_arr.onclick = (eventImg) => {
+						console.log(eventImg.target.src);
 						let del_img = eventImg.target.src.replace("http://ceramicshop/img1/", "");//картинка которую удаляем
 						const popupMenu = document.createElement('div');				//сама менюшка
 						const popupMenuParent = document.createElement('div');			//родитель
