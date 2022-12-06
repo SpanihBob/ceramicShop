@@ -1171,7 +1171,8 @@ function placingAnOrder(parent_div) {
 	.then(response => response.json())                                  
 	.then(data => { //console.log(data);
 		const ordering_form = document.createElement("form");
-		const ordering_div = document.createElement("div");
+		ordering_form.classList.add("personalAccountContent");
+		// const ordering_div = document.createElement("div");
 		let product_parent_div = document.createElement("div");
 		let price_array = [];
 		data.forEach(element=>{
@@ -1193,7 +1194,8 @@ function placingAnOrder(parent_div) {
 				let product_count = document.createElement("div");
 					product_count.innerText = `Колличество: ${element.count}шт.`;
 				let product_price = document.createElement("div");
-					product_price.innerText = `Цена: ${element.price*element.count}₽`;
+					product_price.classList.add("product_price_ordering");
+					product_price.innerText = `Цена за ${element.count}шт: ${element.price*element.count}₽`;
 
 					price_array.push(element.price*element.count);
 
@@ -1215,14 +1217,102 @@ function placingAnOrder(parent_div) {
 			result_div.innerText = `Итого: ${result}₽`;
 			product_parent_div.appendChild(result_div);
 
-		ordering_div.appendChild(product_parent_div);
-		ordering_form.appendChild(ordering_div);
+			fetch("/system/getUserAccount.php")
+			.then(response => response.json())                                  
+			.then(data => { console.log(data[0]);
+
+			let name_div = document.createElement("div");
+			let last_name_div = document.createElement("div");
+			let email_div = document.createElement("div");
+			let sity_div = document.createElement("div");
+			let street_div = document.createElement("div");
+			let house_div = document.createElement("div");
+			let apartment_div = document.createElement("div");
+			let postcode_div = document.createElement("div");
+
+			let name_label_div = document.createElement("div");
+			name_label_div.innerText = "Имя";
+			let last_name_label_div = document.createElement("div");
+			last_name_label_div.innerText = "Фамилия";
+			let email_label_div = document.createElement("div");
+			email_label_div.innerText = "email";
+			let sity_label_div = document.createElement("div");
+			sity_label_div.innerText = "Город";
+			let street_label_div = document.createElement("div");
+			street_label_div.innerText = "Улица";
+			let house_label_div = document.createElement("div");
+			house_label_div.innerText = "Дом";
+			let apartment_label_div = document.createElement("div");
+			apartment_label_div.innerText = "Квартира";
+			let postcode_label_div = document.createElement("div");
+			postcode_label_div.innerText = "Почтовый индекс";
+
+			let name_input = document.createElement("input");
+				name_input.setAttribute("type", "text");
+				name_input.setAttribute("name", "name");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let last_name_input = document.createElement("input");
+				last_name_input.setAttribute("type", "text");
+				last_name_input.setAttribute("name", "last_name");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let email_input = document.createElement("input");
+				email_input.setAttribute("type", "text");
+				email_input.setAttribute("name", "email");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let sity_input = document.createElement("input");
+				sity_input.setAttribute("type", "text");
+				sity_input.setAttribute("name", "sity");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let street_input = document.createElement("input");
+				street_input.setAttribute("type", "text");
+				street_input.setAttribute("name", "street");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let house_input = document.createElement("input");
+				house_input.setAttribute("type", "number");
+				house_input.setAttribute("name", "house");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let apartment_input = document.createElement("input");
+				apartment_input.setAttribute("type", "number");
+				apartment_input.setAttribute("name", "apartment");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let postcode_input = document.createElement("input");
+				postcode_input.setAttribute("type", "number");
+				postcode_input.setAttribute("name", "postcode");
+				name_input.setAttribute("value", `${data[0].user_name}`);
+			let submit_input = document.createElement("input");
+				submit_input.setAttribute("type", "submit");
+				submit_input.setAttribute("name", "submit_btn");
+				submit_input.classList.add("submit_input_ordering");
+				
+				name_div.appendChild(name_label_div);
+				name_div.appendChild(name_input);
+				last_name_div.appendChild(last_name_label_div);
+				last_name_div.appendChild(last_name_input);
+				email_div.appendChild(email_label_div);
+			email_div.appendChild(email_input);
+			sity_div.appendChild(sity_label_div);
+			sity_div.appendChild(sity_input);
+			street_div.appendChild(street_label_div);
+			street_div.appendChild(street_input);
+			house_div.appendChild(house_label_div);
+			house_div.appendChild(house_input);
+			apartment_div.appendChild(apartment_label_div);
+			apartment_div.appendChild(apartment_input);
+			postcode_div.appendChild(postcode_label_div);
+			postcode_div.appendChild(postcode_input);
+
+		ordering_form.appendChild(name_div);
+		ordering_form.appendChild(last_name_div);
+		ordering_form.appendChild(email_div);
+		ordering_form.appendChild(sity_div);
+		ordering_form.appendChild(street_div);
+		ordering_form.appendChild(house_div);
+		ordering_form.appendChild(apartment_div);
+		ordering_form.appendChild(postcode_div);
+		ordering_form.appendChild(submit_input);
+		parent_div.appendChild(product_parent_div);
 		parent_div.appendChild(ordering_form);
-		console.log(parent_div);
-	
-	
-	
-	
+	})
 	})
 	
 }
