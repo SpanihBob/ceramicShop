@@ -329,7 +329,7 @@ footer > :nth-child(2){
     border: 1px solid gray;
     box-shadow: var(--boxShadow);
     cursor: pointer;
-    margin: 5px;
+    margin-top: 5px;
     background: var(--bgButtonface);
 }
 .input:hover {

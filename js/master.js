@@ -533,7 +533,7 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 									let productAmountText = document.createTextNode(`${element.amount}шт.`);
 									productAmount.appendChild(productAmountText);
 								let productCount = document.createElement("div");
-									let productCountText = document.createTextNode(`${element.count}шт.`);
+									let productCountText = document.createTextNode(`${element.product_count}шт.`);
 									productCount.appendChild(productCountText);
 
 								productInfoContainer.appendChild(productImage);
@@ -589,8 +589,8 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 									<div>Название</div>
 									<div>Таблица SQL</div>
 									<div>Изменить</div>
-									<div>Удалить</div>
-									`;
+									<div>Удалить</div>`;
+									
 		categoryContainer.appendChild(categoryHeader);
 	fetch(`/system/removeCategoryToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
@@ -1329,10 +1329,14 @@ function placingAnOrder(parent_div) {
 						"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 					},
 					body:  `purchase_details=${purchase_details.join("; ")}&name=${name_input.value}&last_name=${last_name_input.value}&email=${email_input.value}
-					&country=${country_input.value}&city=${city_input.value}&street=${street_input.value}&house=${house_input.value}&apartment=${apartment_input}&postcode=${postcode_input.value}`	  
+					&country=${country_input.value}&city=${city_input.value}&street=${street_input.value}&house=${house_input.value}&apartment=${apartment_input.value}&postcode=${postcode_input.value}`	  
+				})
+				.then(response => response.text())                                  
+				.then(data => { 
+					alert("Вы успешно оформили заказ, скоро с вами свяжется наш представитель.");
+					window.location.href = "/crockery";
 				})
 			}
 		})
-	})
-	
+	})	
 }
