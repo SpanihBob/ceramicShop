@@ -4,7 +4,7 @@
         require_once "$path/system/db.php"; //подкл. к БД
         session_start();                    //вкл. сессию
 
-        $queryCategories = $dbPDO -> prepare("SELECT * FROM category GROUP BY categoryName DESC;");
+        $queryCategories = $dbPDO -> prepare("SELECT * FROM category GROUP BY categoryName ORDER BY id;");
         $queryCategories -> execute();
         foreach($queryCategories as $rowCategories) {                                           
             echo <<<html

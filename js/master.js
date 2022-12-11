@@ -533,7 +533,7 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 									let productAmountText = document.createTextNode(`${element.amount}шт.`);
 									productAmount.appendChild(productAmountText);
 								let productCount = document.createElement("div");
-									let productCountText = document.createTextNode(`${element.product_count}шт.`);
+									let productCountText = document.createTextNode(`${element.summ}шт.`);
 									productCount.appendChild(productCountText);
 
 								productInfoContainer.appendChild(productImage);
