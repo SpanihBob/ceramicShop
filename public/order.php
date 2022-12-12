@@ -13,68 +13,71 @@
 			<?
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
-			<div class="crockeryContent">
-                заказы
+			<div class="orderContent">
+                <h1>Заказы</h1>
+                <div id="not_order">У вас пока нет активных заказов..</div>
+                <div id="all_orders"></div>
+                <div id="selected_order"></div>
 			</div>	
             <script>
                 window.onload = () => {
                     fetch(`/system/removeToOrderUser.php`)            
-                    .then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
+                    .then(response => response.json())                                  
                     .then(data => {
-                        console.log(data);
+                        if(data.length==0){                             //---если нет данных
+                            not_order.style.display = "block";
+                            all_orders.style.display = "none";
+                            selected_order.style.display = "none";
+                        }                        
+                        else {                                          //---если есть данные
+                            console.log(data);
+                            not_order.style.display = "none";
+                            all_orders.style.display = "block";
+                            selected_order.style.display = "none";
 
-                        adminUserShopping.innerText="";
-                        adminTableHeader.innerHTML = `	<div>img</div>
-                                                <div>Название</div>
-                                                <div>id</div>
-                                                <div>Остаток</div>
-                                                <div>Заказ</div>`;
-                        adminTableHeader.classList.add("adminTableHeader");								
-                        adminUserShopping.appendChild(adminTableHeader);
+                            all_orders.innerText="";
+                            let userShopping = document.createElement("div");
+                            data.forEach(element =>{								
+                                console.log(element);
+                                let userProduct = document.createElement("div");           //---родитель pfwbrktyjuj 
+                                    userProduct.classList.add("userProduct");
 
-                        data.forEach(element =>{								
-                            let productInfoContainer = document.createElement("div");
-                                productInfoContainer.classList.add("userShoppingProduct");
-                            let productImage = document.createElement("img");
-                                productImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
-                                productImage.classList.add("userShoppingProductImage");
-                            let productName = document.createElement("div");
-                                let productNameText = document.createTextNode(`${element.name}`);
-                                productName.appendChild(productNameText);
-                            let productId = document.createElement("div");
-                                let productIdText = document.createTextNode(`${element.product_id}`);
-                                productId.appendChild(productIdText);
-                            let productAmount = document.createElement("div");
-                                let productAmountText = document.createTextNode(`${element.amount}шт.`);
-                                productAmount.appendChild(productAmountText);
-                            let productCount = document.createElement("div");
-                                let productCountText = document.createTextNode(`${element.summ}шт.`);
-                                productCount.appendChild(productCountText);
+                                let productImage = document.createElement("img");
+                                    productImage.setAttribute("src",`../img1/${element.image.split(", ")[0]}`);
+                                    productImage.classList.add("userProductImage");
+                                let productInfo = document.createElement("div");
+                                    productInfo.classList.add("productInfo");
+                                let productName = document.createElement("div");
+                                    let productNameText = document.createTextNode(`${element.name}`);
+                                    productName.appendChild(productNameText);                                
+                                let productCount = document.createElement("div");
+                                    let productCountText = document.createTextNode(`Заказ: ${element.product_count}шт.`);
+                                    productCount.appendChild(productCountText);
+                                let productPrice = document.createElement("div");
+                                    let productPriceText = document.createTextNode(`Цена: ${element.product_price}.`);
+                                    productPrice.appendChild(productPriceText);
+                                let infoBtn = document.createElement("button");
+                                    infoBtn.innerText = "Подробнее";
+                                    infoBtn.classList.add("input");
+                                    infoBtn.setAttribute("data-id",`${element.id}`)
 
-                            productInfoContainer.appendChild(productImage);
-                            productInfoContainer.appendChild(productName);	
-                            productInfoContainer.appendChild(productId);	
-                            productInfoContainer.appendChild(productAmount);	
-                            productInfoContainer.appendChild(productCount);	
-                                                                
-                            adminUserShopping.appendChild(productInfoContainer);	
-                            adminContent.appendChild(adminUserShopping);	
-                            usersContainer.style.display = "none";
-                            adminUserShopping.style.display = "grid";
-                        })
-                        let backButton = document.createElement("button");
-                        backButton.innerText = "Назад к списку пользователей"
-                        backButton.classList.add("input");
-                        backButton.id = "backButton";
-                        adminUserShopping.appendChild(backButton);
-
-                        backButton.onclick = () => {
-                            usersContainer.style.display = "grid";
-                            adminUserShopping.style.display = "none";
+                                userProduct.appendChild(productImage);
+                                productInfo.appendChild(productName);	
+                                productInfo.appendChild(productCount);	
+                                productInfo.appendChild(productPrice);	
+                                productInfo.appendChild(infoBtn);	
+                                userProduct.appendChild(productInfo);
+                                                                    
+                                userShopping.appendChild(userProduct);	
+                                all_orders.appendChild(userShopping);
+                                infoBtn.onclick = () => {
+                                    console.log(infoBtn.getAttribute("data-id"));
+                                }
+                            })
+                            
                         }
                     })					
-				}
-			
+				}			
             </script>	
 		</article>
 		<?

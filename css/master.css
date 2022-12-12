@@ -975,3 +975,33 @@ footer > :nth-child(2){
 .submit_input_ordering:hover {
     box-shadow: var(--boxShadowHover);
 }
+
+/*     ######################################      order.php    ##########################################     */
+#not_order {
+    display: none;
+}
+#all_orders {
+    display: none;
+}
+#selected_order {
+    display: none;
+}
+.orderContent{
+    display: grid;
+    align-content: start;
+    padding: 25px;
+}
+.userProduct {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 5px;
+    padding: 5px;
+    align-content: center;
+    justify-content: center;
+}
+.userProductImage {
+    width: 150px;
+}
+.productInfo {
+    display: grid;
+}
