@@ -54,7 +54,7 @@
 			                        let nameText = document.createTextNode(`${element.name}`);
 
 			                    let priceDiv = document.createElement("div");									//price
-			                        let priceText = document.createTextNode(`Цена: ${element.price} р.`);
+			                        let priceText = document.createTextNode(`Цена: ${element.price}₽`);
 
 			                    let descriptionDiv = document.createElement("div");								//description
 								descriptionDiv.classList.add("descriptionDiv")

@@ -994,14 +994,37 @@ footer > :nth-child(2){
 .userProduct {
     display: grid;
     grid-template-columns: 150px 1fr;
-    gap: 5px;
     padding: 5px;
     align-content: center;
     justify-content: center;
+    gap: 15px;
 }
 .userProductImage {
+    margin-right: 5px;
     width: 150px;
+    box-shadow: var(--boxShadow);
+    border-radius: 5px;
+}
+.userProductImage:hover {
+    box-shadow: var(--boxShadowHover);
 }
 .productInfo {
     display: grid;
+}
+.user_full_info {
+    padding: 10px;
+    background: var(--secondColor);
+    border-radius: 15px;
+    box-shadow: var(--boxShadow);
+}
+.order_full_info {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px;
+    padding: 10px;
+    background: var(--secondColor);
+    border-radius: 15px;
+    box-shadow: var(--boxShadow);
 }

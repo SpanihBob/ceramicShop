@@ -87,7 +87,7 @@ function favoritesAndCart(filePhp, patch, text) {
 							amountDiv.appendChild(sumDelDiv);
 						}
 						else if(filePhp=='favor'){
-							summDiv.innerText = `${element.price}`;
+							summDiv.innerText = `${element.price}₽`;
 							amountDiv.innerText = `${element.description}`;
 						}								
 						checkboxLabel.appendChild(checkbox);
@@ -139,7 +139,7 @@ function favoritesAndCart(filePhp, patch, text) {
 								if(event.target.className == "cartDelProduct") {
 									removeItemFromFavorAndCart(cartContent,element.name, element.image, element.product_id, filePhp, patch)
 								}
-								summDiv.innerText = `${element.price}`;	// выводим цена_товара
+								summDiv.innerText = `${element.price}₽`;	// выводим цена_товара
 							}
 						} 
 							imgDiv.onclick = () => {
@@ -344,7 +344,7 @@ function displayProductPage(pagePhp) {								//%%%%%%%%%%%%%%%%%%%%%%%%%% вы�
 					let nameText = document.createTextNode(`${name}`);
 
 				let priceDiv = document.createElement("div");					//цена
-					let priceText = document.createTextNode(`Цена: ${element.price} р.`);
+					let priceText = document.createTextNode(`Цена: ${element.price}₽`);
 
 				let amountDiv = document.createElement("div");					//колличество
 					let amountText = document.createTextNode(`остаток: ${element.amount} шт.`);
@@ -960,7 +960,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				let full_product_subcategory = document.createElement("div");
 					full_product_subcategory.innerText = `подкатегория:  ${productArray[element.id].subcategory}`;
 				let full_product_price = document.createElement("div");
-					full_product_price.innerText = `цена:  ${productArray[element.id].price}`;
+					full_product_price.innerText = `цена:  ${productArray[element.id].price}₽`;
 				let full_product_amount = document.createElement("div");
 					full_product_amount.innerText = `колличество:  ${productArray[element.id].amount}`;
 				let full_product_description = document.createElement("div");
