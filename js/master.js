@@ -294,16 +294,7 @@ function loadCategory(cat, productCat){
 
 			subcategoryDiv.onclick = () => {
 				let subcategoryId = subcategoryDiv.getAttribute('data-id');		//получили id
-					fetch("/system/getSubcategory.php", {
-						method: 'post',
-						headers: {
-							"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-						},
-						body: `subcategoryId=${subcategoryId}&productCat=${productCat}`,
-					})
-					.then(data=>
-						{window.location.href = "/product"}
-					)
+				window.location.href = `/product?subcategoryId=${subcategoryId}&productCat=${productCat}`;
 			}
 		})
 	})
@@ -413,16 +404,7 @@ else{
 			let productDivAttribute = productDiv.getAttribute("data-id");
 			
 		if(element.id==productDivAttribute) {
-			fetch("/system/getFullProduct.php", {
-							method: 'post',
-							headers: {
-								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-							},
-							body: `fullProduct=${element.id}`,
-						})
-						.then(
-							window.location.href = '/fullProduct'
-							)        
+							window.location.href = `/fullProduct?fullProduct=${element.id}`;							        
 						}
 					}
 				}
@@ -841,7 +823,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 			}
 			let input_array = [																		//создаем массив для input
 				["name","text","product__name"],
-				["name_url","text","name_url"],
 				["category","number","category"],
 				["subcategory","number","subcategory"],
 				["price","number","price"],
@@ -897,7 +878,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 					},
-					body:  `name=${product__name.value}&name_url=${name_url.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
+					body:  `name=${product__name.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
 				})            
 				.then(window.location.href = "/admin")
 			}					
@@ -938,7 +919,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 			adminContent.appendChild(productContainer);
 
 			product_btn_del.onclick = () => {
-				// console.log(element.id);
 				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin", "/system/adminDelCategory.php");
 			}
 
@@ -953,8 +933,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				full_product_id.innerText = `id:  ${productArray[element.id].id}`;
 				let full_product_name = document.createElement("div");
 				full_product_name.innerText = `название:  ${productArray[element.id].name}`;
-				let full_product_name_url = document.createElement("div");
-				full_product_name_url.innerText = `url:  ${productArray[element.id].name_url}`;
 				let full_product_category = document.createElement("div");
 					full_product_category.innerText = `категория:  ${productArray[element.id].category}`;
 				let full_product_subcategory = document.createElement("div");
@@ -989,7 +967,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				
 				full_product_data_parent.appendChild(full_product_id);
 				full_product_data_parent.appendChild(full_product_name);
-				full_product_data_parent.appendChild(full_product_name_url);
 				full_product_data_parent.appendChild(full_product_category);
 				full_product_data_parent.appendChild(full_product_subcategory);
 				full_product_data_parent.appendChild(full_product_price);
@@ -1042,7 +1019,6 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					}
 					let input_array = [
 						[`${productArray[element.id].name}`,"name","text","product__name"],
-						[`${productArray[element.id].name_url}`,"name_url","text","name_url"],
 						[`${productArray[element.id].category}`,"category","number","category"],
 						[`${productArray[element.id].subcategory}`,"subcategory","number","subcategory"],
 						[`${productArray[element.id].price}`,"price","number","price"],
@@ -1094,9 +1070,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 								imgArrFull.push(arrayImage);	
 							}
 						});
-						// console.log(imgArrFull);
 						let imgArrFullToString = imgArrFull.join(', ');
-						// console.log(imgArrFullToString);
 						fetch(`/system/adminUpdateProduct.php`, {
 							method: 'post',
 							headers: {

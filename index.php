@@ -26,6 +26,7 @@
 
     elseif($_SERVER['REDIRECT_URL']=="/order"):
         require_once "$path/public/order.php";
+        
     elseif($_SERVER['REDIRECT_URL']=="/debt"):
         require_once "$path/public/debt.php";
 

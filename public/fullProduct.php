@@ -1,5 +1,8 @@
 <?
 	include_once "$path/private/head.php";
+	$_GET['fullProduct'] = trim($_GET['fullProduct']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
+    $_GET['fullProduct'] = htmlspecialchars($_GET['fullProduct']);                    //Преобразует специальные символы в HTML-сущности
+	$_SESSION['fullProductId'] = $_GET['fullProduct'];
 ?>
 
 

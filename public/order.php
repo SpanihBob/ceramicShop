@@ -14,7 +14,7 @@
 				include_once "$path/private/sidebar.php";		//SIDEBAR
 			?>
 			<div class="orderContent">
-                <h1>Заказы</h1>
+                <h1>Мои заказы</h1>
                 <div id="not_order">У вас пока нет активных заказов..</div>
                 <div id="all_orders"></div>
                 <div id="selected_order"></div>
