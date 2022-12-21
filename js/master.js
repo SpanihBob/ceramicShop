@@ -770,7 +770,7 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 // ###########################################       		getProductToAdmin()		    	###################################################
 // ###########################################                                              ###################################################
 // ############################################################################################################################################
-function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
+function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод товаров %%%%%%%%%%%%%%%%%%%%%%%%%%//
 	adminContent.innerText = "";
 	usersContainer.style.display = "none";	
 	categoryContainer.style.display = "none";	
@@ -822,29 +822,94 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 				newProductForm.appendChild(new_img_parent_div);
 			}
 			let input_array = [																		//создаем массив для input
-				["name","text","product__name"],
-				["category","number","category"],
-				["subcategory","number","subcategory"],
-				["price","number","price"],
-				["amount","number","amount"],
-				["table_name","text","table_name"]
+				["Название","text","product__name"],
+				// ["Категория","number","category"],
+				// ["Подкатегория","number","subcategory"],
+				["Цена","number","price"],
+				["Остаток","number","amount"],
+				["Название таблицы","text","table_name"]
 			];
-			input_array.forEach(el =>{																//создаем input
+			input_array.forEach(el=>{																//создаем input
 				let new_input_parent_div = document.createElement("div");
 				let new_input_div = document.createElement("div");
 				new_input_div.innerText = `${el[0]}: `;
 				let new_input = document.createElement("input");
-				new_input.setAttribute("name", `${el[0]}`);
+				// new_input.setAttribute("name", `${el[0]}`);
 				new_input.id = `${el[2]}`;
 				new_input.setAttribute("type", `${el[1]}`);
 				new_input_parent_div.appendChild(new_input_div);
 				new_input_parent_div.appendChild(new_input);
 				newProductForm.appendChild(new_input_parent_div);
 			});
+
+
+			let category_parent_div = document.createElement("div");
+			let new_category_div = document.createElement("div");
+			new_category_div.innerText = `Категория: `;
+			let new_select_category = document.createElement("select");
+			new_select_category.id = `category`;
+
+			let first_options = document.createElement("option");
+			first_options.innerText = "--Выберете категорию--";
+			new_select_category.appendChild(first_options);
+
+				let subcategory_parent_div = document.createElement("div");
+				let new_subcategory_div = document.createElement("div");
+				new_subcategory_div.innerText = `Подкатегория: `;
+				let new_select_subcategory = document.createElement("select");
+				new_select_subcategory.id = `subcategory`;
+
+				let first_subcategory_options = document.createElement("option");
+				first_subcategory_options.innerText = "--Выберете Подкатегорию--";
+				new_select_subcategory.appendChild(first_subcategory_options);
+				
+				
+				fetch(`/system/getCat.php`)                                         
+				.then(response => response.json())                           
+				.then(data => {
+					let data_array = [];
+					data.forEach(element => {
+						if(data_array.includes(element.categoryName)==false){							
+							data_array.push(element.categoryName);
+							let new_options = document.createElement("option");
+							new_options.innerText = `${element.categoryName}`;
+							new_select_category.appendChild(new_options);
+						}
+					});
+					
+					new_select_category.onchange = () => {
+						while (new_select_subcategory.firstChild) {									//удаление всех дочерних элементов
+							new_select_subcategory.removeChild(new_select_subcategory.firstChild);
+						}
+
+						let first_subcategory_options = document.createElement("option");
+						first_subcategory_options.innerText = "--Выберете Подкатегорию--";
+						new_select_subcategory.appendChild(first_subcategory_options);
+
+						data.forEach(element => {
+							if(element.categoryName == new_select_category.value){
+								console.log(element.subcategory);
+								let new_options_subcategory = document.createElement("option");
+								new_options_subcategory.innerText = `${element.subcategory}`;
+								new_select_subcategory.appendChild(new_options_subcategory);
+							}
+						})					
+					} 						
+				})
+				
+				category_parent_div.appendChild(new_category_div);
+				category_parent_div.appendChild(new_select_category);
+				newProductForm.appendChild(category_parent_div);
+
+				subcategory_parent_div.appendChild(new_subcategory_div);
+				subcategory_parent_div.appendChild(new_select_subcategory);
+				newProductForm.appendChild(subcategory_parent_div);
+
+
 			
 			let new_input_description_parent_div = document.createElement("div");
 				let full_product_redact_input_description_div = document.createElement("div");
-				full_product_redact_input_description_div.innerText = "description: ";
+				full_product_redact_input_description_div.innerText = "Описание: ";
 			let full_product_redact_description = document.createElement("textarea");
 				full_product_redact_description.setAttribute("name", "description");
 				full_product_redact_description.id = "description";
@@ -870,15 +935,13 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						imgArrFull.push(arrayImage);	
 					}
 				});
-				// console.log(imgArrFull);
 				let imgArrFullToString = imgArrFull.join(', ');
-				// console.log(imgArrFullToString);
 				fetch(`/system/adminCreateProduct.php`, {
 					method: 'post',
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 					},
-					body:  `name=${product__name.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
+					body:  `name=${product__name.value}&category=${new_select_category.value}&subcategory=${new_select_subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
 				})            
 				.then(window.location.href = "/admin")
 			}					
@@ -1018,12 +1081,12 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 						full_product_descripption_parent_redact_form.appendChild(full_product_redact_img_parent_div);
 					}
 					let input_array = [
-						[`${productArray[element.id].name}`,"name","text","product__name"],
-						[`${productArray[element.id].category}`,"category","number","category"],
-						[`${productArray[element.id].subcategory}`,"subcategory","number","subcategory"],
-						[`${productArray[element.id].price}`,"price","number","price"],
-						[`${productArray[element.id].amount}`,"amount","number","amount"],
-						[`${productArray[element.id].table_name}`,"table_name","text","table_name"]
+						[`${productArray[element.id].name}`,"Название","text","product__name"],
+						[`${productArray[element.id].category}`,"Категория","number","category"],
+						[`${productArray[element.id].subcategory}`,"Подкатегория","number","subcategory"],
+						[`${productArray[element.id].price}`,"Цена","number","price"],
+						[`${productArray[element.id].amount}`,"Остаток","number","amount"],
+						[`${productArray[element.id].table_name}`,"Название таблицы","text","table_name"]
 					];
 					input_array.forEach(el =>{
 						let full_product_redact_input_parent_div = document.createElement("div");
@@ -1042,7 +1105,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 					
 					let full_product_redact_input_description_parent_div = document.createElement("div");
 						let full_product_redact_input_description_div = document.createElement("div");
-						full_product_redact_input_description_div.innerText = "description: ";
+						full_product_redact_input_description_div.innerText = "Описание: ";
 					let full_product_redact_description = document.createElement("textarea");
 						full_product_redact_description.setAttribute("name", "description");
 						full_product_redact_description.id = "description";
@@ -1076,7 +1139,7 @@ function getProductToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод то�
 							headers: {
 								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 							},
-							body:  `id=${productArray[element.id].id}&name=${product__name.value}&name_url=${name_url.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
+							body:  `id=${productArray[element.id].id}&name=${product__name.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}&table_name=${table_name.value}`									
 						})            
 						.then(window.location.href = "/admin")
 					}

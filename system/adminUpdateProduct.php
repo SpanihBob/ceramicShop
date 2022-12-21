@@ -6,9 +6,7 @@
     $_POST['id'] = trim($_POST['id']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
     $_POST['id'] = htmlspecialchars($_POST['id']);                    //Преобразует специальные символы в HTML-сущности
     $_POST['name'] = trim($_POST['name']);                               
-    $_POST['name'] = htmlspecialchars($_POST['name']);                   
-    $_POST['name_url'] = trim($_POST['name_url']);                               
-    $_POST['name_url'] = htmlspecialchars($_POST['name_url']);                   
+    $_POST['name'] = htmlspecialchars($_POST['name']);                  
     $_POST['category'] = trim($_POST['category']);                               
     $_POST['category'] = htmlspecialchars($_POST['category']);                   
     $_POST['subcategory'] = trim($_POST['subcategory']);                               
@@ -26,7 +24,6 @@
     //обновление товара
     $dbPDO->query("UPDATE product SET 
      name = '$_POST[name]',                  
-     name_url = '$_POST[name_url]',                  
      category = '$_POST[category]',                      
      subcategory = '$_POST[subcategory]',   
      price = '$_POST[price]',               
