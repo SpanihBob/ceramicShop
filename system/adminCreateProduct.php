@@ -18,10 +18,8 @@
         $_POST['amount'] = trim($_POST['amount']);                               
         $_POST['amount'] = htmlspecialchars($_POST['amount']);                   
     $_POST['image'] = trim($_POST['image']);                               
-    $_POST['image'] = htmlspecialchars($_POST['image']);                   
-        $_POST['table_name'] = trim($_POST['table_name']);                               
-        $_POST['table_name'] = htmlspecialchars($_POST['table_name']);
+    $_POST['image'] = htmlspecialchars($_POST['image']);
     //обновление товара
-    $dbPDO->query("INSERT INTO product (name, category, subcategory, price, description, amount, image, table_name) 
-                    VALUES('$_POST[name]', '$_POST[category]', '$_POST[subcategory]', '$_POST[price]', '$_POST[description]', '$_POST[amount]', '$_POST[image]', '$_POST[table_name]')");
+    $dbPDO->query("INSERT INTO product (name, category, subcategory, price, description, amount, image) 
+                    VALUES('$_POST[name]', '$_POST[category]', '$_POST[subcategory]', '$_POST[price]', '$_POST[description]', '$_POST[amount]', '$_POST[image]')");
 ?>

@@ -20,7 +20,7 @@
 		
 
 			<script>
-				loadCategory('interior','product_interior')
+				loadCategory('interior','3')
 			</script>		
 		</article>
 		<?

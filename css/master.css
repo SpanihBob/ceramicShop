@@ -1028,3 +1028,6 @@ footer > :nth-child(2){
     border-radius: 15px;
     box-shadow: var(--boxShadow);
 }
+select {
+    border: none;
+}

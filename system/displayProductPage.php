@@ -4,6 +4,6 @@
     session_start();
     
     //вывод продукта
-    $query = $dbPDO->query("SELECT * FROM `product` WHERE subcategory = '$_SESSION[subcategoryId]' AND `table_name` = '$_SESSION[productCat]'");
+    $query = $dbPDO->query("SELECT * FROM `product` WHERE subcategory = '$_SESSION[subcategoryId]' AND `category` = '$_SESSION[productCat]'");
     echo json_encode($query->fetchAll(PDO::FETCH_ASSOC));    //выводит всю таблицу
 ?>

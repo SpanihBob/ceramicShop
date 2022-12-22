@@ -21,7 +21,7 @@
 
 			<script>
 				window.onload=()=>{
-					loadCategory('collections','product_collections')
+					loadCategory('collections','2')
 				}
 			</script>		
 		</article>

@@ -20,7 +20,7 @@
 		
 
 			<script>
-				loadCategory('crockery','product')
+				loadCategory('crockery','1')
 			</script>		
 		</article>
 		<?
