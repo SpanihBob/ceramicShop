@@ -143,15 +143,8 @@ function favoritesAndCart(filePhp, patch, text) {
 							}
 						} 
 							imgDiv.onclick = () => {
-								let productId = imgDiv.parentNode.id;				
-								fetch("/system/sessionFavorAndCart.php", {
-									method: 'post',
-									headers: {
-										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-									},
-									body: `productIdCartAndFavor=${productId}`,
-								})
-								window.location.href = "/fullProduct";							
+								let productId = imgDiv.parentNode.id;
+								window.location.href = `/fullProduct?fullProduct=${productId}`;							
 							}
 						})
 						if(filePhp=="cart") {
@@ -826,7 +819,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 
 
 
-
+// ...............................Создание нового товара............................
 
 			let input_array = [																		//создаем массив для input
 				["Название","text","product__name"],
@@ -1033,8 +1026,6 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 					full_product_amount.innerText = `колличество:  ${productArray[element.id].amount}`;
 				let full_product_description = document.createElement("div");
 					full_product_description.innerText = `описание:  ${productArray[element.id].description}`;
-				let full_product_tableName = document.createElement("div");
-					full_product_tableName.innerText = `таблица:  ${productArray[element.id].table_name}`;
 
 				let imgArrFull = productArray[element.id].image.split(", ");		//массив содержит все картинки
 				imgArrFull.forEach(el =>{
@@ -1062,7 +1053,6 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 				full_product_data_parent.appendChild(full_product_price);
 				full_product_data_parent.appendChild(full_product_amount);
 				full_product_data_parent.appendChild(full_product_description);
-				full_product_data_parent.appendChild(full_product_tableName);
 				
 				full_product_descripption_parent.appendChild(full_product_img_parent);
 				full_product_descripption_parent.appendChild(full_product_data_parent);
@@ -1075,6 +1065,8 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 					displayInformationAboutAllProducts.style.display = "block";
 					full_product_descripption_parent.style.display = "none";
 				}
+
+				// ...........................Редактирование товара.....................
 				full_product_redact_button.onclick = () => {
 					full_product_descripption_parent.style.display = "none";
 
@@ -1122,7 +1114,6 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 						full_product_redact_input_div.innerText = `${el[1]}: `;
 						let full_product_redact_name = document.createElement("input");
 						full_product_redact_name.setAttribute("value", `${el[0]}`);
-						full_product_redact_name.setAttribute("name", `${el[1]}`);
 						full_product_redact_name.id = `${el[3]}`;
 						full_product_redact_name.setAttribute("type", `${el[2]}`);
 						full_product_redact_input_parent_div.appendChild(full_product_redact_input_div);
@@ -1131,6 +1122,74 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 					});
 
 					
+			let full_product_redact_category_parent_div = document.createElement("div");
+			let full_product_redact_new_category_div = document.createElement("div");
+			full_product_redact_new_category_div.innerText = `Категория: `;
+			let full_product_redact_new_select_category = document.createElement("select");
+			full_product_redact_new_select_category.id = `category`;
+
+			let full_product_redact_first_options = document.createElement("option");
+			full_product_redact_first_options.innerText = "--Выберете категорию--";
+			full_product_redact_new_select_category.appendChild(full_product_redact_first_options);
+
+				let full_product_redact_subcategory_parent_div = document.createElement("div");
+				let full_product_redact_new_subcategory_div = document.createElement("div");
+				full_product_redact_new_subcategory_div.innerText = `Подкатегория: `;
+				let full_product_redact_new_select_subcategory = document.createElement("select");
+				full_product_redact_new_select_subcategory.id = `subcategory`;
+
+				let full_product_redact_first_subcategory_options = document.createElement("option");
+				full_product_redact_first_subcategory_options.innerText = "--Выберете Подкатегорию--";
+				full_product_redact_new_select_subcategory.appendChild(full_product_redact_first_subcategory_options);
+				
+				
+				fetch(`/system/getCat.php`)                                         
+				.then(response => response.json())                           
+				.then(data => {
+					let full_product_redact_data_array = [];
+					let full_product_redact_data_array_2 = [];
+					data.forEach(element => {
+						if(full_product_redact_data_array.includes(element.categoryName)==false){							
+							full_product_redact_data_array.push(element.categoryName);
+							full_product_redact_data_array_2.push([element.categoryName, element.categoryId]);
+							let full_product_redact_new_options = document.createElement("option");
+							full_product_redact_new_options.innerText = `${element.categoryName}`;
+							full_product_redact_new_select_category.appendChild(full_product_redact_new_options);
+						}
+					});
+					
+					let full_product_redact_subcategory_data_array = [];
+					full_product_redact_new_select_category.onchange = () => {
+						full_product_redact_subcategory_data_array = [];
+						while (full_product_redact_new_select_subcategory.firstChild) {									//удаление всех дочерних элементов
+							full_product_redact_new_select_subcategory.removeChild(full_product_redact_new_select_subcategory.firstChild);
+						}
+						
+						let full_product_redact_first_subcategory_options = document.createElement("option");
+						full_product_redact_first_subcategory_options.innerText = "--Выберете Подкатегорию--";
+						full_product_redact_new_select_subcategory.appendChild(full_product_redact_first_subcategory_options);
+						
+						data.forEach(element => {
+							if(element.categoryName == full_product_redact_new_select_category.value){
+								full_product_redact_subcategory_data_array.push([element.subcategory, element.subcategoryId]);
+								// console.log(element.subcategory);
+								let full_product_redact_new_options_subcategory = document.createElement("option");
+								full_product_redact_new_options_subcategory.innerText = `${element.subcategory}`;
+								full_product_redact_new_select_subcategory.appendChild(full_product_redact_new_options_subcategory);
+							}
+						})					
+						console.log(full_product_redact_subcategory_data_array);
+					} 
+
+					full_product_redact_category_parent_div.appendChild(full_product_redact_new_category_div);
+					full_product_redact_category_parent_div.appendChild(full_product_redact_new_select_category);
+					full_product_descripption_parent_redact_form.appendChild(full_product_redact_category_parent_div);
+					
+					full_product_redact_subcategory_parent_div.appendChild(full_product_redact_new_subcategory_div);
+					full_product_redact_subcategory_parent_div.appendChild(full_product_redact_new_select_subcategory);
+					full_product_descripption_parent_redact_form.appendChild(full_product_redact_subcategory_parent_div);
+
+		
 					let full_product_redact_input_description_parent_div = document.createElement("div");
 						let full_product_redact_input_description_div = document.createElement("div");
 						full_product_redact_input_description_div.innerText = "Описание: ";
@@ -1152,8 +1211,23 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 					
 					productContainer.appendChild(full_product_descripption_parent_redact);
 
+// //////////////////////........................отправка формы........................////////////////////////////
 					full_product_descripption_parent_redact_form.onsubmit  = async(e) => {
 						e.preventDefault();
+						let full_product_descripption_category_data = "";
+						full_product_redact_data_array_2.forEach(el=>{
+							if(el.includes(full_product_redact_new_select_category.value)==true){
+								full_product_descripption_category_data = el[1];
+							}
+						})
+						
+						let full_product_descripption_subcategory_data = '';
+						full_product_redact_subcategory_data_array.forEach(el=>{
+							if(el.includes(full_product_redact_new_select_subcategory.value)==true){
+								full_product_descripption_subcategory_data = el[1];
+							}
+						})
+
 						let input_img_arr = document.querySelectorAll(".admin_redact_product_page_img");
 						input_img_arr.forEach(el => {
 							let arrayImage = el.value.replace("C:\\fakepath\\", "");
@@ -1161,14 +1235,16 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 								imgArrFull.push(arrayImage);	
 							}
 						});
-						let imgArrFullToString = imgArrFull.join(', ');
+						let imgArrFullToString = imgArrFull.join(', ');						
 						fetch(`/system/adminUpdateProduct.php`, {
 							method: 'post',
 							headers: {
 								"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 							},
-							body:  `id=${productArray[element.id].id}&name=${product__name.value}&category=${category.value}&subcategory=${subcategory.value}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}`									
-						})            
+							body:  `id=${productArray[element.id].id}&name=${product__name.value}&category=${full_product_descripption_category_data}&subcategory=${full_product_descripption_subcategory_data}&price=${price.value}&description=${description.value}&amount=${amount.value}&image=${imgArrFullToString}`									
+						})    
+						// .then(response => response.text())
+						// .then(data=>{console.log(data);})     
 						.then(window.location.href = "/admin")
 					}
 					
@@ -1179,17 +1255,17 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 						const popupMenuParent = document.createElement('div');			//родитель
 						const popupMenuQuestion = document.createElement('div');				//вопрос
 						const ButtonDiv = document.createElement('div');				
-							const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
-							const popupMenuButtonYes = document.createElement('button');			//кнопка 'да'
-
+						const popupMenuButtonNo = document.createElement('button');				//кнопка 'нет'
+						const popupMenuButtonYes = document.createElement('button');			//кнопка 'да'
+						
 						popupMenuQuestion.innerText = "Удалить картинку?";
 						popupMenuButtonNo.innerText = "Нет";
 						popupMenuButtonYes.innerText = "Да";
-
+						
 						popupMenuParent.classList.add('popupMenuParent');
 						popupMenu.classList.add('popupMenu');
 						ButtonDiv.classList.add('ButtonDiv');
-
+						
 						popupMenu.appendChild(popupMenuQuestion);
 						ButtonDiv.appendChild(popupMenuButtonNo);
 						ButtonDiv.appendChild(popupMenuButtonYes);
@@ -1217,6 +1293,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 							}			
 						}
 					}
+				})////////////////
 				}
 			}		
 		})
@@ -1388,7 +1465,7 @@ function placingAnOrder(parent_div) {
 
 			ordering_form.onsubmit = (event) => {
 				event.preventDefault();
-				fetch("system/addToShopping.php", {
+				fetch("/system/addToShopping.php", {
 					method: 'post',
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -1405,3 +1482,4 @@ function placingAnOrder(parent_div) {
 		})
 	})	
 }
+

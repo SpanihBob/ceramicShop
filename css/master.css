@@ -145,7 +145,8 @@ header > div{
 footer {
     display: grid;
     align-content: center;
-    border-top: 2px solid gray; 
+    border-top: 2px solid gray;
+    margin-top: 10px; 
 }
 
 footer > :nth-child(1){

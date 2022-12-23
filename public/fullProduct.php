@@ -78,8 +78,7 @@
 			                    let itemInFavor = document.createElement("div");							//div для информации если товар уже в избранном 
 			                        let itemInFavorText = document.createTextNode("В избранном");
 
-		                    	let backButton = addInputTypeButton("backButton", "Назад");					//кнопка "назад"
-
+		                    	
 		                    	let buyButton = addInputTypeButton("buyButton", "Купить");					//кнопка "купить"													
 
 								let imgFullDiv = document.createElement("div");								//div для мини-картинок
@@ -117,7 +116,6 @@
 							dataDiv.appendChild(addFavor);
 							dataDiv.appendChild(itemInFavor);
 							dataDiv.appendChild(buyButton);
-							dataDiv.appendChild(backButton);
                                     
 							descDiv.appendChild(descriptionDiv);
 
@@ -259,13 +257,6 @@
 							loginOrSignup(crockeryContent)
 						}
 					}	
-					
-					//#######################################################			 кнопка "назад"  		######################################################
-
-					backButton.onclick = () => {
-						window.location.href = '/product';
-					}
-
 					
 
 					//####################################################			 добавление товара в избранное 	 		##########################################
