@@ -15,9 +15,47 @@
     $_POST['cat_table'] = htmlspecialchars($_POST['cat_table']);                    //Преобразует специальные символы в HTML-сущности
 
 
+    $max_id->query("SELECT MAX(`categoryId`) FROM `category`");
+    echo $max_id;
+    //создаем файл php для категории и заполняем его данными
+    $content = '<?
+    include_once "$path/private/head.php";
+?>
+<body>
+    <div class="container">			
+        <?
+            include_once "$path/private/header.php";						//HEADER
+        ?>	
+
+        <article class="article">											<!-- ARTICLE -->
+            <?
+                include_once "$path/private/sidebar.php";					//SIDEBAR
+            ?>
+            <div>
+                <div class="crockeryContent" id="content">									<!-- CONTENT -->				
+                </div>
+            </div>
+
+
+            <script>
+                window.onload=()=>{
+                    loadCategory("' . $_POST['cat_table'] . '","2")
+                }
+            </script>		
+        </article>
+        <?
+            include_once "$path/private/footer.php"		//FOOTER
+        ?>
+    </div>
+</body>
+</html>';
+    $new_file = file_put_contents('../public/' . $_POST['cat_table'] . '.php',$content);              //создать файл php пустой для категории
+    
     //обновление колличества товара в корзине
     // $dbPDO->query("UPDATE category SET categoryName = '$_POST[cat_name]', categoryMicroImage = '$files', categoryTableName = '$_POST[cat_table]' WHERE id='$_POST[cat_id]'");
-    $dbPDO->query("INSERT INTO category(categoryName, categoryMicroImage, categoryTableName) VALUES ('$_POST[cat_name]','$files','$_POST[cat_table]')");
+
+    //добавляем категорию в базу данных:
+    $dbPDO->query("INSERT INTO category(categoryName, categoryMicroImage, categoryTableName) VALUES ('$_POST[cat_name]','$files','$_POST[cat_table]')");    
 ?>
 
 
