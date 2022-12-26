@@ -7,6 +7,7 @@
     print_r($_FILES);
     $files = $_FILES['picture']['name'];
     echo $files;
+    echo "<br>";
 
     $_POST['cat_name'] = trim($_POST['cat_name']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
     $_POST['cat_name'] = htmlspecialchars($_POST['cat_name']);                    //Преобразует специальные символы в HTML-сущности
@@ -15,8 +16,10 @@
     $_POST['cat_table'] = htmlspecialchars($_POST['cat_table']);                    //Преобразует специальные символы в HTML-сущности
 
 
-    $max_id->query("SELECT MAX(`categoryId`) FROM `category`");
-    echo $max_id;
+    $max_id = $dbPDO->query("SELECT MAX(`categoryId`) FROM `category`");
+    $number = $max_id->fetch()[0];  //преобразование в ассоц массив    
+
+     
     //создаем файл php для категории и заполняем его данными
     $content = '<?
     include_once "$path/private/head.php";
@@ -39,7 +42,7 @@
 
             <script>
                 window.onload=()=>{
-                    loadCategory("' . $_POST['cat_table'] . '","2")
+                    loadCategory("' . $_POST['cat_table'] . '","' . $number+1 . '")
                 }
             </script>		
         </article>
@@ -55,7 +58,7 @@
     // $dbPDO->query("UPDATE category SET categoryName = '$_POST[cat_name]', categoryMicroImage = '$files', categoryTableName = '$_POST[cat_table]' WHERE id='$_POST[cat_id]'");
 
     //добавляем категорию в базу данных:
-    $dbPDO->query("INSERT INTO category(categoryName, categoryMicroImage, categoryTableName) VALUES ('$_POST[cat_name]','$files','$_POST[cat_table]')");    
+    $dbPDO->query("INSERT INTO category(categoryName, categoryMicroImage, categoryTableName, categoryId) VALUES ('$_POST[cat_name]','$files','$_POST[cat_table]', $number+1)");    
 ?>
 
 
