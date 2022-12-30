@@ -19,6 +19,10 @@
 					<img class="sidebarMicroImage" src="../img/category_admin.png" alt="">
 					<div>Категории</div>
 				</button>
+				<button class="btnSidebar" id="subcategory_admin">
+					<img class="sidebarMicroImage" src="../img/subcategory_admin.png" alt="">
+					<div>Подкатегории</div>
+				</button>
 				<button class="btnSidebar" id="product_admin">
 					<img class="sidebarMicroImage" src="../img/product_admin.png" alt="">
 					<div>Товары</div>
@@ -50,6 +54,9 @@
 				}
 				category_admin.onclick = () => {
 					getCategoryToAdmin()
+				}
+				subcategory_admin.onclick = () => {
+					getSubategoryToAdmin()
 				}
 				product_admin.onclick = () => {
 					getProductToAdmin()
