@@ -77,6 +77,8 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch, systemFilePhp
 						},
 						body: `id=${elementId}&tableName=${tableSql}`,
 				})
+				.then(response => response.text())                      
+				.then(data => {console.log(data)})
 				popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 				window.location.href = patch;
 			}			

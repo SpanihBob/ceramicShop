@@ -66,7 +66,7 @@ $number = $max_id->fetch()[0];  //преобразование в ассоц м�
 $data = file_get_contents("../index.php"); 
 
 // добавляем маршрут
-$data = str_replace("elseif(\$_SERVER['REDIRECT_URL']==\"/login\"):require_once \"\$path/public/login.php\";","elseif(\$_SERVER['REDIRECT_URL']==\"/login\"):require_once \"\$path/public/login.php\";\n\nelseif(\$_SERVER['REDIRECT_URL']==\"/" . $_POST['cat_table'] . "\"):require_once \"\$path/public/" . $_POST['cat_table'] . ".php\";",$data);
+$data = str_replace("elseif(\$_SERVER['REDIRECT_URL']==\"/login\"):require_once \"\$path/public/login.php\";","elseif(\$_SERVER['REDIRECT_URL']==\"/login\"):require_once \"\$path/public/login.php\";\nelseif(\$_SERVER['REDIRECT_URL']==\"/" . $_POST['cat_table'] . "\"):require_once \"\$path/public/" . $_POST['cat_table'] . ".php\";",$data);
 
 // удаляем маршрут
 // $data = str_replace("elseif(\$_SERVER['REDIRECT_URL']==\"/puk\"):require_once \"\$path/public/puk.php\";","",$data);
