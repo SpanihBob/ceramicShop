@@ -912,7 +912,7 @@ footer > :nth-child(2){
 .catCont > div > img {
     width: 50px;
 }
-.categoryHeader, .adminTableHeader, .admin_user_header, .productHeader {
+.categoryHeader, .adminTableHeader, .admin_user_header, .productHeader, .subcategoryHeader {
     background: var(--secondColor);
 }
 .adminDisplayProductInformation, .productHeader {
@@ -949,7 +949,21 @@ footer > :nth-child(2){
     margin-bottom: 10px;
     gap: 5px;
 }
-    
+.subcategory_parent_div{
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding-top: 10px;
+}
+.subcategory_parent_div > img{
+    width: 50px;
+}
+.subcategoryHeader {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-content: center;
+    justify-content: center;
+}
+
 /*     ######################################      ordering.php    ##########################################     */
 .product_div_ordering {
     display: grid;

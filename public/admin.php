@@ -40,10 +40,12 @@
 					let adminTableHeader = document.createElement("div");		
 
 				let categoryContainer = document.createElement("div");				//для категорий
+				let subCategoryContainer = document.createElement("div");				//для категорий
 				let productContainer = document.createElement("div");				//для товаров
 				
 				usersContainer.classList.add("adminContainer");
 				categoryContainer.classList.add("adminContainer");
+				subCategoryContainer.classList.add("adminContainer");
 				adminTableHeader.classList.add("adminContainer");
 				window.onload = () => {
 					getUsersToAdmin()

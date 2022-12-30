@@ -557,6 +557,12 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 	productContainer.style.display = "none";
 	adminContent.innerText = "";
 	categoryContainer.innerText = "";
+	let addCategory = document.createElement("button");
+	addCategory.classList.add("input");
+	addCategory.innerText = "Добавить категорию";
+	addCategory.style.margin = "5px 0"
+	categoryContainer.appendChild(addCategory);
+
 	let categoryHeader = document.createElement("div");
 	categoryHeader.classList.add("categoryHeader");
 		categoryHeader.innerHTML = `<div>id</div>
@@ -678,10 +684,7 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 				}
 			}
 		})
-		let addCategory = document.createElement("button");
-			addCategory.classList.add("input");
-			addCategory.innerText = "Добавить категорию";
-			categoryContainer.appendChild(addCategory);
+		
 			adminContent.appendChild(categoryContainer);
 
 			addCategory.onclick = () => {
@@ -768,9 +771,83 @@ function getSubategoryToAdmin() {										//%%%%%%%%%%%%%%%%%%%% вывод п�
 	adminContent.innerText = "";
 	fetch(`/system/getCat.php`)
 	.then(response => response.json())
-	.then(data => {
-		console.log(data);
+	.then(data => {	
+		// console.log(data);
+		// console.log(subCategoryContainer);
+		subCategoryContainer.innerText = "";
+		let addButton = document.createElement("button");
+		addButton.innerText = `Добавить подкатегорию`;
+		addButton.classList.add("input");
+		addButton.style.width = "100%";
+		addButton.style.margin = "5px 0";
+		subCategoryContainer.appendChild(addButton);
+		let subcategoryHeader = document.createElement("div");
+		subcategoryHeader.innerHTML = 	`<div>id</div>
+									<div>cat_img</div>
+									<div>cat_name</div>
+									<div>subcat_img</div>
+									<div>subcat_name</div>
+									<div>change</div>
+									<div>dell</div>
+									`;
+		subcategoryHeader.classList.add("subcategoryHeader");
+		subCategoryContainer.appendChild(subcategoryHeader);
 
+		data.forEach(element => {
+			let parentDiv = document.createElement("div");
+			parentDiv.id = element.id;
+			// console.log(element);
+			let subcatId = document.createElement("div");
+			let category = document.createElement("div");		//категория
+			let categoryImg = document.createElement("img")		//картинка категории
+			let subcategory = document.createElement("div");	//подкатегория
+			let subcategoryImg = document.createElement("img")	//картинка подкатегории
+			let changeButton = document.createElement("button");//кнопка "изменить"
+			let delButton = document.createElement("button");//кнопка "удалить"
+			
+			categoryImg.setAttribute("src",`../img/${element.categoryMicroImage}`);
+			subcategoryImg.setAttribute("src",`../img1/${element.subcategoryImage}`);
+			changeButton.innerText = `Изменить`;
+			changeButton.classList.add("input");
+			delButton.innerText = `Удалить`;
+			delButton.classList.add("input");
+			subcatId.innerText = `${element.id}`;
+			category.innerText = `${element.categoryName}`;
+			subcategory.innerText = `${element.subcategory}`;
+			
+			parentDiv.appendChild(subcatId);
+			parentDiv.appendChild(categoryImg);
+			parentDiv.appendChild(category);
+			parentDiv.appendChild(subcategoryImg);
+			parentDiv.appendChild(subcategory);
+			parentDiv.appendChild(changeButton);
+			parentDiv.appendChild(delButton);
+
+			parentDiv.classList.add("subcategory_parent_div");
+
+			subCategoryContainer.appendChild(parentDiv);
+			adminContent.appendChild(subCategoryContainer);
+
+			parentDiv.onclick = (e) => {
+				if(e.target == changeButton) {
+					data.forEach(el => {
+						if(el.id==parentDiv.id){
+							subCategoryContainer.innerText = "";
+							console.log(el);
+						}
+					});
+				}
+				// console.log(parentDiv.id);
+				else if(e.target == delButton) {
+					delOrNot("Удалить подкатегорию?", subCategoryContainer, "category", parentDiv.id, "/admin", "/system/adminDelSubcategory.php");
+				}
+			}
+		});
+		addButton.onclick = () => {
+			subCategoryContainer.innerText = "";
+			
+		}
+		
 	})
 }
 
@@ -806,7 +883,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 									<div>btn</div>
 									<div>del</div>
 									`;
-		productHeader.classList.add("productHeader")
+		productHeader.classList.add("productHeader");
 		let displayInformationAboutAllProducts = document.createElement("div");
 		displayInformationAboutAllProducts.appendChild(productAddButton);
 		displayInformationAboutAllProducts.appendChild(productHeader);

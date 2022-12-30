@@ -4,8 +4,7 @@
     session_start();                    //вкл. сессию
     // session_destroy();
     
-if(@$_SERVER['REDIRECT_URL']=="" or $_SERVER['REDIRECT_URL']=="/main")://другой способ записи if else без скобок
-    require_once "$path/public/main.php";    
+if(@$_SERVER['REDIRECT_URL']=="" or $_SERVER['REDIRECT_URL']=="/main"):require_once "$path/public/main.php";    
 elseif($_SERVER['REDIRECT_URL']=="/admin"):
     {
         if(isset($_SESSION['admin'])):require_once "$path/public/admin.php";
@@ -28,7 +27,6 @@ elseif($_SERVER['REDIRECT_URL']=="/interior"):require_once "$path/public/interio
 elseif($_SERVER['REDIRECT_URL']=="/productsToOrder"):require_once "$path/public/productsToOrder.php";
 elseif($_SERVER['REDIRECT_URL']=="/product"):require_once "$path/public/product.php";
 elseif($_SERVER['REDIRECT_URL']=="/crockery"):require_once "$path/public/crockery.php";        
-else:
-    require_once "$path/public/404.php";
+else:require_once "$path/public/404.php";
 endif;                
 ?>
