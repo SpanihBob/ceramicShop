@@ -763,9 +763,9 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 						method: 'post',
 						body: new FormData(addCategoryForm)
 					});
-					// let result = await response.text();
-					// console.log(result);
-					window.location.href = "/admin";
+					let result = await response.text();
+					console.log(result);
+					// window.location.href = "/admin";
 				}
 			}
 		})

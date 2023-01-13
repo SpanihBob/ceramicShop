@@ -3,12 +3,12 @@
     require_once "$path/system/db.php"; //подкл. к БД
     session_start();
     
-    print_r($_POST);
-    print_r($_FILES);
-    $files = $_FILES['picture']['name'];
-    echo $files;
-    echo "<br>";
-
+    // print_r($_POST);
+    // print_r($_FILES);
+    // $files = $_FILES['picture']['name'];
+    // echo $files;
+    // echo "<br>";
+    
     $_POST['cat_name'] = trim($_POST['cat_name']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
     $_POST['cat_name'] = htmlspecialchars($_POST['cat_name']);                    //Преобразует специальные символы в HTML-сущности
     
@@ -16,6 +16,16 @@
     $_POST['cat_table'] = htmlspecialchars($_POST['cat_table']);                    //Преобразует специальные символы в HTML-сущности
     $_POST['cat_table'] = strtolower($_POST['cat_table']);
 
+
+    $category = $dbPDO->query("SELECT id FROM category WHERE categoryName = '$_POST[cat_name]'");
+    $catName = $category->fetchAll(PDO::FETCH_NUM);
+    if(count($catName)>0){
+        print_r(count($catName));
+
+    }
+
+
+    /*
 //...................................... Создание и заполнение нового php файла категории
 
 // находим максимальный id существующей категории 
@@ -82,6 +92,7 @@ fclose($handle);
 
 //...................................... Добавляем категорию в базу данных
     $dbPDO->query("INSERT INTO category(categoryName, categoryMicroImage, categoryTableName, categoryId) VALUES ('$_POST[cat_name]','$files','$_POST[cat_table]', $number+1)");    
+*/
 ?>
 
 
