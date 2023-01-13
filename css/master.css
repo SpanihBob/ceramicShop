@@ -904,10 +904,17 @@ footer > :nth-child(2){
 }
 .categoryHeader, .catCont {
     display: grid;
-    grid-template-columns: 50px 100px 100px 1fr 1fr 1fr;
+    grid-template-columns: 50px 100px 100px 1fr 1fr 1fr 1fr;
     gap: 5px;
     align-content: center;
     justify-content: center;
+    margin-bottom: 5px;
+    justify-items: center;          /*выравнивание по центру*/
+    align-items: center;            /*выравнивание по центру*/
+}
+.change_del > button {
+    width: 100%;
+    height: 22px;
 }
 .catCont > div > img {
     width: 50px;
@@ -949,7 +956,7 @@ footer > :nth-child(2){
     margin-bottom: 10px;
     gap: 5px;
 }
-.subcategory_parent_div{
+/* .subcategory_parent_div{
     display: grid;
     grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr;
     padding-top: 10px;
@@ -962,7 +969,7 @@ footer > :nth-child(2){
     grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr;
     align-content: center;
     justify-content: center;
-}
+} */
 
 /*     ######################################      ordering.php    ##########################################     */
 .product_div_ordering {

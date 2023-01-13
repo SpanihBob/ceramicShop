@@ -79,8 +79,8 @@ function delOrNot(question, parentDiv, tableSql, elementId, patch, systemFilePhp
 				})
 				.then(response => response.text())                      
 				.then(data => {console.log(data)})
-				popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
-				window.location.href = patch;
+				// popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
+				// window.location.href = patch;
 			}			
 		}
 	}	
