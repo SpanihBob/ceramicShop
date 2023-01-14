@@ -19,10 +19,6 @@
 					<img class="sidebarMicroImage" src="../img/category_admin.png" alt="">
 					<div>Категории</div>
 				</button>
-				<button class="btnSidebar" id="subcategory_admin">
-					<img class="sidebarMicroImage" src="../img/subcategory_admin.png" alt="">
-					<div>Подкатегории</div>
-				</button>
 				<button class="btnSidebar" id="product_admin">
 					<img class="sidebarMicroImage" src="../img/product_admin.png" alt="">
 					<div>Товары</div>
@@ -40,12 +36,10 @@
 					let adminTableHeader = document.createElement("div");		
 
 				let categoryContainer = document.createElement("div");				//для категорий
-				let subCategoryContainer = document.createElement("div");				//для категорий
 				let productContainer = document.createElement("div");				//для товаров
 				
 				usersContainer.classList.add("adminContainer");
 				categoryContainer.classList.add("adminContainer");
-				subCategoryContainer.classList.add("adminContainer");
 				adminTableHeader.classList.add("adminContainer");
 				window.onload = () => {
 					getUsersToAdmin()
@@ -56,9 +50,6 @@
 				}
 				category_admin.onclick = () => {
 					getCategoryToAdmin()
-				}
-				subcategory_admin.onclick = () => {
-					getSubategoryToAdmin()
 				}
 				product_admin.onclick = () => {
 					getProductToAdmin()

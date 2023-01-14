@@ -12,6 +12,10 @@ elseif($_SERVER['REDIRECT_URL']=="/admin"):
         endif;
     };
 elseif($_SERVER['REDIRECT_URL']=="/login"):require_once "$path/public/login.php";
+elseif($_SERVER['REDIRECT_URL']=="/vaza"):require_once "$path/public/vaza.php";
+
+
+
 elseif($_SERVER['REDIRECT_URL']=="/signup"):require_once "$path/public/signup.php";
 elseif($_SERVER['REDIRECT_URL']=="/productFromTheCart"):require_once "$path/public/productFromTheCart.php";
 elseif($_SERVER['REDIRECT_URL']=="/order"):require_once "$path/public/order.php";    

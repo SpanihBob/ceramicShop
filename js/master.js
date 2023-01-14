@@ -551,7 +551,6 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 // ###########################################                                              ###################################################
 // ############################################################################################################################################
 function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод категорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
-	// let dataArray = [];
 	usersContainer.style.display = "none";
 	categoryContainer.style.display = "grid";	
 	productContainer.style.display = "none";
@@ -578,8 +577,10 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 	fetch(`/system/removeCategoryToAdmin.php`)                          //подключаемся к файлу /system/postbooks.php                
 	.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 	.then(data => {
+		// console.log(data);
 		data.forEach(element =>{
-			console.log(element);
+			// console.log(element.id);
+			// console.log(element);
 			// dataArray[element.id] = element;
 			let catCont = document.createElement("div");
 			catCont.classList.add("catCont");
@@ -633,12 +634,13 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 						changeCategoryIdInput.setAttribute("type","text");
 						changeCategoryIdInput.setAttribute("value",`${catCont.id}`);
 						changeCategoryIdInput.setAttribute("name",`cat_id`);
+						changeCategoryIdInput.setAttribute("disabled","true");
 					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInputDiv);
 					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInput);
 
 					let changeCategoryImgInputParentDiv = document.createElement("div");
 					let changeCategoryImgInputDiv = document.createElement("div");
-					changeCategoryImgInputDiv.innerText = "Выберете картинку";
+					changeCategoryImgInputDiv.innerText = "Выберете картинку для категории";
 					let changeCategoryImgInput = document.createElement("input");
 						changeCategoryImgInput.setAttribute("type","file");
 						changeCategoryImgInput.setAttribute("accept","accept=image/*");
@@ -647,12 +649,23 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					changeCategoryImgInputParentDiv.appendChild(changeCategoryImgInputDiv);
 					changeCategoryImgInputParentDiv.appendChild(changeCategoryImgInput);
 					
+					let changeSubcategoryImgInputParentDiv = document.createElement("div");
+					let changeSubcategoryImgInputDiv = document.createElement("div");
+					changeSubcategoryImgInputDiv.innerText = "Выберете картинку для подкатегории";
+					let changeSubcategoryImgInput = document.createElement("input");
+						changeSubcategoryImgInput.setAttribute("type","file");
+						changeSubcategoryImgInput.setAttribute("accept","accept=image/*");
+						changeSubcategoryImgInput.setAttribute("value",`${catCont.subcategoryImage}`);
+						changeSubcategoryImgInput.setAttribute("name",`sub_picture`);
+					changeSubcategoryImgInputParentDiv.appendChild(changeSubcategoryImgInputDiv);
+					changeSubcategoryImgInputParentDiv.appendChild(changeSubcategoryImgInput);
+					
 					let changeCategoryNameInputParentDiv = document.createElement("div");
 					let changeCategoryNameInputDiv = document.createElement("div");
 					changeCategoryNameInputDiv.innerText = "Имя категории";
 					let changeCategoryNameInput = document.createElement("input");
 					changeCategoryNameInput.setAttribute("type","text");
-					changeCategoryNameInput.setAttribute("value",`${dataArray[catCont.id].categoryName}`);
+					changeCategoryNameInput.setAttribute("value",`${element.categoryName}`);
 					changeCategoryNameInput.setAttribute("name",`cat_name`);
 					changeCategoryNameInputParentDiv.appendChild(changeCategoryNameInputDiv);
 					changeCategoryNameInputParentDiv.appendChild(changeCategoryNameInput);
@@ -662,10 +675,20 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					changeCategoryTableInputDiv.innerText = "Имя таблицы";
 					let changeCategoryTableInput = document.createElement("input");
 						changeCategoryTableInput.setAttribute("type","text");
-						changeCategoryTableInput.setAttribute("value",`${dataArray[catCont.id].categoryTableName}`);
+						changeCategoryTableInput.setAttribute("value",`${element.categoryTableName}`);
 						changeCategoryTableInput.setAttribute("name",`cat_table`);
 					changeCategoryTableInputParentDiv.appendChild(changeCategoryTableInputDiv);
 					changeCategoryTableInputParentDiv.appendChild(changeCategoryTableInput);
+					
+					let changeSubcategoryNameInputParentDiv = document.createElement("div");
+					let changeSubcategoryNameInputDiv = document.createElement("div");
+					changeSubcategoryNameInputDiv.innerText = "Имя подкатегории";
+					let changeSubcategoryNameInput = document.createElement("input");
+					changeSubcategoryNameInput.setAttribute("type","text");
+					changeSubcategoryNameInput.setAttribute("value",`${element.subcategory}`);
+					changeSubcategoryNameInput.setAttribute("name",`subcat_name`);
+					changeSubcategoryNameInputParentDiv.appendChild(changeSubcategoryNameInputDiv);
+					changeSubcategoryNameInputParentDiv.appendChild(changeSubcategoryNameInput);
 
 
 					let changeCategorySubmit = document.createElement("input");
@@ -677,8 +700,10 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 						changeCategory.appendChild(changeCategoryIdInputParentDiv);
 						changeCategory.appendChild(changeCategoryImgInputParentDiv);
+						changeCategory.appendChild(changeSubcategoryImgInputParentDiv);
 						changeCategory.appendChild(changeCategoryNameInputParentDiv);
 						changeCategory.appendChild(changeCategoryTableInputParentDiv);
+						changeCategory.appendChild(changeSubcategoryNameInputParentDiv);
 						changeCategory.appendChild(changeCategorySubmit);
 						
 						adminContent.appendChild(changeCategory);
@@ -717,31 +742,50 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 
 				let addCategoryImgInputParentDiv = document.createElement("div");
 				let addCategoryImgInputDiv = document.createElement("div");
-				addCategoryImgInputDiv.innerText = "Выберете картинку";
+					addCategoryImgInputDiv.innerText = "Выберете картинку для категории";
 				let addCategoryImgInput = document.createElement("input");
 					addCategoryImgInput.setAttribute("type","file");
 					addCategoryImgInput.setAttribute("accept","accept=image/*");
 					addCategoryImgInput.setAttribute("name",`picture`);
-				addCategoryImgInputParentDiv.appendChild(addCategoryImgInputDiv);
-				addCategoryImgInputParentDiv.appendChild(addCategoryImgInput);
+					addCategoryImgInputParentDiv.appendChild(addCategoryImgInputDiv);
+					addCategoryImgInputParentDiv.appendChild(addCategoryImgInput);
 				
 				let addCategoryNameInputParentDiv = document.createElement("div");
 				let addCategoryNameInputDiv = document.createElement("div");
-				addCategoryNameInputDiv.innerText = "Имя категории";
+					addCategoryNameInputDiv.innerText = "Имя категории";
 				let addCategoryNameInput = document.createElement("input");
-				addCategoryNameInput.setAttribute("type","text");
-				addCategoryNameInput.setAttribute("name",`cat_name`);
-				addCategoryNameInputParentDiv.appendChild(addCategoryNameInputDiv);
-				addCategoryNameInputParentDiv.appendChild(addCategoryNameInput);
+					addCategoryNameInput.setAttribute("type","text");
+					addCategoryNameInput.setAttribute("name",`cat_name`);
+					addCategoryNameInputParentDiv.appendChild(addCategoryNameInputDiv);
+					addCategoryNameInputParentDiv.appendChild(addCategoryNameInput);
 
 				let addCategoryTableInputParentDiv = document.createElement("div");
 				let addCategoryTableInputDiv = document.createElement("div");
-				addCategoryTableInputDiv.innerText = "Имя таблицы";
+					addCategoryTableInputDiv.innerText = "Имя таблицы";
 				let addCategoryTableInput = document.createElement("input");
 					addCategoryTableInput.setAttribute("type","text");
 					addCategoryTableInput.setAttribute("name",`cat_table`);
-				addCategoryTableInputParentDiv.appendChild(addCategoryTableInputDiv);
-				addCategoryTableInputParentDiv.appendChild(addCategoryTableInput);
+					addCategoryTableInputParentDiv.appendChild(addCategoryTableInputDiv);
+					addCategoryTableInputParentDiv.appendChild(addCategoryTableInput);
+
+				let addSubcategoryImgInputParentDiv = document.createElement("div");
+				let addSubcategoryImgInputDiv = document.createElement("div");
+					addSubcategoryImgInputDiv.innerText = "Выберете картинку для подкатегории";
+				let addSubcategoryImgInput = document.createElement("input");
+					addSubcategoryImgInput.setAttribute("type","file");
+					addSubcategoryImgInput.setAttribute("accept","accept=image/*");
+					addSubcategoryImgInput.setAttribute("name",`subcat_picture`);
+					addSubcategoryImgInputParentDiv.appendChild(addSubcategoryImgInputDiv);
+					addSubcategoryImgInputParentDiv.appendChild(addSubcategoryImgInput);
+					
+				let addSubcategoryNameInputParentDiv = document.createElement("div");
+				let addSubcategoryNameInputDiv = document.createElement("div");
+					addSubcategoryNameInputDiv.innerText = "Имя подкатегории";
+				let addSubcategoryNameInput = document.createElement("input");
+					addSubcategoryNameInput.setAttribute("type","text");
+					addSubcategoryNameInput.setAttribute("name",`subcat_name`);
+					addSubcategoryNameInputParentDiv.appendChild(addSubcategoryNameInputDiv);
+					addSubcategoryNameInputParentDiv.appendChild(addSubcategoryNameInput);
 
 				let addCategorySubmit = document.createElement("input");
 					addCategorySubmit.setAttribute("type","submit");
@@ -751,8 +795,10 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					addCategorySubmit.style.width = "100%";
 
 					addCategoryForm.appendChild(addCategoryImgInputParentDiv);
+					addCategoryForm.appendChild(addSubcategoryImgInputParentDiv);
 					addCategoryForm.appendChild(addCategoryNameInputParentDiv);
 					addCategoryForm.appendChild(addCategoryTableInputParentDiv);
+					addCategoryForm.appendChild(addSubcategoryNameInputParentDiv);
 					addCategoryForm.appendChild(addCategorySubmit);
 					
 					adminContent.appendChild(addCategoryForm);
@@ -765,106 +811,12 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 					});
 					let result = await response.text();
 					console.log(result);
-					// window.location.href = "/admin";
+					window.location.href = "/admin";
 				}
 			}
 		})
 	}	
 		
-
-// ############################################################################################################################################
-// ###########################################                                              ###################################################
-// ###########################################				ИСПОЛЬЗУЕТСЯ В	 				###################################################
-// ###########################################				   admin.php					###################################################
-// ###########################################     "функция для страницы администратора"    ###################################################
-// ###########################################     			"для подкатегорий"			    ###################################################
-// ###########################################       		getSubategoryToAdmin()		    ###################################################
-// ###########################################                                              ###################################################
-// ############################################################################################################################################
-// function getSubategoryToAdmin() {										//%%%%%%%%%%%%%%%%%%%% вывод подкатегорий %%%%%%%%%%%%%%%%%%%%%%%%%%//
-// 	adminContent.innerText = "";
-// 	fetch(`/system/getCat.php`)
-// 	.then(response => response.json())
-// 	.then(data => {	
-// 		// console.log(data);
-// 		// console.log(subCategoryContainer);
-// 		subCategoryContainer.innerText = "";
-// 		let addButton = document.createElement("button");
-// 		addButton.innerText = `Добавить подкатегорию`;
-// 		addButton.classList.add("input");
-// 		addButton.style.width = "100%";
-// 		addButton.style.margin = "5px 0";
-// 		subCategoryContainer.appendChild(addButton);
-// 		let subcategoryHeader = document.createElement("div");
-// 		subcategoryHeader.innerHTML = 	`<div>id</div>
-// 									<div>cat_img</div>
-// 									<div>cat_name</div>
-// 									<div>subcat_img</div>
-// 									<div>subcat_name</div>
-// 									<div>change</div>
-// 									<div>dell</div>
-// 									`;
-// 		subcategoryHeader.classList.add("subcategoryHeader");
-// 		subCategoryContainer.appendChild(subcategoryHeader);
-
-// 		data.forEach(element => {
-// 			let parentDiv = document.createElement("div");
-// 			parentDiv.id = element.id;
-
-// 			let subcatId = document.createElement("div");
-// 			let category = document.createElement("div");			//категория
-// 			let categoryImg = document.createElement("img")			//картинка категории
-// 			let subcategory = document.createElement("div");		//подкатегория
-// 			let subcategoryImg = document.createElement("img")		//картинка подкатегории
-// 			let changeButton = document.createElement("button");	//кнопка "изменить"
-// 			let delButton = document.createElement("button");		//кнопка "удалить"
-			
-// 			categoryImg.setAttribute("src",`../img/${element.categoryMicroImage}`);
-// 			subcategoryImg.setAttribute("src",`../img1/${element.subcategoryImage}`);
-// 			changeButton.innerText = `Изменить`;
-// 			changeButton.classList.add("input");
-// 			delButton.innerText = `Удалить`;
-// 			delButton.classList.add("input");
-// 			subcatId.innerText = `${element.id}`;
-// 			category.innerText = `${element.categoryName}`;
-// 			subcategory.innerText = `${element.subcategory}`;
-			
-// 			parentDiv.appendChild(subcatId);
-// 			parentDiv.appendChild(categoryImg);
-// 			parentDiv.appendChild(category);
-// 			parentDiv.appendChild(subcategoryImg);
-// 			parentDiv.appendChild(subcategory);
-// 			parentDiv.appendChild(changeButton);
-// 			parentDiv.appendChild(delButton);
-
-// 			parentDiv.classList.add("subcategory_parent_div");
-
-// 			subCategoryContainer.appendChild(parentDiv);
-// 			adminContent.appendChild(subCategoryContainer);
-
-// 			parentDiv.onclick = (e) => {
-// 				if(e.target == changeButton) {
-// 					data.forEach(el => {
-// 						if(el.id==parentDiv.id){
-// 							subCategoryContainer.innerText = "";
-							
-// 							console.log(el);
-// 						}
-// 					});
-// 				}
-// 				// console.log(parentDiv.id);
-// 				else if(e.target == delButton) {
-// 					delOrNot("Удалить подкатегорию?", subCategoryContainer, "category", parentDiv.id, "/admin", "/system/adminDelSubcategory.php");
-// 				}
-// 			}
-// 		});
-// 		addButton.onclick = () => {
-// 			subCategoryContainer.innerText = "";
-			
-// 		}
-		
-// 	})
-// }
 
 // ############################################################################################################################################
 // ###########################################                                              ###################################################
@@ -1000,7 +952,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 						
 						data.forEach(element => {
 							if(element.categoryName == new_select_category.value){
-								subcategory_data_array.push([element.subcategory, element.subcategoryId]);
+								subcategory_data_array.push([element.subcategory, element.id]);
 								// console.log(element.subcategory);
 								let new_options_subcategory = document.createElement("option");
 								new_options_subcategory.innerText = `${element.subcategory}`;
@@ -1114,7 +1066,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 			adminContent.appendChild(productContainer);
 
 			product_btn_del.onclick = () => {
-				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin", "/system/adminDelCategory.php");
+				delOrNot("Удалить товар?", productContainer, "product", element.id, "/admin", "/system/adminDelProduct.php");
 			}
 
 			product_btn.onclick = () => {

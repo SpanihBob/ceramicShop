@@ -7,6 +7,6 @@
     $_POST['id'] = htmlspecialchars($_POST['id']); 
     
     //...................................... Удаление данных категории из базы данных
-    $dbPDO->query("DELETE FROM category WHERE id='$_POST[id]'");
+    $dbPDO->query("DELETE FROM product WHERE id='$_POST[id]'");
     
 ?>
