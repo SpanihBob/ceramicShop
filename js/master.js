@@ -634,7 +634,6 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 						changeCategoryIdInput.setAttribute("type","text");
 						changeCategoryIdInput.setAttribute("value",`${catCont.id}`);
 						changeCategoryIdInput.setAttribute("name",`cat_id`);
-						changeCategoryIdInput.setAttribute("disabled","true");
 					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInputDiv);
 					changeCategoryIdInputParentDiv.appendChild(changeCategoryIdInput);
 
@@ -715,6 +714,7 @@ function getCategoryToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод ка
 							body: new FormData(changeCategory)
 						});
 						// let result = await response.text();
+						// console.log(result);
 						window.location.href = "/admin";
 					}
 				}

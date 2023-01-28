@@ -2,11 +2,14 @@
     $path = $_SERVER['DOCUMENT_ROOT'];
     require_once "$path/system/db.php"; //подкл. к БД
     session_start();
-    
-    // print_r($_POST);
     $files = $_FILES['picture']['name'];
     $subfiles = $_FILES['sub_picture']['name'];
-
+    
+    echo "<pre>";
+    print_r($_POST);
+    print_r($files);
+    print_r($subfiles);
+    echo "</pre>";
 
 
     $_POST['cat_id'] = trim($_POST['cat_id']);                                //Удаляет пробелы (или другие символы) из начала и конца строки
