@@ -250,7 +250,19 @@
 					//#######################################################			 кнопка "купить"  		######################################################
 					if(getCookies('user')){
 						buyButton.onclick = () => {
-						window.location.href = '/ordering';
+
+							let checkboxArray = [];
+							checkboxArray.push(element.id);
+																
+							let checkboxArray_to_string = checkboxArray.join(", ");
+							fetch("system/placeAnOrder.php", {
+								method: 'post',
+								headers: {
+									"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+								},
+								body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+							})
+							window.location.href = '/ordering';
 					}}
 					else {
 						buyButton.onclick = () => {

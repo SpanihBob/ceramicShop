@@ -42,16 +42,16 @@ function favoritesAndCart(filePhp, patch, text) {
 								let checkboxDiv =  document.createElement('div');
 									checkboxDiv.classList.add("cartAndFavorCheckboxDiv");
 								const imgDiv = document.createElement('div');
-								const img = document.createElement('img');  //картинка
+								const img = document.createElement('img');  				//картинка
 						
 							const infoDiv = document.createElement('div');  //
-								const nameDiv = document.createElement('div');//имя
-									const delCrockeryDiv = document.createElement('div');//удаление товара
-									const summDiv = document.createElement('div');//цена итоговая
-									const amountDiv = document.createElement('div');//кол-во
-									const delDiv = document.createElement('button');//del
-									const numDiv = document.createElement('div');//number
-									const addDiv = document.createElement('button');//add
+								const nameDiv = document.createElement('div');				//имя
+									const delCrockeryDiv = document.createElement('div');	//удаление товара
+									const summDiv = document.createElement('div');			//цена итоговая
+									const amountDiv = document.createElement('div');		//кол-во
+									const delDiv = document.createElement('button');		//del
+									const numDiv = document.createElement('div');			//number
+									const addDiv = document.createElement('button');		//add
 
 						cartParentDiv.id = element.id;
 						cartParentDiv.classList.add('cartProduct');
@@ -174,7 +174,7 @@ function favoritesAndCart(filePhp, patch, text) {
 								.then(window.location.href = '/ordering')
 								// .then(response => response.text())
 								// .then(data => {console.log(data);})
-							}					
+							}
 						}
 
 						if(filePhp=="favor") {
@@ -482,7 +482,7 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 						})            
 						.then(response => response.json())                  // в случае успеха преобразуем ответ от этого файла в json                 
 						.then(data => {
-							// console.log(data);
+							// console.log(data[0]);
 							adminUserShopping.innerText="";
 							adminTableHeader.innerHTML = `	<div>img</div>
 													<div>Название</div>
@@ -492,7 +492,8 @@ function getUsersToAdmin() {					//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод пол�
 							adminTableHeader.classList.add("adminTableHeader");								
 							adminUserShopping.appendChild(adminTableHeader);
 
-							data.forEach(element =>{								
+							data.forEach(element => {
+								// console.log(element.id);								
 								let productInfoContainer = document.createElement("div");
 									productInfoContainer.classList.add("userShoppingProduct");
 								let productImage = document.createElement("img");
@@ -1364,6 +1365,9 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 	})
 }
 
+
+////////////////////////////////////////////////->-_-.m0-,.0n9m,0.
+
 // ############################################################################################################################################
 // ###########################################                                              ###################################################
 // ###########################################					ИСПОЛЬЗУЕТСЯ В	 			###################################################
@@ -1417,6 +1421,7 @@ function placingAnOrder(parent_div) {
 
 				product_parent_div.appendChild(product_div);
 			})
+			console.log(price_array);
 			let result = price_array.reduce(function(a, b) {		//итоговая сумма
 				return a + b;
 			});
