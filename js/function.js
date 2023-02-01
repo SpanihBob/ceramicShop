@@ -156,7 +156,7 @@ function loginOrSignup(parent) {
 		popupMenuParent.appendChild(popupMenu);
 		parent.appendChild(popupMenuParent);
 
-		popupMenuButtonYes.onclick = () => {			//если нажали да
+		popupMenuButtonYes.onclick = () => {								//если нажали да
 			popupMenuParent.parentNode.removeChild(popupMenuParent);		//удаляем контекстное меню
 		}
 	}

@@ -1,8 +1,8 @@
 <?
 	include_once "$path/private/head.php";
-	echo "<pre>";
-	print_r($_SESSION);
-	echo "</pre>";
+	// echo "<pre>";
+	// print_r($_SESSION);
+	// echo "</pre>";
 ?>
 
 

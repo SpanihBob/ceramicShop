@@ -169,7 +169,7 @@ function favoritesAndCart(filePhp, patch, text) {
 									headers: {
 										"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 									},
-									body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+									body: `checkboxArray_to_string=${checkboxArray_to_string}&condition=many`,
 								})
 								.then(window.location.href = '/ordering')
 								// .then(response => response.text())
@@ -204,7 +204,10 @@ function favoritesAndCart(filePhp, patch, text) {
 								})
 								// .then(window.location.href = '/cart')
 								.then(response => response.text())
-								.then(data => {console.log(data);})
+								.then(data => {
+									console.log(data);
+									alert("Товары в корзине!");
+								})
 							}
 						}					
 
@@ -1243,7 +1246,7 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 								full_product_redact_new_select_subcategory.appendChild(full_product_redact_new_options_subcategory);
 							}
 						})					
-						console.log(full_product_redact_subcategory_data_array);
+						// console.log(full_product_redact_subcategory_data_array);
 					} 
 
 					full_product_redact_category_parent_div.appendChild(full_product_redact_new_category_div);
@@ -1379,15 +1382,19 @@ function getProductToAdmin() {											//%%%%%%%%%%%%%%%%%%%%%%%%%% вывод
 function placingAnOrder(parent_div) {
 	fetch("system/getOrderDetails.php")
 	.then(response => response.json())                                  
-	.then(data => { //console.log(data);
+	.then(data => { 
+		console.log(data);
+		let productCount = false;
+		let result;
 		const ordering_form = document.createElement("form");
 		ordering_form.classList.add("personalAccountContent");
 		// const ordering_div = document.createElement("div");
 		let product_parent_div = document.createElement("div");
 		let price_array = [];
 		let purchase_details = [];		//массив содержит данные о покупаемых товарах
-		data.forEach(element=>{
-			console.log(element);
+		console.log(`data: ${data}`);
+		data.forEach(element => {
+			console.log(`элемент: ${element}`);
 			purchase_details.push([element.product_id, element.count, element.price])			
 			let product_div = document.createElement("div");
 			product_div.classList.add("product_div_ordering");
@@ -1404,13 +1411,20 @@ function placingAnOrder(parent_div) {
 				let product_count_and_price = document.createElement("div");
 					product_count_and_price.classList.add("product_count_and_price_ordering");
 				let product_count = document.createElement("div");
-					product_count.innerText = `Колличество: ${element.count}шт.`;
 				let product_price = document.createElement("div");
-					product_price.classList.add("product_price_ordering");
+				product_price.classList.add("product_price_ordering");
+				if(!element.count) {
+					product_price.innerText = `Цена за 1шт: ${element.price}₽`;
+					product_count.innerText = `Колличество: 1шт.`;
+					result = element.price;
+				}
+				if(element.count) {
+					product_count.innerText = `Колличество: ${element.count}шт.`
 					product_price.innerText = `Цена за ${element.count}шт: ${element.price*element.count}₽`;
-
 					price_array.push(element.price*element.count);
-
+					productCount = true;
+				}				
+				
 				product_count_and_price.appendChild(product_count);
 				product_count_and_price.appendChild(product_price);
 				product_info.appendChild(product_name);
@@ -1422,9 +1436,11 @@ function placingAnOrder(parent_div) {
 				product_parent_div.appendChild(product_div);
 			})
 			console.log(price_array);
-			let result = price_array.reduce(function(a, b) {		//итоговая сумма
-				return a + b;
-			});
+			if(productCount) {
+				result = price_array.reduce(function(a, b) {		//итоговая сумма
+					return a + b;
+				});
+			}			
 			// console.log(purchase_details);
 			let result_div = document.createElement("div");
 			result_div.innerText = `Итого: ${result}₽`;
@@ -1433,7 +1449,7 @@ function placingAnOrder(parent_div) {
 			fetch("/system/getUserAccount.php")
 			.then(response => response.json())                                  
 			.then(data => { 
-				console.log(data[0]);
+				// console.log(data[0]);
 				let name_div = document.createElement("div");
 				let last_name_div = document.createElement("div");
 				let email_div = document.createElement("div");

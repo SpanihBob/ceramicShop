@@ -260,7 +260,7 @@
 								headers: {
 									"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
 								},
-								body: `checkboxArray_to_string=${checkboxArray_to_string}`,
+								body: `checkboxArray_to_string=${checkboxArray_to_string}&condition=one`,
 							})
 							window.location.href = '/ordering';
 					}}
