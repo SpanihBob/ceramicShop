@@ -1061,8 +1061,22 @@ select {
 
 /*     ######################################      contactInfo.php    ##########################################     */
 .contactInfo_header_div {
-    
+    color: red;
 }
 .contactInfo_text_div {
+    color: blue;
+    text-align: end;
+    width: 211px;
+    justify-self: end;
+}
 
+.contactContent > div {
+    display: grid;
+    gap: 5px;
+    margin: 0 30px;
+}
+.contactContent > div > div {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    
 }
