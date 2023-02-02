@@ -42,6 +42,7 @@ header > div{
     display: grid;
     grid-template-columns: 40px 1fr;
     margin: auto 0;
+    cursor: pointer;
 }
 .logo > :nth-child(1) {
     height: 35px;

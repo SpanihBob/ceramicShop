@@ -13,15 +13,15 @@ elseif($_SERVER['REDIRECT_URL']=="/admin"):
     };
 elseif($_SERVER['REDIRECT_URL']=="/login"):require_once "$path/public/login.php";
 elseif($_SERVER['REDIRECT_URL']=="/vaza"):require_once "$path/public/vaza.php";
-
-
-
-
 elseif($_SERVER['REDIRECT_URL']=="/signup"):require_once "$path/public/signup.php";
 elseif($_SERVER['REDIRECT_URL']=="/productFromTheCart"):require_once "$path/public/productFromTheCart.php";
 elseif($_SERVER['REDIRECT_URL']=="/order"):require_once "$path/public/order.php";    
 elseif($_SERVER['REDIRECT_URL']=="/debt"):require_once "$path/public/debt.php";
-elseif($_SERVER['REDIRECT_URL']=="/cart"):require_once "$path/public/cart.php";    
+elseif($_SERVER['REDIRECT_URL']=="/cart"):require_once "$path/public/cart.php";
+elseif($_SERVER['REDIRECT_URL']=="/storeinfo"):require_once "$path/public/storeInfo.php";
+elseif($_SERVER['REDIRECT_URL']=="/contactinfo"):require_once "$path/public/contactInfo.php";
+elseif($_SERVER['REDIRECT_URL']=="/review"):require_once "$path/public/review.php";
+elseif($_SERVER['REDIRECT_URL']=="/delivery"):require_once "$path/public/delivery.php";
 elseif($_SERVER['REDIRECT_URL']=="/favorites"):require_once "$path/public/favorites.php";
 elseif($_SERVER['REDIRECT_URL']=="/search"):require_once "$path/public/search.php";
 elseif($_SERVER['REDIRECT_URL']=="/account"):require_once "$path/public/personalAccount.php";

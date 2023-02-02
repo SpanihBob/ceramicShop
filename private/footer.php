@@ -1,20 +1,20 @@
 <footer>
   <div>
-    <a href="#" class="logo" style="">
+    <a href="/" class="logo" style="">
       <img src="./img/pottery.png" class="logo" alt="">
       <img src="./img/Безымянный.jpg" class="logoTitle" alt="">
     </a>
 
     <div class="footerCol1">
-      <a href="../public/magaz.php"><p>О магазине</p></a>
-      <a href="#"><p>Контакты</p></a>
+      <a href="/storeinfo"><p>О магазине</p></a>
+      <a href="/contactinfo"><p>Контакты</p></a>
       <!-- <a href="#"><p>Сотрудничество</p></a> -->
       <!-- <a href="#"><p>Програма лояльности</p></a> -->
     </div>
     
     <div class="footerCol2">
-      <a href="#"><p>Отзывы</p></a>
-      <a href="#"><p>Доставка</p></a>
+      <a href="/review"><p>Отзывы</p></a>
+      <a href="/delivery"><p>Доставка</p></a>
       <!-- <a href="#"><p>Оплата</p></a> -->
       <!-- <a href="#"><p>Подарочные сертификаты</p></a> -->
     </div>      
