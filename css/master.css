@@ -20,6 +20,10 @@ body {
     margin: auto; 
     background: var(--firstColor);    
 }
+h1 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
 
 /*     ######################################      header    ##########################################     */
 header {
@@ -1053,4 +1057,12 @@ footer > :nth-child(2){
 }
 select {
     border: none;
+}
+
+/*     ######################################      contactInfo.php    ##########################################     */
+.contactInfo_header_div {
+    
+}
+.contactInfo_text_div {
+
 }
