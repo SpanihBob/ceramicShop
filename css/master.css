@@ -1080,3 +1080,31 @@ select {
     grid-template-columns: 120px 1fr;
     
 }
+
+/*     #########################################      review.php    ##########################################     */
+.star_checkbox_style {
+    display: none;
+}
+.star_container_style {
+    display: grid;
+    grid-template-columns: 15px 15px 15px 15px 15px;
+}
+.star_name_user_data_style {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.review_parent_div_style {
+    display: grid;
+    border: solid 1px;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
+.review_style {
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+}
+.data_div_style {
+    font-size: 12px;
+}
